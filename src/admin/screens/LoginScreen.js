@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   Avatar,
@@ -24,16 +24,15 @@ const theme = createTheme();
 const LoginScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   useEffect(() => {
     if (userInfo) {
-      navigate("/screens/AdminDashboardScreen");
+      navigate("/AdminDashboard");
     }
-  }, [userInfo,navigate]);
-  
+  }, [userInfo, navigate]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,9 +42,8 @@ const LoginScreen = () => {
       email: email,
       password: password,
     });
-    
+
     dispatch(login(email, password));
-    
   };
 
   return (
