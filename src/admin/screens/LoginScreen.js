@@ -28,7 +28,7 @@ const LoginScreen = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   useEffect(() => {
-    if (userInfo) {
+    if (localStorage.getItem("auth-token")) {
       navigate("/AdminDashboard");
     }
   }, [userInfo, navigate]);
@@ -38,14 +38,10 @@ const LoginScreen = () => {
     const data = new FormData(event.currentTarget);
     const email = data.get("email");
     const password = data.get("password");
-    console.log({
-      email: email,
-      password: password,
-    });
 
     dispatch(login(email, password));
   };
-
+  console.log(userInfo, "user");
   return (
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
