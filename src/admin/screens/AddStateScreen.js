@@ -1,17 +1,94 @@
-import React from "react";
-import Topbar from "../components/topbar";
-import OutlinedCard from "../components/controls/OutlinedCard";
+import * as React from "react";
+import PhotoCamera from "@mui/icons-material/CameraAlt";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import { styled } from "@mui/material/styles";
+import Typography from "@mui/material/Typography";
+import { Button, TextField, IconButton } from "@mui/material";
+import { addState } from "../../actions/stateActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const AddStateScreen = () => {
+  const Input = styled("input")({
+    display: "none",
+  });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const createState = useSelector((state) => state.createState);
+  // const { stateInfo } = createState;
+
+  console.log(createState);
+  // React.useEffect(() => {
+  //   if (localStorage.getItem("auth-token")) {
+  //     navigate("/AdminDashboard/State");
+  //   }
+  // }, [stateInfo, navigate]);
+  // console.log(stateInfo);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const stateName = data.get("stateName");
+    const stateImage = data.get("stateImage");
+
+    dispatch(addState(stateName, stateImage));
+  };
   return (
-    <div>
-      <Topbar drawerName="Add State" /> 
-      {/* <Grid style={{ marginLeft: "240px" }}>
-        <OutlinedCard />
-      </Grid> */} 
-      <OutlinedCard />
-      <h1>dashboard</h1>
-    </div>
+    <Box
+      component="form"
+      noValidate
+      onSubmit={handleSubmit}
+      sx={{ maxWidth: 275 }}
+    >
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h5" component="div">
+            State Name:
+          </Typography>
+          <TextField
+            label="State Name"
+            name="stateName"
+            type="text"
+            variant="standard"
+          />
+        </CardContent>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            State Image:
+          </Typography>
+          <label htmlFor="stateImage">
+            <Input
+              accept="image/*"
+              id="stateImage"
+              multiple
+              type="file"
+              name="stateImage"
+            />
+            <Button variant="contained" component="span">
+              Upload Image
+            </Button>
+          </label>
+          <label htmlFor="stateImage">
+            <Input accept="image/*" id="stateImage" type="file" />
+            <IconButton
+              color="primary"
+              aria-label="upload picture"
+              component="span"
+            >
+              <PhotoCamera />
+            </IconButton>
+          </label>
+        </CardContent>
+        <CardActions>
+          <Button type="submit" variant="contained" size="medium">
+            Add State
+          </Button>
+        </CardActions>
+      </Card>
+    </Box>
   );
 };
 

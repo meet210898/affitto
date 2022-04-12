@@ -29,8 +29,9 @@ let upload = multer({
 
 const addState = async (req, res) => {
   try {
+    console.log("in state------------------------");
     const pathName = req.file.path;
-
+    console.log(pathName, "pathname");
     const stateAdd = new State({
       stateName: req.body.stateName,
       stateImage: pathName,

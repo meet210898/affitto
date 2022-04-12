@@ -8,3 +8,4 @@ const Textfields = (props) => {
     />;
 }
 
+export default Textfields;

@@ -1,6 +1,7 @@
-import Topbar from "../components/topbar";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/sidebar";
+// import Topbar from "../components/topbar";
 
 export function AdminDashboardScreen() {
   const navigate = useNavigate();
@@ -10,5 +11,5 @@ export function AdminDashboardScreen() {
       navigate("/");
     }
   }, [navigate]);
-  return <Topbar drawerName="Dashboard" />;
+  return <Sidebar/>;
 }
