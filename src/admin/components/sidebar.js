@@ -13,10 +13,14 @@ import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import ListItem from "./list";
 import { Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../actions/userActions";
 
 const drawerWidth = 240;
 
 function Sidebar(props) {
+  const dispatch = useDispatch();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -38,8 +42,21 @@ function Sidebar(props) {
       <Toolbar />
       <Divider style={{ backgroundColor: "white" }} />
       <List>
-        <ListItem name="City" icon="fa fa-building" />
-        <ListItem name="State" icon="fa fa-map-pin" />
+        <NavLink style={{ color: "white", textDecoration: "none" }} to="/City">
+          <ListItem name="City" icon="fa fa-building" />
+        </NavLink>
+        <NavLink
+          style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/State"
+        >
+          <ListItem name="State" icon="fa fa-map-pin" />
+        </NavLink>
+        <NavLink
+          style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/viewState"
+        >
+          <ListItem name="View State" icon="fa fa-building" />
+        </NavLink>
       </List>
       <Divider style={{ backgroundColor: "white" }} />
     </div>
@@ -47,6 +64,10 @@ function Sidebar(props) {
 
   const container =
     window !== undefined ? () => window().document.body : undefined;
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -71,6 +92,14 @@ function Sidebar(props) {
           <Typography variant="h6" noWrap component="div">
             Responsive drawer
           </Typography>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <NavLink
+            style={{ color: "white", textDecoration: "none" }}
+            to="/"
+            onClick={logoutHandler}
+          >
+            Logout
+          </NavLink>
         </Toolbar>
       </AppBar>
       <Box

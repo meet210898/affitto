@@ -5,9 +5,10 @@ const auth = async (req, res, next) => {
   try {
     const token = req.header("Authorization").replace("Bearer ", "");
     const decode = jwt.verify(token, "thisismynewcourse");
+    console.log("decode--------", decode);
     const user = await User.findOne({
       _id: decode._id,
-      "tokens.token": token,
+      // "tokens.token": token,
     });
 
     if (!user) {
@@ -18,7 +19,7 @@ const auth = async (req, res, next) => {
     next();
   } catch (e) {
     res.status(500).send({ error: "Please Authenticate" });
-    console.log(e)
+    console.log(e);
   }
 };
 

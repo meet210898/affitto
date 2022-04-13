@@ -4,6 +4,8 @@ import LoginScreen from "./screens/LoginScreen";
 import AddStateScreen from "./screens/AddStateScreen";
 import CityScreen from "./screens/CityScreen";
 import Sidebar from "./components/sidebar";
+import ViewStateScreen from "./screens/StateListScreen";
+
 const index = () => {
   return (
     <BrowserRouter>
@@ -12,6 +14,7 @@ const index = () => {
 
         <Route path="/AdminDashboard" element={<Sidebar />}>
           <Route path="State" element={<AddStateScreen />} />
+          <Route path="ViewState" element={<ViewStateScreen />} />
           <Route path="City" element={<CityScreen />} />
         </Route>
       </Routes>

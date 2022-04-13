@@ -13,7 +13,6 @@ app.use(cors());
 app.use("/uploads", express.static(path.join(__dirname, "../public/uploads")));
 app.use(adminRouter);
 app.use(userRouter);
-console.log(__dirname);
 app.listen(port, () => {
   console.log("The server is up on port " + port);
 });

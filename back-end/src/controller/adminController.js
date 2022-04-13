@@ -29,7 +29,6 @@ let upload = multer({
 
 const addState = async (req, res) => {
   try {
-    console.log("in state------------------------");
     const pathName = req.file.path;
     console.log(pathName, "pathname");
     const stateAdd = new State({
@@ -38,22 +37,20 @@ const addState = async (req, res) => {
     });
 
     await stateAdd.save();
-    res.status(201).send(stateAdd);
+    res.status(201).send({msg:"State added!"});
   } catch (e) {
     res.status(400).send({ error: e.message });
+    console.log(e.message)
   }
 };
 
-// const upload = multer({
-//   limits: {
-//     fileSize: 1000000,
-//   },
-//   fileFilter(req, file, cb) {
-//     if (!file.originalname.match(/\.(jpeg|jpg|png)$/)) {
-//       return cb(new Error("Please select image"));
-//     }
-//     cb(undefined, true);
-//   },
-// });
+const getState = async (req, res) => {
+  try {
+    const state = await State.find({});
+    res.status(200).send(state);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
 
-module.exports = { addState, upload };
+module.exports = { addState,upload,getState };

@@ -21,13 +21,16 @@ const AddStateScreen = () => {
   const createState = useSelector((state) => state.createState);
   // const { stateInfo } = createState;
 
-  console.log(createState);
+  // const userLogin = useSelector((state) => state.userLogin);
+  // const { userInfo } = userLogin;
+
+  // console.log(createState);
   // React.useEffect(() => {
-  //   if (localStorage.getItem("auth-token")) {
-  //     navigate("/AdminDashboard/State");
+  //   if (!userInfo) {
+  //     navigate("/");
   //   }
-  // }, [stateInfo, navigate]);
-  // console.log(stateInfo);
+  // }, [navigate, userInfo]);
+  console.log();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
