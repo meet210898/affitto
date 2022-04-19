@@ -10,9 +10,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteState, listStates } from "../../actions/stateActions";
+import { deleteState, listStates } from "../../actions/admin/stateActions";
 import { useNavigate } from "react-router-dom";
 import ReactRoundedImage from "react-rounded-image";
+
+import ModalCall from "./modals/EditStateModal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,24 +38,31 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ViewStateScreen() {
   const dispatch = useDispatch();
+  const [open, setOpen] = React.useState(false);
+  const [editData, setEditData] = React.useState(null);
   const navigate = useNavigate();
 
   const statesList = useSelector((state) => state.statesList);
   const { statesInfo } = statesList;
 
-  // const userLogin = useSelector((state) => state.userLogin);
-  // const { userInfo } = userLogin;
+  const stateUpdate = useSelector((state) => state.stateUpdate);
+  const { success } = stateUpdate;
+
+  const stateDelete = useSelector((state) => state.stateDelete);
+  const { deleteSuccess } = stateDelete;
 
   React.useEffect(() => {
     if (!localStorage.getItem("auth-token")) {
       navigate("/");
     }
     dispatch(listStates());
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, success, deleteSuccess]);
 
-  const editState = (stateId) => {
-    navigate(`/AdminDashboard/EditState/${stateId}`);
-  };
+  // const editState = (stateId) => {
+  //   // dispatch(listStateDetails(stateId));
+  //   // navigate(`/AdminDashboard/EditState/${stateId}`);
+  //   <ModalCall />;
+  // };
 
   const deleteHandler = (stateId) => {
     if (window.confirm("Are you sure")) {
@@ -62,8 +71,13 @@ export default function ViewStateScreen() {
     }
   };
 
+  const editHandler = (row) => {
+    setEditData(row);
+  };
+
   return (
     <TableContainer component={Paper}>
+      <ModalCall open={open} setOpen={setOpen} editData={editData} />
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -92,7 +106,11 @@ export default function ViewStateScreen() {
 
               <StyledTableCell>
                 <IconButton
-                  onClick={() => editState(row._id)}
+                  onClick={() => {
+                    // editState(row._id);
+                    editHandler(row);
+                    setOpen(true);
+                  }}
                   aria-label="edit"
                   size="large"
                   color="primary"

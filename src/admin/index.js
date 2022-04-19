@@ -2,10 +2,10 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginScreen from "./screens/LoginScreen";
 import AddStateScreen from "./screens/AddStateScreen";
-import EditStateScreen from "./screens/EditStateScreen";
-import CityScreen from "./screens/CityScreen";
+import AddCityScreen from "./screens/AddCityScreen";
 import Sidebar from "./components/sidebar";
 import ViewStateScreen from "./screens/StateListScreen";
+import ViewCityScreen from "./screens/CityListScreen";
 
 const index = () => {
   return (
@@ -15,9 +15,10 @@ const index = () => {
 
         <Route path="/AdminDashboard" element={<Sidebar />}>
           <Route path="State" element={<AddStateScreen />} />
-          <Route path="ViewState" element={<ViewStateScreen />}></Route>
-          <Route path="EditState/:id" element={<EditStateScreen />} />
-          <Route path="City" element={<CityScreen />} />
+          <Route path="ViewState" element={<ViewStateScreen />} />
+
+          <Route path="AddCity" element={<AddCityScreen />} />
+          <Route path="ViewCity" element={<ViewCityScreen />} />
         </Route>
       </Routes>
     </BrowserRouter>

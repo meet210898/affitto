@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../model/userModel");
+const User = require("../model/loginModel");
 
 const auth = async (req, res, next) => {
   try {
@@ -18,7 +18,6 @@ const auth = async (req, res, next) => {
     next();
   } catch (e) {
     res.status(500).send({ error: "Please Authenticate" });
-    console.log(e);
   }
 };
 

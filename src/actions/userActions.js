@@ -29,7 +29,6 @@ export const login = (email, password) => async (dispatch) => {
       type: USER_LOGIN_SUCCESS,
       payload: data,
     });
-    console.log(JSON.stringify(data), "auth");
     localStorage.setItem("auth-token", JSON.stringify(data));
   } catch (error) {
     dispatch({

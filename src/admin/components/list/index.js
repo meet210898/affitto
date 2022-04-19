@@ -8,7 +8,7 @@ const listItem = (props) => {
   return (
     <ListItem button key="Inbox">
       <ListItemIcon>
-        <i class={props.icon} style={{ color: "white" }} aria-hidden="true"></i>
+        <i className={props.icon} style={{ color: "white" }} aria-hidden="true"></i>
       </ListItemIcon>
       <ListItemText primary={props.name} />
     </ListItem>

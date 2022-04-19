@@ -42,8 +42,17 @@ function Sidebar(props) {
       <Toolbar />
       <Divider style={{ backgroundColor: "white" }} />
       <List>
-        <NavLink style={{ color: "white", textDecoration: "none" }} to="/City">
+        <NavLink
+          style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/AddCity"
+        >
           <ListItem name="City" icon="fa fa-building" />
+        </NavLink>
+        <NavLink
+          style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/viewCity"
+        >
+          <ListItem name="View City" icon="fa fa-building" />
         </NavLink>
         <NavLink
           style={{ color: "white", textDecoration: "none" }}

@@ -1,16 +1,36 @@
 import { userLoginReducer } from "./reducers/userReducers";
 import {
+  stateCreateReducer,
   stateReducer,
+  stateUpdateReducer,
+  stateDetailsReducer,
   stateDeleteReducer,
-} from "./reducers/admin/stateReducer.";
+} from "./reducers/admin/stateReducer";
+import {
+  cityCreateReducer,
+  cityReducer,
+  cityUpdateReducer,
+  cityDeleteReducer,
+  cityDetailsReducer,
+} from "./reducers/admin/cityReducer";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { composeWithDevTools } from "redux-devtools-extension";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
+  //STATE
+  stateCreate: stateCreateReducer,
   statesList: stateReducer,
+  stateUpdate: stateUpdateReducer,
+  stateDetails: stateDetailsReducer,
   stateDelete: stateDeleteReducer,
+  //CITY
+  cityCreate: cityCreateReducer,
+  cityList: cityReducer,
+  cityUpdate: cityUpdateReducer,
+  cityDetails: cityDetailsReducer,
+  cityDelete: cityDeleteReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

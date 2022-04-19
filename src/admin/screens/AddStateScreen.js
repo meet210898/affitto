@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { Button, TextField, IconButton } from "@mui/material";
-import { addState } from "../../actions/stateActions";
+import { addState } from "../../actions/admin/stateActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -30,12 +30,12 @@ const AddStateScreen = () => {
   //     navigate("/");
   //   }
   // }, [navigate, userInfo]);
-  console.log();
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const stateName = data.get("stateName");
     const stateImage = data.get("stateImage");
+    // console.log(stateImage);
 
     dispatch(addState(stateName, stateImage));
   };
