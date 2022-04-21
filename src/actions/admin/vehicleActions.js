@@ -1,27 +1,27 @@
 import {
-  CITY_CREATE_REQUEST,
-  CITY_CREATE_SUCCESS,
-  CITY_CREATE_FAIL,
-  CITY_UPDATE_REQUEST,
-  CITY_UPDATE_SUCCESS,
-  CITY_UPDATE_FAIL,
-  CITY_LIST_MY_REQUEST,
-  CITY_LIST_MY_SUCCESS,
-  CITY_LIST_MY_FAIL,
-  CITY_DELETE_REQUEST,
-  CITY_DELETE_SUCCESS,
-  CITY_DELETE_FAIL,
-  CITY_DETAILS_REQUEST,
-  CITY_DETAILS_SUCCESS,
-  CITY_DETAILS_FAIL,
-} from "../../constants/admin/cityConstants";
+  VEHICLETYPE_CREATE_REQUEST,
+  VEHICLETYPE_CREATE_SUCCESS,
+  VEHICLETYPE_CREATE_FAIL,
+  VEHICLETYPE_UPDATE_REQUEST,
+  VEHICLETYPE_UPDATE_SUCCESS,
+  VEHICLETYPE_UPDATE_FAIL,
+  VEHICLETYPE_LIST_MY_REQUEST,
+  VEHICLETYPE_LIST_MY_SUCCESS,
+  VEHICLETYPE_LIST_MY_FAIL,
+  VEHICLETYPE_DELETE_REQUEST,
+  VEHICLETYPE_DELETE_SUCCESS,
+  VEHICLETYPE_DELETE_FAIL,
+  VEHICLETYPE_DETAILS_REQUEST,
+  VEHICLETYPE_DETAILS_SUCCESS,
+  VEHICLETYPE_DETAILS_FAIL,
+} from "../../constants/admin/vehicleTypeConstants";
 import axios from "axios";
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
 
-export const addCity = (stateId, cityName, cityImage) => async (dispatch) => {
+export const addType = (typeData) => async (dispatch) => {
   try {
     dispatch({
-      type: CITY_CREATE_REQUEST,
+      type: VEHICLETYPE_CREATE_REQUEST,
     });
 
     const config = {
@@ -30,25 +30,20 @@ export const addCity = (stateId, cityName, cityImage) => async (dispatch) => {
         "Content-Type": "multipart/form-data",
       },
     };
-
-    const formData = new FormData();
-    formData.append("stateId", stateId);
-    formData.append("cityName", cityName);
-    formData.append("cityImage", cityImage);
-    console.log(formData, "formData");
+    console.log(typeData,"typeData")
     const { data } = await axios.post(
-      "http://localhost:4000/addCity",
-      formData,
+      "http://localhost:4000/addType",
+      typeData,
       config
     );
 
     dispatch({
-      type: CITY_CREATE_SUCCESS,
+      type: VEHICLETYPE_CREATE_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: CITY_CREATE_FAIL,
+      type: VEHICLETYPE_CREATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -57,12 +52,12 @@ export const addCity = (stateId, cityName, cityImage) => async (dispatch) => {
   }
 };
 
-export const updateCity =
-  (cityId, ...cityData) =>
-  async (dispatch, getCity) => {
+export const updateVehicleType =
+  (typeId, typeData) =>
+  async (dispatch) => {
     try {
       dispatch({
-        type: CITY_UPDATE_REQUEST,
+        type: VEHICLETYPE_UPDATE_REQUEST,
       });
 
       const config = {
@@ -71,25 +66,20 @@ export const updateCity =
           Authorization: `Bearer ${userToken.token}`,
         },
       };
-
-      const formData = new FormData();
-      formData.append("stateId", cityData[0]);
-      formData.append("cityName", cityData[1]);
-      formData.append("cityImage", cityData[2]);
-
+      
       const { data } = await axios.patch(
-        `http://localhost:4000/editCity/${cityId}`,
-        formData,
+        `http://localhost:4000/editVehicleType/${typeId}`,
+        typeData,
         config
       );
 
       dispatch({
-        type: CITY_UPDATE_SUCCESS,
+        type: VEHICLETYPE_UPDATE_SUCCESS,
         payload: data,
       });
     } catch (error) {
       dispatch({
-        type: CITY_UPDATE_FAIL,
+        type: VEHICLETYPE_UPDATE_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
@@ -98,19 +88,19 @@ export const updateCity =
     }
   };
 
-export const listCityDetails = (cityId) => async (dispatch) => {
-  dispatch({ type: CITY_DETAILS_REQUEST });
+export const getVehicleTypeDetails = (typeId) => async (dispatch) => {
+  dispatch({ type: VEHICLETYPE_DETAILS_REQUEST });
   try {
     const { data } = await axios.get(
-      `http://localhost:4000/getCityById/${cityId}`
+      `http://localhost:4000/getVehicleTypeById/${typeId}`
     );
     dispatch({
-      type: CITY_DETAILS_SUCCESS,
+      type: VEHICLETYPE_DETAILS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: CITY_DETAILS_FAIL,
+      type: VEHICLETYPE_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -119,10 +109,10 @@ export const listCityDetails = (cityId) => async (dispatch) => {
   }
 };
 
-export const deleteCity = (cityId) => async (dispatch) => {
+export const deleteVehicleType = (typeId) => async (dispatch) => {
   try {
     dispatch({
-      type: CITY_DELETE_REQUEST,
+      type: VEHICLETYPE_DELETE_REQUEST,
     });
 
     const config = {
@@ -131,14 +121,17 @@ export const deleteCity = (cityId) => async (dispatch) => {
       },
     };
 
-    await axios.delete(`http://localhost:4000/deleteCity/${cityId}`, config);
+    await axios.delete(
+      `http://localhost:4000/deleteVehicleType/${typeId}`,
+      config
+    );
 
     dispatch({
-      type: CITY_DELETE_SUCCESS,
+      type: VEHICLETYPE_DELETE_SUCCESS,
     });
   } catch (error) {
     dispatch({
-      type: CITY_DELETE_FAIL,
+      type: VEHICLETYPE_DELETE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -147,10 +140,10 @@ export const deleteCity = (cityId) => async (dispatch) => {
   }
 };
 
-export const listCities = () => async (dispatch) => {
+export const viewVehicleType = () => async (dispatch) => {
   try {
     dispatch({
-      type: CITY_LIST_MY_REQUEST,
+      type: VEHICLETYPE_LIST_MY_REQUEST,
     });
 
     const config = {
@@ -159,15 +152,15 @@ export const listCities = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`http://localhost:4000/getCity`, config);
+    const { data } = await axios.get(`http://localhost:4000/getVehicleType`, config);
 
     dispatch({
-      type: CITY_LIST_MY_SUCCESS,
+      type: VEHICLETYPE_LIST_MY_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: CITY_LIST_MY_FAIL,
+      type: VEHICLETYPE_LIST_MY_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

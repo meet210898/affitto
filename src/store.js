@@ -13,6 +13,13 @@ import {
   cityDeleteReducer,
   cityDetailsReducer,
 } from "./reducers/admin/cityReducer";
+import {
+  vehicleTypeCreateReducer,
+  vehicleTypeReducer,
+  vehicleTypeUpdateReducer,
+  vehicleTypeDeleteReducer,
+  vehicleTypeDetailsReducer,
+} from "./reducers/admin/vehicleReducer";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -31,6 +38,12 @@ const reducer = combineReducers({
   cityUpdate: cityUpdateReducer,
   cityDetails: cityDetailsReducer,
   cityDelete: cityDeleteReducer,
+  //VEHICLE
+  vehicleTypeCreate: vehicleTypeCreateReducer,
+  vehicleTypeList: vehicleTypeReducer,
+  vehicleTypeUpdate: vehicleTypeUpdateReducer,
+  vehicleTypeDetails: vehicleTypeDetailsReducer,
+  vehicleTypeDelete: vehicleTypeDeleteReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

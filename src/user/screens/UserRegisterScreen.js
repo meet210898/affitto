@@ -12,6 +12,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import UserLoginScreen from "../screens/UserLoginScreen";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import { useDispatch, useSelector } from "react-redux";
+import { getStates, getCities, addUser } from "../../actions/user/userActions";
 
 function Copyright(props) {
   return (
@@ -34,107 +41,198 @@ function Copyright(props) {
 const theme = createTheme();
 
 const UserRegisterScreen = () => {
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      const data = new FormData(event.currentTarget);
-      console.log({
-        email: data.get("email"),
-        password: data.get("password"),
-      });
+  const [stateId, setStateId] = React.useState("");
+  const [cityId, setCityId] = React.useState("");
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getStates());
+    dispatch(getCities());
+  }, [dispatch]);
+
+  const statesList = useSelector((state) => state.statesList);
+  const { statesInfo } = statesList;
+
+  const cityList = useSelector((state) => state.cityList);
+  const { citiesInfo } = cityList;
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const registerData = {
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+      phoneNumber: data.get("phoneNumber"),
+      stateId: stateId,
+      cityId: cityId,
+      email: data.get("email"),
+      password: data.get("password"),
+      confirmPassword: data.get("confirmPassword"),
     };
-    return (
-      <Grid>
-        <Topbar />
-        <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
-            <CssBaseline />
+    dispatch(addUser(registerData));
+  };
+
+  return (
+    <Grid>
+      <Topbar />
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Register
+            </Typography>
             <Box
-              sx={{
-                marginTop: 8,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
+              component="form"
+              noValidate
+              onSubmit={handleSubmit}
+              sx={{ mt: 3 }}
             >
-              <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign up
-              </Typography>
-              <Box
-                component="form"
-                noValidate
-                onSubmit={handleSubmit}
-                sx={{ mt: 3 }}
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    autoComplete="given-name"
+                    name="firstName"
+                    required
+                    fullWidth
+                    id="firstName"
+                    label="First Name"
+                    autoFocus
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="lastName"
+                    label="Last Name"
+                    name="lastName"
+                    autoComplete="family-name"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="phoneNumber"
+                    label="Phone Number"
+                    name="phoneNumber"
+                    autoComplete="family-name"
+                  />
+                </Grid>
+                
+                <Grid item xs={12}>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                      <InputLabel id="stateName">State</InputLabel>
+
+                      <Select
+                        labelId="stateName"
+                        id="stateId"
+                        name="stateId"
+                        label="State"
+                        value={stateId}
+                        onChange={(e) => setStateId(e.target.value)}
+                      >
+                        {statesInfo?.map((data) => (
+                          <MenuItem value={data._id}>{data.stateName}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </Grid>
+                <Grid item xs={12}>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                      <InputLabel id="cityName">City</InputLabel>
+
+                      <Select
+                        labelId="cityName"
+                        id="cityName"
+                        name="cityName"
+                        label="City"
+                        value={cityId}
+                        onChange={(e) => setCityId(e.target.value)}
+                      >
+                        {citiesInfo?.map((data) => {
+                          if (stateId === data.stateId)
+                            return (
+                              <MenuItem value={data._id}>
+                                {data.cityName}
+                              </MenuItem>
+                            );
+                          else return "Please select State first!";
+                        })}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="new-password"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    name="confirmPassword"
+                    label="Confirm Password"
+                    type="password"
+                    id="confirmPassword"
+                    autoComplete="new-password"
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
               >
-                <Grid container spacing={2}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      autoComplete="given-name"
-                      name="firstName"
-                      required
-                      fullWidth
-                      id="firstName"
-                      label="First Name"
-                      autoFocus
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="lastName"
-                      label="Last Name"
-                      name="lastName"
-                      autoComplete="family-name"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="new-password"
-                    />
-                  </Grid>
-                  
+                Register
+              </Button>
+              <Grid container justifyContent="flex-end">
+                <Grid item>
+                  <Link to={<UserLoginScreen />} variant="body2">
+                    Already have an account? Sign in
+                  </Link>
                 </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 }}
-                >
-                  Register
-                </Button>
-                <Grid container justifyContent="flex-end">
-                  <Grid item>
-                    <Link to={<UserLoginScreen />} variant="body2">
-                      Already have an account? Sign in
-                    </Link>
-                  </Grid>
-                </Grid>
-              </Box>
+              </Grid>
             </Box>
-            <Copyright sx={{ mt: 5 }} />
-          </Container>
-        </ThemeProvider>
-      </Grid>
-    );
-}
+          </Box>
+          <Copyright sx={{ mt: 5 }} />
+        </Container>
+      </ThemeProvider>
+    </Grid>
+  );
+};
 
 export default UserRegisterScreen;

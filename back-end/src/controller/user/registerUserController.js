@@ -28,33 +28,62 @@ let upload = multer({
 });
 
 const addRegisterUser = async (req, res) => {
+  console.log("hi------------------------------");
   try {
-    //   console.log("hellooo--------------")
-    // const gstFrontImagePath = req.files["gstFrontImage"][0].path;
-    // const gstBackImagePath = req.files["gstBackImage"][0].path;
-    // const agencyCertificateImagePath =
-    //   req.files["agencyCertificateImage"][0].path;
-    // const personalImagePath = req.files["personalImage"][0].path;
-    // const signatureImagePath = req.files["signatureImage"][0].path;
-    // console.log(gstFrontImagePath, "gstFrontImagePath------------------");
-    // const gstFrontImagePath = req.files[0].path;
-    // const gstBackImagePath = req.files[1].path;
-    // const agencyCertificateImagePath = req.files[2].path;
-    // const personalImagePath = req.files[3].path;
-    // const signatureImagePath = req.files[4].path;
+    console.log(req.files["agencyCertificateImage"], "req.file");
+    const gstFrontImagePath = req.files["gstFrontImage"][0].path;
+    const gstBackImagePath = req.files["gstBackImage"][0].path;
+    const agencyCertificateImagePath =
+      req.files["agencyCertificateImage"][0].path;
+    const personalImagePath = req.files["personalImage"][0].path;
+    const signatureImagePath = req.files["signatureImage"][0].path;
+    const data = req.body;
+    console.log(gstFrontImagePath, "gstFrontImagePath", {
+      data,
+      gstFrontImage: gstFrontImagePath,
+      gstBackImage: gstBackImagePath,
+      agencyCertificateImage: agencyCertificateImagePath,
+      personalImage: personalImagePath,
+      signatureImage: signatureImagePath,
+    });
 
-    console.log(...req.body, "req.body");
-    // const registerUser = new userRegister({
-    //   ...req.body,
-    //   //   gstFrontImage: gstFrontImagePath,
-    //   //   gstBackImage: gstBackImagePath,
-    //   //   agencyCertificateImage: agencyCertificateImagePath,
-    //   //   personalImage: personalImagePath,
-    //   //   signatureImage: signatureImagePath,
-    // });
+    const registerUser = new userRegister({
+      ...data,
+      gstFrontImage: gstFrontImagePath,
+      gstBackImage: gstBackImagePath,
+      agencyCertificateImage: agencyCertificateImagePath,
+      personalImage: personalImagePath,
+      signatureImage: signatureImagePath,
+    });
 
-    // await registerUser.save();
+    await registerUser.save();
     res.status(201).send({ msg: "User added!" });
+  } catch (e) {
+    res.status(400).send({ error: e.message });
+  }
+};
+
+const addUser = async (req, res) => {
+  try {
+    const userData = req.body;
+    const registerUser = new userRegister(userData);
+
+    await registerUser.save();
+    res.status(201).send({ msg: "User added!" });
+  } catch (e) {
+    console.log(e.message, "error");
+    res.status(400).send({ error: e.message });
+  }
+};
+
+const loginUser = async (req, res) => {
+  try {
+    const userLogin = await userRegister.findByCredentials(
+      req.body.email,
+      req.body.password
+    );
+    const token = await userLogin.generateAuthToken();
+    res.status(200).send({ token });
   } catch (e) {
     res.status(400).send({ error: e.message });
   }
@@ -127,4 +156,6 @@ const addRegisterUser = async (req, res) => {
 module.exports = {
   addRegisterUser,
   upload,
+  addUser,
+  loginUser,
 };

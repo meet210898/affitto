@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,7 +14,7 @@ import ListItem from "./list";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../../actions/userActions";
+import { logout } from "../../actions/loginActions";
 
 const drawerWidth = 240;
 
@@ -65,6 +64,18 @@ function Sidebar(props) {
           to="/AdminDashboard/viewState"
         >
           <ListItem name="View State" icon="fa fa-building" />
+        </NavLink>
+        <NavLink
+          style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/addVehicletype"
+        >
+          <ListItem name="Add Vehicle Type" icon="fa fa-building" />
+        </NavLink>
+        <NavLink
+          style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/ViewVehicleType"
+        >
+          <ListItem name="View Vehicle Type" icon="fa fa-building" />
         </NavLink>
       </List>
       <Divider style={{ backgroundColor: "white" }} />
@@ -165,13 +176,5 @@ function Sidebar(props) {
     </Box>
   );
 }
-
-Sidebar.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
 export default Sidebar;

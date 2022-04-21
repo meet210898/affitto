@@ -5,7 +5,7 @@ import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import { IconButton, TableContainer } from "@mui/material";
+import { Grid, IconButton, TableContainer } from "@mui/material";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
@@ -14,7 +14,7 @@ import { listStates } from "../../actions/admin/stateActions";
 import { listCities, deleteCity } from "../../actions/admin/cityActions";
 import { useNavigate } from "react-router-dom";
 import ReactRoundedImage from "react-rounded-image";
-
+import "../components/css/main.css";
 import ModalCall from "./modals/EditCityModal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -77,7 +77,7 @@ export default function ViewCityScreen() {
   };
 
   return (
-    <>
+    <Grid>
       <ModalCall open={open} setOpen={setOpen} editData={editData} />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -138,6 +138,6 @@ export default function ViewCityScreen() {
           </TableBody>
         </Table>
       </TableContainer>
-    </>
+    </Grid>
   );
 }

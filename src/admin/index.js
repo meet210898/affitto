@@ -6,6 +6,8 @@ import AddCityScreen from "./screens/AddCityScreen";
 import Sidebar from "./components/sidebar";
 import ViewStateScreen from "./screens/StateListScreen";
 import ViewCityScreen from "./screens/CityListScreen";
+import AddVehicleTypeScreen from "./screens/AddVehicleTypeScreen";
+import ViewVehicleTypeScreen from "./screens/VehicleTypeListScreen";
 
 const index = () => {
   return (
@@ -19,6 +21,9 @@ const index = () => {
 
           <Route path="AddCity" element={<AddCityScreen />} />
           <Route path="ViewCity" element={<ViewCityScreen />} />
+
+          <Route path="AddVehicleType" element={<AddVehicleTypeScreen />} />
+          <Route path="ViewVehicleType" element={<ViewVehicleTypeScreen />} />
         </Route>
       </Routes>
     </BrowserRouter>

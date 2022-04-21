@@ -11,11 +11,14 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
+import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../actions/user/userActions";
 
-const pages = ["Products", "Pricing", "Blog"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const pages = ["Products", "Pricing", "Blog", "Register", "Login"];
 
 const ResponsiveAppBar = () => {
+  const dispatch = useDispatch();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -34,18 +37,27 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(null);
   };
 
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+          <NavLink
+            style={{ color: "white", textDecoration: "none" }}
+            to="/user"
           >
-            LOGO
-          </Typography>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            >
+              LOGO
+            </Typography>
+          </NavLink>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -77,9 +89,14 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
+                <NavLink
+                  style={{ color: "black", textDecoration: "none" }}
+                  to={`/user/${page}`}
+                >
+                  <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page}</Typography>
+                  </MenuItem>
+                </NavLink>
               ))}
             </Menu>
           </Box>
@@ -93,17 +110,35 @@ const ResponsiveAppBar = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
+              <NavLink style={{ textDecoration: "none" }} to={`/user/${page}`}>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page}
+                </Button>
+              </NavLink>
             ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+            <NavLink
+              style={{ color: "white", textDecoration: "none" }}
+              to="/user/registerAgency"
+            >
+              <Button
+                variant="contained"
+                sx={{
+                  borderRadius: 28,
+                  backgroundColor: "#9c27b0 !important",
+                  color: "white",
+                }}
+              >
+                + Register As Agency
+              </Button>
+            </NavLink>
+            &nbsp;&nbsp;
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -125,11 +160,23 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              <NavLink
+                style={{ color: "black", textDecoration: "none" }}
+                to="/user/profile"
+              >
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Profile</Typography>
                 </MenuItem>
-              ))}
+              </NavLink>
+              <NavLink
+                style={{ color: "black", textDecoration: "none" }}
+                to="/user"
+                onClick={logoutHandler}
+              >
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
+              </NavLink>
             </Menu>
           </Box>
         </Toolbar>
