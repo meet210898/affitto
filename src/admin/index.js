@@ -8,6 +8,11 @@ import ViewStateScreen from "./screens/StateListScreen";
 import ViewCityScreen from "./screens/CityListScreen";
 import AddVehicleTypeScreen from "./screens/AddVehicleTypeScreen";
 import ViewVehicleTypeScreen from "./screens/VehicleTypeListScreen";
+import AddCompanyScreen from "./screens/AddCompanyScreen";
+import ViewCompanyScreen from "./screens/CompanyListScreen";
+import ViewUserScreen from "./screens/UserListScreen";
+import AddVehicleScreen from "./screens/AddVehicleScreen";
+import ViewVehicleScreen from "./screens/VehicleListScreen";
 
 const index = () => {
   return (
@@ -16,6 +21,8 @@ const index = () => {
         <Route path="/" element={<LoginScreen />} />
 
         <Route path="/AdminDashboard" element={<Sidebar />}>
+          <Route path="viewUser" element={<ViewUserScreen />} />
+
           <Route path="State" element={<AddStateScreen />} />
           <Route path="ViewState" element={<ViewStateScreen />} />
 
@@ -24,6 +31,12 @@ const index = () => {
 
           <Route path="AddVehicleType" element={<AddVehicleTypeScreen />} />
           <Route path="ViewVehicleType" element={<ViewVehicleTypeScreen />} />
+
+          <Route path="AddCompany" element={<AddCompanyScreen />} />
+          <Route path="ViewCompany" element={<ViewCompanyScreen />} />
+
+          <Route path="AddVehicle" element={<AddVehicleScreen />} />
+          <Route path="ViewVehicle" element={<ViewVehicleScreen />} />
         </Route>
       </Routes>
     </BrowserRouter>

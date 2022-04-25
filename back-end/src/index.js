@@ -6,8 +6,11 @@ const loginRouter = require("./router/loginRouter");
 const stateRouter = require("./router/admin/stateRouter");
 const cityRouter = require("./router/admin/cityRouter");
 const registerUserRouter = require("./router/user/registerUserRouter");
-const userRounter = require("./router/user/userRouter");
+const userRouter = require("./router/user/userRouter");
 const vehicleTypeRouter = require("./router/admin/vehicleTypeRouter");
+const companyRouter = require("./router/admin/companyRouter");
+const adminUserRouter = require("./router/admin/userRouter");
+const vehicleRoutter = require("./router/admin/vehicleRouter");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -23,9 +26,12 @@ app.use(stateRouter);
 app.use(cityRouter);
 app.use(loginRouter);
 app.use(vehicleTypeRouter)
+app.use(companyRouter);
+app.use(adminUserRouter);
+app.use(vehicleRoutter);
 //user
 app.use(registerUserRouter);
-app.use(userRounter);
+app.use(userRouter);
 app.listen(port, () => {
   console.log("The server is up on port " + port);
 });

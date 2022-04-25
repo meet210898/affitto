@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 
 const companySchema = new mongoose.Schema({
-  stateId: {
+  typeId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "State",
+    ref: "VehicleType",
   },
   companyName: {
     type: String,
@@ -13,7 +13,6 @@ const companySchema = new mongoose.Schema({
   },
   companyLogo: {
     type: String,
-    required: true,
   },
 });
 

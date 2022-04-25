@@ -8,16 +8,17 @@ import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, TableContainer } from "@mui/material";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import {Paper,Button} from "@mui/material";
+import DetailsIcon from "@mui/icons-material/Details";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
-  viewVehicleType,
-  deleteVehicleType,
-} from "../../actions/admin/vehicleTypeActions";
+  listUser,
+} from "../../actions/admin/userActions";
 import { useNavigate } from "react-router-dom";
 import ReactRoundedImage from "react-rounded-image";
 
-import ModalCall from "./modals/EditVehicleTypeModal";
+import ModalCall from "./modals/UserDetailsModal";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,34 +40,34 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function ViewStateScreen() {
+export default function ViewUserScreen() {
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
   const navigate = useNavigate();
 
-  const vehicleTypeList = useSelector((state) => state.vehicleTypeList);
-  const { vehicleTypesInfo } = vehicleTypeList;
+  const userList = useSelector((state) => state.userList);
+  const { usersInfo } = userList;
 
-  const vehicleTypeUpdate = useSelector((state) => state.vehicleTypeUpdate);
-  const { vehicleType } = vehicleTypeUpdate;
+//   const vehicleTypeUpdate = useSelector((state) => state.vehicleTypeUpdate);
+//   const { vehicleType } = vehicleTypeUpdate;
 
-  const vehicleTypeDelete = useSelector((state) => state.vehicleTypeDelete);
-  const { deleteSuccess } = vehicleTypeDelete;
+//   const vehicleTypeDelete = useSelector((state) => state.vehicleTypeDelete);
+//   const { deleteSuccess } = vehicleTypeDelete;
 
   React.useEffect(() => {
     if (!localStorage.getItem("auth-token")) {
       navigate("/");
     }
-    dispatch(viewVehicleType());
-  }, [dispatch, navigate, vehicleType, deleteSuccess]);
+    dispatch(listUser());
+  }, [dispatch, navigate]);
 
-  const deleteHandler = (typeId) => {
-    if (window.confirm("Are you sure")) {
-      dispatch(deleteVehicleType(typeId));
-      navigate("/AdminDashboard/ViewVehicleType");
-    }
-  };
+//   const deleteHandler = (typeId) => {
+//     if (window.confirm("Are you sure")) {
+//       dispatch(deleteVehicleType(typeId));
+//       navigate("/AdminDashboard/ViewVehicleType");
+//     }
+//   };
 
   const editHandler = (row) => {
     setEditData(row);
@@ -79,19 +80,22 @@ export default function ViewStateScreen() {
         <TableHead>
           <TableRow>
             <StyledTableCell>No</StyledTableCell>
-            <StyledTableCell>Vehicle Type Name</StyledTableCell>
-            <StyledTableCell>Vehicle Type Image</StyledTableCell>
+            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell>Image</StyledTableCell>
+            <StyledTableCell>Details</StyledTableCell>
             <StyledTableCell>Action</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {vehicleTypesInfo?.map((row) => (
+          {usersInfo?.map((row) => (
             <StyledTableRow key={row._id}>
               <StyledTableCell>0</StyledTableCell>
-              <StyledTableCell>{row.typeName}</StyledTableCell>
+              <StyledTableCell>
+                {row.firstName} {row.lastName}
+              </StyledTableCell>
               <StyledTableCell>
                 <ReactRoundedImage
-                  image={`http://localhost:4000/${row.typeImage}`}
+                  image={`http://localhost:4000/${row.personalImage}`}
                   style={{ objectFit: "cover" }}
                   alt=""
                   imageWidth="120"
@@ -100,24 +104,28 @@ export default function ViewStateScreen() {
                   borderRadius="30"
                 />
               </StyledTableCell>
-
               <StyledTableCell>
-                <IconButton
+                <Button
+                  variant="contained"
+                  sx={{
+                    borderRadius: 28,
+                    backgroundColor: "#1976d2 !important",
+                    color: "white",
+                  }}
                   onClick={() => {
                     editHandler(row);
                     setOpen(true);
                   }}
-                  aria-label="edit"
-                  size="large"
-                  color="primary"
                 >
-                  <EditIcon fontSize="inherit" />
-                </IconButton>
+                  Details
+                </Button>
+              </StyledTableCell>
+              <StyledTableCell>
                 <IconButton
                   aria-label="delete"
                   size="large"
                   style={{ color: "red" }}
-                  onClick={() => deleteHandler(row._id)}
+                  //   onClick={() => deleteHandler(row._id)}
                 >
                   <DeleteIcon fontSize="inherit" />
                 </IconButton>

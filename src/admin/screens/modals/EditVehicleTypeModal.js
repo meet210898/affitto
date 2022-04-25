@@ -5,7 +5,7 @@ import { Button, TextField, IconButton } from "@mui/material";
 import PhotoCamera from "@mui/icons-material/CameraAlt";
 import { styled } from "@mui/material/styles";
 import { useDispatch } from "react-redux";
-import { updateVehicleType } from "../../../actions/admin/vehicleActions";
+import { updateVehicleType } from "../../../actions/admin/vehicleTypeActions";
 
 const style = {
   position: "absolute",

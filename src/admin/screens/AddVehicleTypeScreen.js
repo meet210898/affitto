@@ -6,8 +6,8 @@ import CardContent from "@mui/material/CardContent";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { Button, TextField } from "@mui/material";
-import { addType } from "../../actions/admin/vehicleActions";
-import { useDispatch, useSelector } from "react-redux";
+import { addType } from "../../actions/admin/vehicleTypeActions";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 
@@ -26,22 +26,7 @@ const AddStateScreen = () => {
   }
 
   console.log(typeImage, "typeImage");
-  // if (statesInfo) {
-  //   console.log(statesInfo, "stateDetails");
-  // }
-
-  // const { stateInfo } = createState;
-
-  // const userLogin = useSelector((state) => state.userLogin);
-  // const { userInfo } = userLogin;
-
-  // console.log(createState);
-  // React.useEffect(() => {
-  //   if (!userInfo) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, userInfo]);
-
+  
   React.useEffect(() => {
     if (!localStorage.getItem("auth-token")) {
       navigate("/");

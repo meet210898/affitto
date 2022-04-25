@@ -19,7 +19,22 @@ import {
   vehicleTypeUpdateReducer,
   vehicleTypeDeleteReducer,
   vehicleTypeDetailsReducer,
+} from "./reducers/admin/vehicleTypeReducer";
+import {
+  vehicleCreateReducer,
+  vehicleReducer,
+  vehicleUpdateReducer,
+  vehicleDeleteReducer,
+  vehicleDetailsReducer,
 } from "./reducers/admin/vehicleReducer";
+import {
+  companyCreateReducer,
+  companyReducer,
+  companyUpdateReducer,
+  companyDeleteReducer,
+  companyDetailsReducer,
+} from "./reducers/admin/companyReducer";
+import { userCreateReducer, userReducer } from "./reducers/user/userReducer";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
@@ -38,12 +53,29 @@ const reducer = combineReducers({
   cityUpdate: cityUpdateReducer,
   cityDetails: cityDetailsReducer,
   cityDelete: cityDeleteReducer,
-  //VEHICLE
+  //VEHICLETYPE
   vehicleTypeCreate: vehicleTypeCreateReducer,
   vehicleTypeList: vehicleTypeReducer,
   vehicleTypeUpdate: vehicleTypeUpdateReducer,
   vehicleTypeDetails: vehicleTypeDetailsReducer,
   vehicleTypeDelete: vehicleTypeDeleteReducer,
+  //VEHICLE
+  vehicleCreate: vehicleCreateReducer,
+  vehicleList: vehicleReducer,
+  vehicleUpdate: vehicleUpdateReducer,
+  vehicleDetails: vehicleDetailsReducer,
+  vehicleDelete: vehicleDeleteReducer,
+  //COMPANY
+  companyCreate: companyCreateReducer,
+  companyList: companyReducer,
+  companyUpdate: companyUpdateReducer,
+  companyDetails: companyDetailsReducer,
+  companyDelete: companyDeleteReducer,
+  //ADMIN:USER
+  userList: userReducer,
+
+  //USER
+  userCreate: userCreateReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

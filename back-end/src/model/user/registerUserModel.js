@@ -20,6 +20,31 @@ const registerUserSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    address: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    pincode: {
+      type: Number,
+      required: true,
+      trim: true,
+    },
+    stateId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "State",
+    },
+    cityId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "City",
+    },
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     email: {
       type: String,
       required: true,
@@ -35,55 +60,9 @@ const registerUserSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    stateId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "State",
-    },
-    cityId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "City",
-    },
-    userType: {
-      type: String,
-      default: "Normal",
-      required: true,
-    },
-    agencyName: {
-      type: String,
-      trim: true,
-    },
-    address: {
-      type: String,
-      trim: true,
-    },
-    landmark: {
-      type: String,
-      trim: true,
-    },
-    pincode: {
-      type: String,
-      trim: true,
-    },
-    gstNumber: {
-      type: String,
-      trim: true,
-    },
-    gstFrontImage: {
-      type: String,
-    },
-    gstBackImage: {
-      type: String,
-    },
-    agencyCertificateImage: {
-      type: String,
-    },
     personalImage: {
       type: String,
-    },
-    signatureImage: {
-      type: String,
+      required: true,
     },
   },
   {

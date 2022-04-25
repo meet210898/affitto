@@ -30,6 +30,7 @@ let upload = multer({
 const addCity = async (req, res) => {
   try {
     const pathName = req.file.path;
+    
     const cityAdd = new City({
       ...req.body,
       cityImage: pathName,

@@ -1,27 +1,27 @@
 import {
-  VEHICLETYPE_CREATE_REQUEST,
-  VEHICLETYPE_CREATE_SUCCESS,
-  VEHICLETYPE_CREATE_FAIL,
-  VEHICLETYPE_UPDATE_REQUEST,
-  VEHICLETYPE_UPDATE_SUCCESS,
-  VEHICLETYPE_UPDATE_FAIL,
-  VEHICLETYPE_LIST_MY_REQUEST,
-  VEHICLETYPE_LIST_MY_SUCCESS,
-  VEHICLETYPE_LIST_MY_FAIL,
-  VEHICLETYPE_DELETE_REQUEST,
-  VEHICLETYPE_DELETE_SUCCESS,
-  VEHICLETYPE_DELETE_FAIL,
-  VEHICLETYPE_DETAILS_REQUEST,
-  VEHICLETYPE_DETAILS_SUCCESS,
-  VEHICLETYPE_DETAILS_FAIL,
-} from "../../constants/admin/vehicleTypeConstants";
+  VEHICLE_CREATE_REQUEST,
+  VEHICLE_CREATE_SUCCESS,
+  VEHICLE_CREATE_FAIL,
+  VEHICLE_UPDATE_REQUEST,
+  VEHICLE_UPDATE_SUCCESS,
+  VEHICLE_UPDATE_FAIL,
+  VEHICLE_LIST_MY_REQUEST,
+  VEHICLE_LIST_MY_SUCCESS,
+  VEHICLE_LIST_MY_FAIL,
+  VEHICLE_DELETE_REQUEST,
+  VEHICLE_DELETE_SUCCESS,
+  VEHICLE_DELETE_FAIL,
+  VEHICLE_DETAILS_REQUEST,
+  VEHICLE_DETAILS_SUCCESS,
+  VEHICLE_DETAILS_FAIL,
+} from "../../constants/admin/vehicleConstants";
 import axios from "axios";
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
 
-export const addType = (typeData) => async (dispatch) => {
+export const addVehicle = (vehicleData) => async (dispatch) => {
   try {
     dispatch({
-      type: VEHICLETYPE_CREATE_REQUEST,
+      type: VEHICLE_CREATE_REQUEST,
     });
 
     const config = {
@@ -30,20 +30,20 @@ export const addType = (typeData) => async (dispatch) => {
         "Content-Type": "multipart/form-data",
       },
     };
-    console.log(typeData,"typeData")
+    
     const { data } = await axios.post(
-      "http://localhost:4000/addType",
-      typeData,
+      "http://localhost:4000/addVehicle",
+      vehicleData,
       config
     );
 
     dispatch({
-      type: VEHICLETYPE_CREATE_SUCCESS,
+      type: VEHICLE_CREATE_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: VEHICLETYPE_CREATE_FAIL,
+      type: VEHICLE_CREATE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -52,55 +52,53 @@ export const addType = (typeData) => async (dispatch) => {
   }
 };
 
-export const updateVehicleType =
-  (typeId, typeData) =>
-  async (dispatch) => {
-    try {
-      dispatch({
-        type: VEHICLETYPE_UPDATE_REQUEST,
-      });
+export const updateVehicleType = (typeId, typeData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: VEHICLE_UPDATE_REQUEST,
+    });
 
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userToken.token}`,
-        },
-      };
-      
-      const { data } = await axios.patch(
-        `http://localhost:4000/editVehicleType/${typeId}`,
-        typeData,
-        config
-      );
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userToken.token}`,
+      },
+    };
 
-      dispatch({
-        type: VEHICLETYPE_UPDATE_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: VEHICLETYPE_UPDATE_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
-    }
-  };
+    const { data } = await axios.patch(
+      `http://localhost:4000/editVehicleType/${typeId}`,
+      typeData,
+      config
+    );
+
+    dispatch({
+      type: VEHICLE_UPDATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: VEHICLE_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const getVehicleTypeDetails = (typeId) => async (dispatch) => {
-  dispatch({ type: VEHICLETYPE_DETAILS_REQUEST });
+  dispatch({ type: VEHICLE_DETAILS_REQUEST });
   try {
     const { data } = await axios.get(
       `http://localhost:4000/getVehicleTypeById/${typeId}`
     );
     dispatch({
-      type: VEHICLETYPE_DETAILS_SUCCESS,
+      type: VEHICLE_DETAILS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: VEHICLETYPE_DETAILS_FAIL,
+      type: VEHICLE_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -112,7 +110,7 @@ export const getVehicleTypeDetails = (typeId) => async (dispatch) => {
 export const deleteVehicleType = (typeId) => async (dispatch) => {
   try {
     dispatch({
-      type: VEHICLETYPE_DELETE_REQUEST,
+      type: VEHICLE_DELETE_REQUEST,
     });
 
     const config = {
@@ -127,11 +125,11 @@ export const deleteVehicleType = (typeId) => async (dispatch) => {
     );
 
     dispatch({
-      type: VEHICLETYPE_DELETE_SUCCESS,
+      type: VEHICLE_DELETE_SUCCESS,
     });
   } catch (error) {
     dispatch({
-      type: VEHICLETYPE_DELETE_FAIL,
+      type: VEHICLE_DELETE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -140,10 +138,10 @@ export const deleteVehicleType = (typeId) => async (dispatch) => {
   }
 };
 
-export const viewVehicleType = () => async (dispatch) => {
+export const listVehicle = () => async (dispatch) => {
   try {
     dispatch({
-      type: VEHICLETYPE_LIST_MY_REQUEST,
+      type: VEHICLE_LIST_MY_REQUEST,
     });
 
     const config = {
@@ -152,15 +150,18 @@ export const viewVehicleType = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`http://localhost:4000/getVehicleType`, config);
+    const { data } = await axios.get(
+      `http://localhost:4000/getVehicle`,
+      config
+    );
 
     dispatch({
-      type: VEHICLETYPE_LIST_MY_SUCCESS,
+      type: VEHICLE_LIST_MY_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: VEHICLETYPE_LIST_MY_FAIL,
+      type: VEHICLE_LIST_MY_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

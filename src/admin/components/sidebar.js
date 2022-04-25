@@ -43,6 +43,12 @@ function Sidebar(props) {
       <List>
         <NavLink
           style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/viewUser"
+        >
+          <ListItem name="Users" icon="fa fa-building" />
+        </NavLink>
+        <NavLink
+          style={{ color: "white", textDecoration: "none" }}
           to="/AdminDashboard/AddCity"
         >
           <ListItem name="City" icon="fa fa-building" />
@@ -76,6 +82,30 @@ function Sidebar(props) {
           to="/AdminDashboard/ViewVehicleType"
         >
           <ListItem name="View Vehicle Type" icon="fa fa-building" />
+        </NavLink>
+        <NavLink
+          style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/addCompany"
+        >
+          <ListItem name="Add Company" icon="fa fa-building" />
+        </NavLink>
+        <NavLink
+          style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/ViewCompany"
+        >
+          <ListItem name="View Company" icon="fa fa-building" />
+        </NavLink>
+        <NavLink
+          style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/AddVehicle"
+        >
+          <ListItem name="Add Vehicle" icon="fa fa-building" />
+        </NavLink>
+        <NavLink
+          style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/ViewVehicle"
+        >
+          <ListItem name="View Vehicle" icon="fa fa-building" />
         </NavLink>
       </List>
       <Divider style={{ backgroundColor: "white" }} />

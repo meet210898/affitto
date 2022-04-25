@@ -29,9 +29,6 @@ let upload = multer({
 
 const addType = async (req, res) => {
   try {
-    console.log("first------------------------");
-    console.log(req.file, "req.file");
-    console.log(req.body, "req.body");
     const pathName = req.file.path;
     
     const typeAdd = new VehicleType({

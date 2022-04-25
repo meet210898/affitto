@@ -3,6 +3,7 @@ import Topbar from "../components/topbar";
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
@@ -16,7 +17,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { useDispatch, useSelector } from "react-redux";
 import { getStates, getCities, addUser } from "../../actions/user/userActions";
 
@@ -43,6 +43,11 @@ const theme = createTheme();
 const UserRegisterScreen = () => {
   const [stateId, setStateId] = React.useState("");
   const [cityId, setCityId] = React.useState("");
+  const [personalImage, setPersonalImage] = React.useState("");
+
+  function uploadPersonalImage(event) {
+    setPersonalImage(event.target.files[0]);
+  }
 
   const dispatch = useDispatch();
 
@@ -60,17 +65,21 @@ const UserRegisterScreen = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const registerData = {
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
-      phoneNumber: data.get("phoneNumber"),
-      stateId: stateId,
-      cityId: cityId,
-      email: data.get("email"),
-      password: data.get("password"),
-      confirmPassword: data.get("confirmPassword"),
-    };
-    dispatch(addUser(registerData));
+    const emptyData = new FormData();
+    emptyData.append("firstName",data.get("firstName"))
+    emptyData.append("lastName", data.get("lastName"));
+    emptyData.append("phoneNumber", data.get("phoneNumber"));
+    emptyData.append("stateId", stateId);
+    emptyData.append("cityId",cityId);
+    emptyData.append("username", data.get("username"));
+    emptyData.append("email", data.get("email"));
+    emptyData.append("password", data.get("password"));
+    emptyData.append("confirmPassword", data.get("confirmPassword"));
+    emptyData.append("address", data.get("address"));
+    emptyData.append("pincode", data.get("pincode"));
+    emptyData.append("personalImage", data.get("personalImage"));
+
+    dispatch(addUser(emptyData));
   };
 
   return (
@@ -131,7 +140,27 @@ const UserRegisterScreen = () => {
                     autoComplete="family-name"
                   />
                 </Grid>
-                
+                <Grid item xs={12}>
+                  <TextareaAutosize
+                    maxRows={4}
+                    id="address"
+                    name="address"
+                    aria-label="maximum height"
+                    placeholder="Agency Address"
+                    autoFocus
+                    style={{ width: "100%", height: "100px" }}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="pincode"
+                    label="Pincode"
+                    name="pincode"
+                    autoComplete="family-name"
+                  />
+                </Grid>
                 <Grid item xs={12}>
                   <Box sx={{ minWidth: 120 }}>
                     <FormControl fullWidth>
@@ -182,6 +211,16 @@ const UserRegisterScreen = () => {
                   <TextField
                     required
                     fullWidth
+                    id="username"
+                    label="Username"
+                    name="username"
+                    autoComplete="username"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
                     id="email"
                     label="Email Address"
                     name="email"
@@ -209,6 +248,17 @@ const UserRegisterScreen = () => {
                     id="confirmPassword"
                     autoComplete="new-password"
                   />
+                </Grid>
+                <Grid item xs={12}>
+                  <Button
+                    variant="contained"
+                    component="label"
+                    onChange={uploadPersonalImage}
+                  >
+                    Personal Image
+                    <input type="file" name="personalImage" hidden />
+                  </Button>
+                  {personalImage.name}
                 </Grid>
               </Grid>
               <Button

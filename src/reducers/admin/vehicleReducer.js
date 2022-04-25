@@ -1,89 +1,89 @@
 import {
-  VEHICLETYPE_CREATE_REQUEST,
-  VEHICLETYPE_CREATE_SUCCESS,
-  VEHICLETYPE_LIST_MY_REQUEST,
-  VEHICLETYPE_LIST_MY_SUCCESS,
-  VEHICLETYPE_CREATE_FAIL,
-  VEHICLETYPE_CREATE_RESET,
-  VEHICLETYPE_LIST_MY_FAIL,
-  VEHICLETYPE_DELETE_REQUEST,
-  VEHICLETYPE_DELETE_SUCCESS,
-  VEHICLETYPE_DELETE_FAIL,
-  VEHICLETYPE_UPDATE_REQUEST,
-  VEHICLETYPE_UPDATE_SUCCESS,
-  VEHICLETYPE_UPDATE_FAIL,
-  VEHICLETYPE_UPDATE_RESET,
-  VEHICLETYPE_DETAILS_REQUEST,
-  VEHICLETYPE_DETAILS_SUCCESS,
-  VEHICLETYPE_DETAILS_FAIL,
-} from "../../constants/admin/vehicleTypeConstants";
+  VEHICLE_CREATE_REQUEST,
+  VEHICLE_CREATE_SUCCESS,
+  VEHICLE_LIST_MY_REQUEST,
+  VEHICLE_LIST_MY_SUCCESS,
+  VEHICLE_CREATE_FAIL,
+  VEHICLE_CREATE_RESET,
+  VEHICLE_LIST_MY_FAIL,
+  VEHICLE_DELETE_REQUEST,
+  VEHICLE_DELETE_SUCCESS,
+  VEHICLE_DELETE_FAIL,
+  VEHICLE_UPDATE_REQUEST,
+  VEHICLE_UPDATE_SUCCESS,
+  VEHICLE_UPDATE_FAIL,
+  VEHICLE_UPDATE_RESET,
+  VEHICLE_DETAILS_REQUEST,
+  VEHICLE_DETAILS_SUCCESS,
+  VEHICLE_DETAILS_FAIL,
+} from "../../constants/admin/vehicleConstants";
 
-export const vehicleTypeCreateReducer = (state = {}, action) => {
+export const vehicleCreateReducer = (state = {}, action) => {
   switch (action.type) {
-    case VEHICLETYPE_CREATE_REQUEST:
+    case VEHICLE_CREATE_REQUEST:
       return { loading: true };
-    case VEHICLETYPE_CREATE_SUCCESS:
+    case VEHICLE_CREATE_SUCCESS:
       return { loading: false, success: true, state: action.payload };
-    case VEHICLETYPE_CREATE_FAIL:
+    case VEHICLE_CREATE_FAIL:
       return { loading: false, error: action.payload };
-    case VEHICLETYPE_CREATE_RESET:
+    case VEHICLE_CREATE_RESET:
       return {};
     default:
       return state;
   }
 };
 
-export const vehicleTypeReducer = (state = { citiesInfo: [] }, action) => {
+export const vehicleReducer = (state = { vehiclesInfo: [] }, action) => {
   switch (action.type) {
-    case VEHICLETYPE_LIST_MY_REQUEST:
+    case VEHICLE_LIST_MY_REQUEST:
       return { loading: true };
-    case VEHICLETYPE_LIST_MY_SUCCESS:
-      return { loading: false, vehicleTypesInfo: action.payload };
-    case VEHICLETYPE_LIST_MY_FAIL:
+    case VEHICLE_LIST_MY_SUCCESS:
+      return { loading: false, vehiclesInfo: action.payload };
+    case VEHICLE_LIST_MY_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
   }
 };
 
-export const vehicleTypeUpdateReducer = (state = { state: {} }, action) => {
+export const vehicleUpdateReducer = (state = { vehicle: {} }, action) => {
   switch (action.type) {
-    case VEHICLETYPE_UPDATE_REQUEST:
+    case VEHICLE_UPDATE_REQUEST:
       return { loading: true };
-    case VEHICLETYPE_UPDATE_SUCCESS:
-      return { loading: false, success: true, vehicleType: action.payload };
-    case VEHICLETYPE_UPDATE_FAIL:
+    case VEHICLE_UPDATE_SUCCESS:
+      return { loading: false, success: true, vehicle: action.payload };
+    case VEHICLE_UPDATE_FAIL:
       return { loading: false, error: action.payload };
-    case VEHICLETYPE_UPDATE_RESET:
+    case VEHICLE_UPDATE_RESET:
       return { state: {} };
     default:
       return state;
   }
 };
 
-export const vehicleTypeDetailsReducer = (
+export const vehicleDetailsReducer = (
   state = { state: { reviews: [] } },
   action
 ) => {
   switch (action.type) {
-    case VEHICLETYPE_DETAILS_REQUEST:
+    case VEHICLE_DETAILS_REQUEST:
       return { loading: true, ...state };
-    case VEHICLETYPE_DETAILS_SUCCESS:
-      return { loading: false, vehicleType: action.payload };
-    case VEHICLETYPE_DETAILS_FAIL:
+    case VEHICLE_DETAILS_SUCCESS:
+      return { loading: false, vehicle: action.payload };
+    case VEHICLE_DETAILS_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
   }
 };
 
-export const vehicleTypeDeleteReducer = (state = {}, action) => {
+export const vehicleDeleteReducer = (state = {}, action) => {
   switch (action.type) {
-    case VEHICLETYPE_DELETE_REQUEST:
+    case VEHICLE_DELETE_REQUEST:
       return { loading: true };
-    case VEHICLETYPE_DELETE_SUCCESS:
+    case VEHICLE_DELETE_SUCCESS:
       return { loading: false, deleteSuccess: true };
-    case VEHICLETYPE_DELETE_FAIL:
+    case VEHICLE_DELETE_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

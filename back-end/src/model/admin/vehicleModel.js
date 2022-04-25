@@ -1,10 +1,15 @@
 const mongoose = require("mongoose");
 
 const vehicleSchema = new mongoose.Schema({
-  stateId: {
+  typeId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "State",
+    ref: "VehicleType",
+  },
+  companyId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "Company",
   },
   vehicleName: {
     type: String,
@@ -14,6 +19,44 @@ const vehicleSchema = new mongoose.Schema({
   vehicleImage: {
     type: String,
     required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  seats: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
+  door: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
+  ac: {
+    type: Boolean,
+    required: true,
+    default: true,
+  },
+  rcImage: {
+    type: String,
+    required: true,
+  },
+  rcNumber: {
+    type: Number,
+    required: true,
+    trim: true,
+  },
+  pucImage: {
+    type: String,
+    required: true,
+  },
+  priceperday: {
+    type: Number,
+    required: true,
+    trim: true,
   },
 });
 

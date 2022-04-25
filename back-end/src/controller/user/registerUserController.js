@@ -28,7 +28,6 @@ let upload = multer({
 });
 
 const addRegisterUser = async (req, res) => {
-  console.log("hi------------------------------");
   try {
     console.log(req.files["agencyCertificateImage"], "req.file");
     const gstFrontImagePath = req.files["gstFrontImage"][0].path;
@@ -65,8 +64,12 @@ const addRegisterUser = async (req, res) => {
 
 const addUser = async (req, res) => {
   try {
+    const pathName = req.file.path;
     const userData = req.body;
-    const registerUser = new userRegister(userData);
+    const registerUser = new userRegister({
+      ...userData,
+      personalImage: pathName,
+    });
 
     await registerUser.save();
     res.status(201).send({ msg: "User added!" });

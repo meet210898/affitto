@@ -16,7 +16,7 @@ const imgUpload = upload.fields([
 ]);
 
 router.post("/user/addAgency", imgUpload, addRegisterUser);
-router.post("/user/addUser", addUser);
+router.post("/user/addUser",upload.single("personalImage"), addUser);
 router.post("/user/login", loginUser);
 
 module.exports = router;

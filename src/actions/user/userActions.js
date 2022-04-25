@@ -95,7 +95,6 @@ export const addUser = (formData) => async (dispatch) => {
 
 export const addAgency = (agencyData) => async (dispatch) => {
   try {
-    console.log("-------------------------");
     dispatch({
       type: USER_CREATE_REQUEST,
     });
@@ -106,7 +105,6 @@ export const addAgency = (agencyData) => async (dispatch) => {
       },
     };
 
-    console.log(agencyData, "agencyData");
 
     const { data } = await axios.post(
       "http://localhost:4000/user/addAgency",
