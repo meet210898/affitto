@@ -52,7 +52,7 @@ const editState = async (req, res) => {
       newState[val] = updates[val];
     });
 
-    if (req.file &&req.file.path) {
+    if (req.file && req.file.path) {
       newState = {
         ...newState,
         _id: req.params.id,

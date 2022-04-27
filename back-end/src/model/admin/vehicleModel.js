@@ -51,12 +51,14 @@ const vehicleSchema = new mongoose.Schema({
   },
   pucImage: {
     type: String,
-    required: true,
   },
   priceperday: {
     type: Number,
     required: true,
     trim: true,
+  },
+  insuranceImage: {
+    type: String,
   },
 });
 

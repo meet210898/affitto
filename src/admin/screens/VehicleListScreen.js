@@ -8,15 +8,16 @@ import { IconButton, TableContainer } from "@mui/material";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Paper, Button } from "@mui/material";
-
+import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
-import { viewVehicleType } from "../../actions/admin/vehicleTypeActions";
 import { useNavigate } from "react-router-dom";
+import { viewVehicleType } from "../../actions/admin/vehicleTypeActions";
 import { listCompany } from "../../actions/admin/companyActions";
 import ReactRoundedImage from "react-rounded-image";
 
-import ModalCall from "./modals/UserDetailsModal";
-import { listVehicle } from "../../actions/admin/vehicleActions";
+import ModalCall from "./modals/EditVehicleModal";
+import VehicleModalCall from "./modals/VehicleDetailsModal";
+import { listVehicle, deleteVehicle } from "../../actions/admin/vehicleActions";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -40,18 +41,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ViewUserScreen() {
   const dispatch = useDispatch();
-  const [open, setOpen] = React.useState(false);
+  const [openEdit, setOpenEdit] = React.useState(false);
+  const [openDetail, setOpenDetail] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
   const navigate = useNavigate();
 
-  const userList = useSelector((state) => state.userList);
-  const { usersInfo } = userList;
+  const vehicleUpdate = useSelector((state) => state.vehicleUpdate);
+  const { success } = vehicleUpdate;
 
-  //   const vehicleTypeUpdate = useSelector((state) => state.vehicleTypeUpdate);
-  //   const { vehicleType } = vehicleTypeUpdate;
-
-  //   const vehicleTypeDelete = useSelector((state) => state.vehicleTypeDelete);
-  //   const { deleteSuccess } = vehicleTypeDelete;
+  const vehicleDelete = useSelector((state) => state.vehicleDelete);
+  const { deleteSuccess } = vehicleDelete;
 
   React.useEffect(() => {
     if (!localStorage.getItem("auth-token")) {
@@ -60,7 +59,7 @@ export default function ViewUserScreen() {
     dispatch(viewVehicleType());
     dispatch(listCompany());
     dispatch(listVehicle());
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, deleteSuccess, success]);
 
   const vehicleList = useSelector((state) => state.vehicleList);
   const { vehiclesInfo } = vehicleList;
@@ -71,12 +70,12 @@ export default function ViewUserScreen() {
   const companyList = useSelector((state) => state.companyList);
   const { companiesInfo } = companyList;
 
-  //   const deleteHandler = (typeId) => {
-  //     if (window.confirm("Are you sure")) {
-  //       dispatch(deleteVehicleType(typeId));
-  //       navigate("/AdminDashboard/ViewVehicleType");
-  //     }
-  //   };
+  const deleteHandler = (vehicleId) => {
+    if (window.confirm("Are you sure")) {
+      dispatch(deleteVehicle(vehicleId));
+      navigate("/AdminDashboard/ViewVehicle");
+    }
+  };
 
   const editHandler = (row) => {
     setEditData(row);
@@ -84,7 +83,12 @@ export default function ViewUserScreen() {
 
   return (
     <TableContainer component={Paper}>
-      <ModalCall open={open} setOpen={setOpen} editData={editData} />
+      <ModalCall open={openEdit} setOpen={setOpenEdit} editData={editData} />
+      <VehicleModalCall
+        open={openDetail}
+        setOpen={setOpenDetail}
+        editData={editData}
+      />
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -133,18 +137,30 @@ export default function ViewUserScreen() {
                   }}
                   onClick={() => {
                     editHandler(row);
-                    setOpen(true);
+                    setOpenDetail(true);
                   }}
                 >
                   Details
                 </Button>
               </StyledTableCell>
+
               <StyledTableCell>
+                <IconButton
+                  onClick={() => {
+                    editHandler(row);
+                    setOpenEdit(true);
+                  }}
+                  aria-label="edit"
+                  size="large"
+                  color="primary"
+                >
+                  <EditIcon fontSize="inherit" />
+                </IconButton>
                 <IconButton
                   aria-label="delete"
                   size="large"
                   style={{ color: "red" }}
-                  //   onClick={() => deleteHandler(row._id)}
+                  onClick={() => deleteHandler(row._id)}
                 >
                   <DeleteIcon fontSize="inherit" />
                 </IconButton>

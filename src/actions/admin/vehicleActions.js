@@ -52,7 +52,7 @@ export const addVehicle = (vehicleData) => async (dispatch) => {
   }
 };
 
-export const updateVehicleType = (typeId, typeData) => async (dispatch) => {
+export const updateVehicle = (vehicleId, vehicleData) => async (dispatch) => {
   try {
     dispatch({
       type: VEHICLE_UPDATE_REQUEST,
@@ -66,8 +66,8 @@ export const updateVehicleType = (typeId, typeData) => async (dispatch) => {
     };
 
     const { data } = await axios.patch(
-      `http://localhost:4000/editVehicleType/${typeId}`,
-      typeData,
+      `http://localhost:4000/editVehicle/${vehicleId}`,
+      vehicleData,
       config
     );
 
@@ -107,7 +107,7 @@ export const getVehicleTypeDetails = (typeId) => async (dispatch) => {
   }
 };
 
-export const deleteVehicleType = (typeId) => async (dispatch) => {
+export const deleteVehicle = (vehicleId) => async (dispatch) => {
   try {
     dispatch({
       type: VEHICLE_DELETE_REQUEST,
@@ -120,7 +120,7 @@ export const deleteVehicleType = (typeId) => async (dispatch) => {
     };
 
     await axios.delete(
-      `http://localhost:4000/deleteVehicleType/${typeId}`,
+      `http://localhost:4000/deleteVehicle/${vehicleId}`,
       config
     );
 

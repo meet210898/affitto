@@ -33,6 +33,7 @@ const AddVehicleScreen = () => {
     rcNumber: "",
     pucImage: "",
     priceperday: "",
+    insuranceImage: "",
   });
 
   const Input = styled("input")({
@@ -66,6 +67,7 @@ const AddVehicleScreen = () => {
 
   const handleImageChange = (e) => {
     const { name, files } = e.target;
+    console.log(files,"files")
     setVehicleData({
       ...vehicleData,
       [name]: files[0],
@@ -288,6 +290,24 @@ const AddVehicleScreen = () => {
             variant="standard"
             onChange={handleChange}
           />
+        </CardContent>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            Insurance Image:
+          </Typography>
+          <label htmlFor="insuranceImage">
+            <Input
+              accept="image/*"
+              id="insuranceImage"
+              multiple
+              type="file"
+              name="insuranceImage"
+              onChange={handleImageChange}
+            />
+            <Button variant="contained" component="span">
+              Upload Image
+            </Button>
+          </label>
         </CardContent>
         <CardActions>
           <Button type="submit" variant="contained" size="medium">

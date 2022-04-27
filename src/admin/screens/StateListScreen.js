@@ -58,11 +58,7 @@ export default function ViewStateScreen() {
     dispatch(listStates());
   }, [dispatch, navigate, success, deleteSuccess]);
 
-  // const editState = (stateId) => {
-  //   // dispatch(listStateDetails(stateId));
-  //   // navigate(`/AdminDashboard/EditState/${stateId}`);
-  //   <ModalCall />;
-  // };
+  
 
   const deleteHandler = (stateId) => {
     if (window.confirm("Are you sure")) {
