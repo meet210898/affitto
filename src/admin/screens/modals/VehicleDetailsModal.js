@@ -1,14 +1,10 @@
 import * as React from "react";
-import { Box, Typography, Modal, FormControl } from "@mui/material";
+import { Box, Typography, Modal } from "@mui/material";
 import ReactRoundedImage from "react-rounded-image";
 import {
   Button,
-  TextField,
-  InputLabel,
-  Select,
-  MenuItem,
+  Grid,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { viewVehicleType } from "../../../actions/admin/vehicleTypeActions";
@@ -19,7 +15,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 800,
+  width: 700,
   height: 500,
   overflow: "scroll",
   bgcolor: "background.paper",
@@ -28,9 +24,6 @@ const style = {
   p: 4,
 };
 
-const Input = styled("input")({
-  display: "none",
-});
 
 const ModalCall = ({ open, setOpen, editData }) => {
   const navigate = useNavigate();
@@ -60,61 +53,13 @@ const ModalCall = ({ open, setOpen, editData }) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
-        <h1>Details</h1>
-        <TextField
-          name="vehicleId"
-          type="hidden"
-          variant="standard"
-          value={editData && editData._id}
-        />
-        <div style={{ display: "flex", width: "100%" }}>
-          <div>
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel id="typeName">Vehicle Type</InputLabel>
-
-                <Select
-                  labelId="typeName"
-                  id="typeId"
-                  name="typeId"
-                  label="Vehicle Type"
-                  defaultValue={editData && editData.typeId}
-                >
-                  {vehicleTypesInfo?.map((data) => (
-                    <MenuItem value={data._id}>{data.typeName}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
-
-            <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel id="companyName">Company</InputLabel>
-
-                <Select
-                  labelId="companyName"
-                  id="companyId"
-                  name="companyId"
-                  label="Company"
-                  defaultValue={editData && editData.companyId}
-                >
-                  {companiesInfo?.map((data) => (
-                    <MenuItem value={data._id}>{data.companyName}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
-
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              <TextField
-                label="Vehicle Name"
-                name="vehicleName"
-                type="text"
-                variant="standard"
-                defaultValue={editData && editData.vehicleName}
-              />
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+        <Grid container>
+          <Grid xs={12}>
+            <h1>Details</h1>
+          </Grid>
+          <Grid xs={6}>
+            <Typography variant="h6" component="div">
+              Vehicle Image:
               <ReactRoundedImage
                 image={`http://localhost:4000/${
                   editData && editData.vehicleImage
@@ -125,117 +70,73 @@ const ModalCall = ({ open, setOpen, editData }) => {
                 roundedSize="0"
                 borderRadius="30"
               />
-              <label htmlFor="vehicleImage">
-                <Input
-                  accept="image/*"
-                  id="vehicleImage"
-                  name="vehicleImage"
-                  type="file"
-                />
-              </label>
             </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              <TextField
-                label="Description"
-                name="description"
-                type="text"
-                variant="standard"
-                defaultValue={editData && editData.description}
-              />
+            <Typography variant="h6" component="div">
+              Vehicle Type:
+              {vehicleTypesInfo?.map((data) => {
+                return data._id === (editData && editData.typeId)
+                  ? data.typeName
+                  : "";
+              })}
             </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              <TextField
-                label="Seats"
-                name="seats"
-                type="text"
-                variant="standard"
-                defaultValue={editData && editData.seats}
-              />
+            <Typography variant="h6" component="div">
+              Company:
+              {companiesInfo?.map((data) => {
+                return data._id === (editData && editData.companyId)
+                  ? data.companyName
+                  : "";
+              })}
             </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              <TextField
-                label="Door"
-                name="door"
-                type="text"
-                variant="standard"
-                defaultValue={editData && editData.door}
-              />
+            <Typography variant="h6" component="div">
+              Vehicle Name:{editData && editData.vehicleName}
             </Typography>
-          </div>
-          <div>
-            <Typography variant="h5" component="div">
-              <Box sx={{ minWidth: 120 }}>
-                <FormControl fullWidth>
-                  <InputLabel id="ac">AC/Non-AC</InputLabel>
-
-                  <Select
-                    labelId="ac"
-                    id="ac"
-                    name="ac"
-                    label="ac"
-                    defaultValue={editData && editData.ac}
-                  >
-                    <MenuItem value="true">AC</MenuItem>
-                    <MenuItem value="false">Non-AC</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
+            <Typography variant="h6" component="div">
+              Description:{editData && editData.description}
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Typography variant="h6" component="div">
+              Seats:{editData && editData.seats}
+            </Typography>
+            <Typography variant="h6" component="div">
+              Door:{editData && editData.door}
+            </Typography>
+            <Typography variant="h6" component="div">
+              AC/Non-AC:{(editData && editData.ac) === true ? "AC" : "Non-AC"}
+            </Typography>
+            <Typography variant="h6" component="div">
+              RC Number:{editData && editData.rcNumber}
+            </Typography>
+            <Typography variant="h6" component="div">
+              Price/Day:{editData && editData.priceperday}
+            </Typography>
+          </Grid>
+          <Grid xs={6}>
+            <Typography variant="h6" component="div">
+              RC Image:
               <ReactRoundedImage
                 image={`http://localhost:4000/${editData && editData.rcImage}`}
                 alt="rcImage"
                 imageWidth="120"
                 imageHeight="120"
                 roundedSize="0"
-                borderRadius="30"
-              />
-              <label htmlFor="rcImage">
-                <Input
-                  accept="image/*"
-                  id="rcImage"
-                  name="rcImage"
-                  type="file"
-                />
-              </label>
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              <TextField
-                label="RC Number"
-                name="rcNumber"
-                type="text"
-                variant="standard"
-                defaultValue={editData && editData.rcNumber}
+                borderRadius="0"
               />
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+
+            <Typography variant="h6" component="div">
+              PUC Image:
               <ReactRoundedImage
                 image={`http://localhost:4000/${editData && editData.pucImage}`}
                 alt="pucImage"
                 imageWidth="120"
                 imageHeight="120"
                 roundedSize="0"
-                borderRadius="30"
-              />
-              <label htmlFor="pucImage">
-                <Input
-                  accept="image/*"
-                  id="pucImage"
-                  name="pucImage"
-                  type="file"
-                />
-              </label>
-            </Typography>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              <TextField
-                label="Price/Day"
-                name="priceperday"
-                type="text"
-                variant="standard"
-                defaultValue={editData && editData.priceperday}
+                borderRadius="0"
               />
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+
+           
+            <Typography variant="h6" component="div">
+              Insurance:
               <ReactRoundedImage
                 image={`http://localhost:4000/${
                   editData && editData.insuranceImage
@@ -244,22 +145,11 @@ const ModalCall = ({ open, setOpen, editData }) => {
                 imageWidth="120"
                 imageHeight="120"
                 roundedSize="0"
-                borderRadius="30"
+                borderRadius="0"
               />
-              <label htmlFor="insuranceImage">
-                <Input
-                  accept="image/*"
-                  id="insuranceImage"
-                  name="insuranceImage"
-                  type="file"
-                />
-              </label>
             </Typography>
-          </div>
-        </div>
-        <div>
+          </Grid>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            
             <Button
               type="submit"
               onClick={handleClose}
@@ -269,7 +159,7 @@ const ModalCall = ({ open, setOpen, editData }) => {
               Close
             </Button>
           </Typography>
-        </div>
+        </Grid>
       </Box>
     </Modal>
   );

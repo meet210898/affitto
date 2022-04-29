@@ -33,6 +33,7 @@ const Input = styled("input")({
 });
 
 const ModalCall = ({ open, setOpen, editData }) => {
+  const [selectedImage, setSelectedImage] = React.useState();
 
   const statesList = useSelector((state) => state.statesList);
   const { statesInfo } = statesList;
@@ -47,7 +48,6 @@ const ModalCall = ({ open, setOpen, editData }) => {
     dispatch(listStates());
     dispatch(listCities());
   }, [dispatch, navigate]);
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -67,6 +67,13 @@ const ModalCall = ({ open, setOpen, editData }) => {
     dispatch(updateCity(cityId, stateId, cityName, cityImage));
     handleClose();
   };
+
+  const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+    }
+  };
+
   const handleClose = () => setOpen(false);
   return (
     // <div>
@@ -115,19 +122,25 @@ const ModalCall = ({ open, setOpen, editData }) => {
         </Typography>
         <Typography id="modal-modal-description" sx={{ mt: 2 }}>
           <ReactRoundedImage
-            image={`http://localhost:4000/${editData && editData.cityImage}`}
+            image={
+              selectedImage
+                ? URL.createObjectURL(selectedImage)
+                : `http://localhost:4000/${editData && editData.cityImage}`
+            }
             alt="city"
             imageWidth="120"
             imageHeight="120"
             roundedSize="0"
             borderRadius="30"
           />
+
           <label htmlFor="cityImage">
             <Input
               accept="image/*"
               id="cityImage"
               name="cityImage"
               type="file"
+              onChange={imageChange}
             />
             <IconButton
               color="primary"

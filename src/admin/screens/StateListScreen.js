@@ -74,6 +74,9 @@ export default function ViewStateScreen() {
   return (
     <TableContainer component={Paper}>
       <ModalCall open={open} setOpen={setOpen} editData={editData} />
+      <ModalCall>
+        <text></text>
+      </ModalCall>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>

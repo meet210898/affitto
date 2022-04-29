@@ -1,3 +1,4 @@
+import * as React from "react";
 import Topbar from "../components/topbar";
 import Carousel from "react-material-ui-carousel";
 import img1 from "../public/image/rolls_royce_black_badge_ghost_2022_4k_6-3840x2160.jpg";
@@ -6,6 +7,7 @@ import Card from "@mui/material/Card";
 import { makeStyles } from "@mui/styles";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
@@ -24,7 +26,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HomeScreen = () => {
+  const navigate = useNavigate();
   const classes = useStyles();
+  React.useEffect(() => {
+    if (!localStorage.getItem("user-token")) {
+      navigate("/user");
+    }
+  }, [navigate]);
   return (
     <div>
       <Topbar />

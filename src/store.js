@@ -1,4 +1,3 @@
-import { userLoginReducer } from "./reducers/userReducers";
 import {
   stateCreateReducer,
   stateReducer,
@@ -34,13 +33,18 @@ import {
   companyDeleteReducer,
   companyDetailsReducer,
 } from "./reducers/admin/companyReducer";
-import { userCreateReducer, userReducer } from "./reducers/user/userReducer";
+import {
+  userCreateReducer,
+  userReducer,
+  userLoginReducer,
+  userDetailsReducer,
+  userUpdateReducer,
+} from "./reducers/user/userReducer";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const reducer = combineReducers({
-  userLogin: userLoginReducer,
   //STATE
   stateCreate: stateCreateReducer,
   statesList: stateReducer,
@@ -76,6 +80,9 @@ const reducer = combineReducers({
 
   //USER
   userCreate: userCreateReducer,
+  userUpdate:userUpdateReducer,
+  userLogin: userLoginReducer,
+  userDetails: userDetailsReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

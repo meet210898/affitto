@@ -1,5 +1,4 @@
 import * as React from "react";
-import PhotoCamera from "@mui/icons-material/CameraAlt";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -9,7 +8,6 @@ import Typography from "@mui/material/Typography";
 import {
   Button,
   TextField,
-  IconButton,
   InputLabel,
   MenuItem,
   FormControl,
@@ -35,21 +33,7 @@ const AddStateScreen = () => {
   const statesList = useSelector((state) => state.statesList);
   const { statesInfo } = statesList;
 
-  // if (statesInfo) {
-  //   console.log(statesInfo, "stateDetails");
-  // }
-
-  // const { stateInfo } = createState;
-
-  // const userLogin = useSelector((state) => state.userLogin);
-  // const { userInfo } = userLogin;
-
-  // console.log(createState);
-  // React.useEffect(() => {
-  //   if (!userInfo) {
-  //     navigate("/");
-  //   }
-  // }, [navigate, userInfo]);
+  
 
   React.useEffect(() => {
     if (!localStorage.getItem("auth-token")) {

@@ -67,7 +67,6 @@ const AddVehicleScreen = () => {
 
   const handleImageChange = (e) => {
     const { name, files } = e.target;
-    console.log(files,"files")
     setVehicleData({
       ...vehicleData,
       [name]: files[0],

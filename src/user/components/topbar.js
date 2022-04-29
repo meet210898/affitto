@@ -15,7 +15,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../actions/user/userActions";
 
-const pages = ["Products", "Pricing", "Blog", "Register", "Login"];
+const pages = ["Products", "Pricing","Booking", "Blog", "Register"];
 
 const ResponsiveAppBar = () => {
   const dispatch = useDispatch();
@@ -88,16 +88,20 @@ const ResponsiveAppBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <NavLink
-                  style={{ color: "black", textDecoration: "none" }}
-                  to={`/user/${page}`}
-                >
-                  <MenuItem key={page} onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page}</Typography>
-                  </MenuItem>
-                </NavLink>
-              ))}
+              {pages.map((page) =>
+                localStorage.getItem("user-token") && page === "Register" ? (
+                  ""
+                ) : (
+                  <NavLink
+                    style={{ color: "black", textDecoration: "none" }}
+                    to={`/user/${page}`}
+                  >
+                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page}</Typography>
+                    </MenuItem>
+                  </NavLink>
+                )
+              )}
             </Menu>
           </Box>
           <Typography
@@ -109,41 +113,44 @@ const ResponsiveAppBar = () => {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <NavLink style={{ textDecoration: "none" }} to={`/user/${page}`}>
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
+            {pages.map((page) =>
+              localStorage.getItem("user-token") && page === "Register" ? (
+                ""
+              ) : (
+                <NavLink
+                  style={{ textDecoration: "none" }}
+                  to={`/user/${page}`}
                 >
-                  {page}
-                </Button>
-              </NavLink>
-            ))}
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    {page}
+                  </Button>
+                </NavLink>
+              )
+            )}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <NavLink
-              style={{ color: "white", textDecoration: "none" }}
-              to="/user/registerAgency"
-            >
-              <Button
-                variant="contained"
-                sx={{
-                  borderRadius: 28,
-                  backgroundColor: "#9c27b0 !important",
-                  color: "white",
-                }}
+            {localStorage.getItem("user-token") ? (
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
+            ) : (
+              <NavLink
+                style={{ color: "white", textDecoration: "none" }}
+                to={`/user/Login`}
               >
-                + Register As Agency
-              </Button>
-            </NavLink>
-            &nbsp;&nbsp;
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+                <MenuItem key="Login" onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center">Login</Typography>
+                </MenuItem>
+              </NavLink>
+            )}
+
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"

@@ -53,9 +53,11 @@ export default function UserLoginScreen() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const emailId = data.get("email");
+    const pwd = data.get("password")
     const loginData = {
-      email: data.get("email"),
-      password: data.get("password"),
+      email: emailId,
+      password: pwd,
     };
     dispatch(loginUser(loginData));
   };

@@ -24,7 +24,7 @@ const Input = styled("input")({
   display: "none",
 });
 
-const ModalCall = ({ open, setOpen, editData }) => {
+const ModalCall = ({ open, setOpen, editData, children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleOpen = () => {

@@ -25,7 +25,6 @@ const AddStateScreen = () => {
     setTypeImage(event.target.files[0]);
   }
 
-  console.log(typeImage, "typeImage");
   
   React.useEffect(() => {
     if (!localStorage.getItem("auth-token")) {
