@@ -1,6 +1,8 @@
 const State = require("../../model/admin/stateModel");
 const City = require("../../model/admin/cityModel");
 const User = require("../../model/user/registerUserModel");
+const VehicleType = require("../../model/admin/vehicleTypeModel");
+const Company = require("../../model/admin/companyModel");
 const multer = require("multer");
 
 let storage = multer.diskStorage({
@@ -34,7 +36,6 @@ const getState = async (req, res) => {
     res.status(200).send(state);
   } catch (e) {
     res.status(500).send({ error: e.message });
-    
   }
 };
 
@@ -42,6 +43,24 @@ const getCity = async (req, res) => {
   try {
     const city = await City.find({});
     res.status(200).send(city);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const getVehicleType = async (req, res) => {
+  try {
+    const vehicleType = await VehicleType.find({});
+    res.status(200).send(vehicleType);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const getCompany = async (req, res) => {
+  try {
+    const company = await Company.find({});
+    res.status(200).send(company);
   } catch (e) {
     res.status(500).send({ error: e.message });
   }
@@ -98,4 +117,6 @@ module.exports = {
   getUserById,
   editUser,
   upload,
+  getVehicleType,
+  getCompany,
 };

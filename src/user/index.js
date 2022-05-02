@@ -5,6 +5,8 @@ import UserLoginScreen from "../user/screens/UserLoginScreen";
 import UserRegisterScreen from "./screens/UserRegisterScreen";
 import AgencyRegisterScreen from "./screens/AgencyRegisterScreen";
 import UserProfileScreen from "./screens/UserProfileScreen";
+import CompanyList from "./screens/CompanyScreen";
+import VehicleList from "./screens/VehicleScreen";
 
 const index = () => {
   return (
@@ -15,6 +17,8 @@ const index = () => {
         <Route path="/user/register" element={<UserRegisterScreen />} />
         <Route path="/user/registerAgency" element={<AgencyRegisterScreen />} />
         <Route path="/user/profile" element={<UserProfileScreen />} />
+        <Route path="/user/company" element={<CompanyList />} />
+        <Route path="/user/vehicles" element={<VehicleList />} />
       </Routes>
     </BrowserRouter>
   );

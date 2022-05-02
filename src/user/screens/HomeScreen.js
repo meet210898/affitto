@@ -8,7 +8,14 @@ import { makeStyles } from "@mui/styles";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@mui/material";
+
+import {
+  getCities,
+  getCompany,
+  getVehicleType,
+} from "../../actions/user/userActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
   React.useEffect(() => {
@@ -33,6 +41,21 @@ const HomeScreen = () => {
       navigate("/user");
     }
   }, [navigate]);
+  React.useEffect(() => {
+    dispatch(getCompany());
+    dispatch(getCities());
+    dispatch(getVehicleType());
+  }, [dispatch]);
+
+  const companyList = useSelector((state) => state.companyList);
+  const { companiesInfo } = companyList;
+
+  const cityList = useSelector((state) => state.cityList);
+  const { citiesInfo } = cityList;
+
+  const vehicleTypeList = useSelector((state) => state.vehicleTypeList);
+  const { vehicleTypesInfo } = vehicleTypeList;
+
   return (
     <div>
       <Topbar />
@@ -99,6 +122,58 @@ const HomeScreen = () => {
               Category
             </Typography>
           </Card>
+        </Grid>
+      </Grid>
+      <Grid container justifyContent="center">
+        <h2>Browse Our Listing</h2>
+      </Grid>
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-evenly"
+        alignItems="start"
+      >
+        <Grid xs={3} >
+          <h4>Company</h4>
+          <ul
+            style={{
+              listStyleType: "none",
+              textAlign: "left",
+              paddingInlineStart: "0px",
+            }}
+          >
+            {companiesInfo?.map((data) => {
+              return <li>{data.companyName}</li>;
+            })}
+          </ul>
+        </Grid>
+        <Grid xs={3}>
+          <h4>Cities</h4>
+          <ul
+            style={{
+              listStyleType: "none",
+              textAlign: "left",
+              paddingInlineStart: "0px",
+            }}
+          >
+            {citiesInfo?.map((data) => {
+              return <li>{data.cityName}</li>;
+            })}
+          </ul>
+        </Grid>
+        <Grid xs={3}>
+          <h4>Category</h4>
+          <ul
+            style={{
+              listStyleType: "none",
+              textAlign: "left",
+              paddingInlineStart: "0px",
+            }}
+          >
+            {vehicleTypesInfo?.map((data) => {
+              return <li>{data.typeName}</li>;
+            })}
+          </ul>
         </Grid>
       </Grid>
     </div>

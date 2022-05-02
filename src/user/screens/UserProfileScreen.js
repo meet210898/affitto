@@ -11,10 +11,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Container from "@mui/material/Container";
-import { listCities } from "../../actions/admin/cityActions";
-import { listStates } from "../../actions/admin/stateActions";
+import { getCities, getStates } from "../../actions/user/userActions";
 import EditIcon from "@mui/icons-material/Edit";
-import PhotoCamera from "@mui/icons-material/CameraAlt";
 import { styled } from "@mui/material/styles";
 import EditPopover from "../components/popover/index";
 
@@ -31,14 +29,6 @@ const Input = styled("input")({
 export default function UserProfileScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [userData, setUserData] = React.useState({
-  //   value: "",
-  //   anchorEl: null,
-  //   type: "",
-  //   name: "",
-  //   label:"",
-  //   infoArr:[],
-  // });
   const [value, setValue] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [type, setType] = React.useState("");
@@ -55,13 +45,15 @@ export default function UserProfileScreen() {
     }
   }, [navigate, decodeUserId]);
 
+  console.log(decodeUserId, "decodeUserId");
+
   const userUpdate = useSelector((state) => state.userUpdate);
   const { success } = userUpdate;
 
   React.useEffect(() => {
     dispatch(listUserDetails(decodeUserId._id));
-    dispatch(listStates());
-    dispatch(listCities());
+    dispatch(getStates());
+    dispatch(getCities());
   }, [dispatch, decodeUserId._id, success]);
 
   const cityList = useSelector((state) => state.cityList);
@@ -98,8 +90,6 @@ export default function UserProfileScreen() {
 
   const changeImage = (event) => {
     event.preventDefault();
-    console.log(event, "event");
-    console.log(event.target.files[0]);
 
     const emptyData = new FormData();
     emptyData.append("personalImage", event.target.files[0]);
@@ -123,15 +113,12 @@ export default function UserProfileScreen() {
                 boxShadow: "2px 1px 9px 2px #888888",
               }}
             >
-              <Grid container display="flex">
-                <ReactRoundedImage
-                  image={`http://localhost:4000/${user.personalImage}`}
-                  alt="vehicle"
-                  style={{ objectFit: "cover" }}
-                  imageWidth="150"
-                  imageHeight="150"
-                  roundedSize="0"
-                />
+              <Grid
+                container
+                display="flex"
+                justifyContent="center"
+                title="Click to change the Profile Picture"
+              >
                 <label htmlFor="personalImage">
                   <Input
                     accept="image/*"
@@ -145,10 +132,25 @@ export default function UserProfileScreen() {
                     aria-label="upload picture"
                     component="span"
                   >
-                    <PhotoCamera />
+                    <ReactRoundedImage
+                      image={`http://localhost:4000/${user.personalImage}`}
+                      alt="vehicle"
+                      style={{ objectFit: "cover" }}
+                      imageWidth="150"
+                      imageHeight="150"
+                      roundedSize="0"
+                    />
                   </IconButton>
                 </label>
-                <h2 style={{ marginLeft: "10px", marginTop: "65px" }}>
+              </Grid>
+              <Grid container display="flex" justifyContent="center">
+                <h3
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    margin: "0 0 0 8px",
+                  }}
+                >
                   {user.firstName} {user.lastName}{" "}
                   <IconButton
                     onClick={(event) => {
@@ -164,7 +166,7 @@ export default function UserProfileScreen() {
                   >
                     <EditIcon fontSize="inherit" />
                   </IconButton>
-                </h2>
+                </h3>
               </Grid>
 
               <Grid container>
@@ -202,8 +204,8 @@ export default function UserProfileScreen() {
                         setInfoArr(
                           citiesInfo?.map((data) => ({
                             stateId: data.stateId,
-                            dataId: data._id,
-                            dataName: data.cityName,
+                            cityId: data._id,
+                            cityName: data.cityName,
                           }))
                         );
                       }}

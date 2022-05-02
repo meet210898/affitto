@@ -7,15 +7,16 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { logout } from "../../actions/user/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { listUserDetails, logout } from "../../actions/user/userActions";
+import jwt_decode from "jwt-decode";
+import ReactRoundedImage from "react-rounded-image";
 
-const pages = ["Products", "Pricing","Booking", "Blog", "Register"];
+const pages = ["Home", "Company","Vehicles", "Booking", "Register"];
 
 const ResponsiveAppBar = () => {
   const dispatch = useDispatch();
@@ -41,12 +42,24 @@ const ResponsiveAppBar = () => {
     dispatch(logout());
   };
 
+  React.useEffect(() => {
+    if (localStorage.getItem("user-token")) {
+      const userId = localStorage.getItem("user-token");
+      const decodeUserId = jwt_decode(userId);
+
+      dispatch(listUserDetails(decodeUserId._id));
+    }
+  }, [dispatch]);
+
+  const userDetails = useSelector((state) => state.userDetails);
+  const { user } = userDetails;
+
   return (
-    <AppBar position="static">
+    <AppBar style={{ backgroundColor: "white" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <NavLink
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "black", textDecoration: "none" }}
             to="/user"
           >
             <Typography
@@ -67,6 +80,7 @@ const ResponsiveAppBar = () => {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
+              style={{ color: "black" }}
             >
               <MenuIcon />
             </IconButton>
@@ -96,7 +110,11 @@ const ResponsiveAppBar = () => {
                     style={{ color: "black", textDecoration: "none" }}
                     to={`/user/${page}`}
                   >
-                    <MenuItem key={page} onClick={handleCloseNavMenu}>
+                    <MenuItem
+                      style={{ color: "black" }}
+                      key={page}
+                      onClick={handleCloseNavMenu}
+                    >
                       <Typography textAlign="center">{page}</Typography>
                     </MenuItem>
                   </NavLink>
@@ -109,6 +127,7 @@ const ResponsiveAppBar = () => {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            style={{ color: "black" }}
           >
             LOGO
           </Typography>
@@ -124,7 +143,7 @@ const ResponsiveAppBar = () => {
                   <Button
                     key={page}
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
+                    sx={{ my: 2, color: "black", display: "block" }}
                   >
                     {page}
                   </Button>
@@ -137,12 +156,19 @@ const ResponsiveAppBar = () => {
             {localStorage.getItem("user-token") ? (
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                  <ReactRoundedImage
+                    image={`http://localhost:4000/${user.personalImage}`}
+                    alt="vehicle"
+                    style={{ objectFit: "cover" }}
+                    imageWidth="50"
+                    imageHeight="50"
+                    roundedSize="0"
+                  />
                 </IconButton>
               </Tooltip>
             ) : (
               <NavLink
-                style={{ color: "white", textDecoration: "none" }}
+                style={{ color: "black", textDecoration: "none" }}
                 to={`/user/Login`}
               >
                 <MenuItem key="Login" onClick={handleCloseNavMenu}>

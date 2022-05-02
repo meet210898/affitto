@@ -10,6 +10,16 @@ import {
   CITY_LIST_MY_FAIL,
 } from "../../constants/admin/cityConstants";
 import {
+  VEHICLETYPE_LIST_MY_REQUEST,
+  VEHICLETYPE_LIST_MY_SUCCESS,
+  VEHICLETYPE_LIST_MY_FAIL,
+} from "../../constants/admin/vehicleTypeConstants";
+import {
+  COMPANY_LIST_MY_REQUEST,
+  COMPANY_LIST_MY_SUCCESS,
+  COMPANY_LIST_MY_FAIL,
+} from "../../constants/admin/companyConstants";
+import {
   USER_CREATE_REQUEST,
   USER_CREATE_SUCCESS,
   USER_CREATE_FAIL,
@@ -24,7 +34,6 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
 } from "../../constants/user/userConstants";
-
 export const getStates = () => async (dispatch) => {
   try {
     dispatch({
@@ -63,6 +72,54 @@ export const getCities = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: CITY_LIST_MY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getCompany = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: COMPANY_LIST_MY_REQUEST,
+    });
+
+    const { data } = await axios.get(`http://localhost:4000/user/getCompany`);
+
+    dispatch({
+      type: COMPANY_LIST_MY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: COMPANY_LIST_MY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getVehicleType = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: VEHICLETYPE_LIST_MY_REQUEST,
+    });
+
+    const { data } = await axios.get(
+      `http://localhost:4000/user/getVehicleType`
+    );
+
+    dispatch({
+      type: VEHICLETYPE_LIST_MY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: VEHICLETYPE_LIST_MY_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -110,7 +167,7 @@ export const updateProfile = (userId, profileData) => async (dispatch) => {
     };
 
     const { data } = await axios.patch(
-      `http://localhost:4000/editUser/${userId}`,
+      `http://localhost:4000/user/editUser/${userId}`,
       profileData,
       config
     );
