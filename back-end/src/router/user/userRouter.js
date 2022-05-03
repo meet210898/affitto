@@ -8,6 +8,8 @@ const {
   upload,
   getVehicleType,
   getCompany,
+  getVehicle,
+  getVehicleById,
 } = require("../../controller/user/userController");
 
 router.get("/user/getState", getState);
@@ -16,5 +18,7 @@ router.patch("/user/editUser/:id", upload.single("personalImage"), editUser);
 router.get("/user/getUserById/:id", getUserById);
 router.get("/user/getVehicleType", getVehicleType);
 router.get("/user/getCompany", getCompany);
+router.get("/user/getVehicle", getVehicle);
+router.get("/user/getVehicleById/:id", getVehicleById);
 
 module.exports = router;

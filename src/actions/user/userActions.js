@@ -20,6 +20,14 @@ import {
   COMPANY_LIST_MY_FAIL,
 } from "../../constants/admin/companyConstants";
 import {
+  VEHICLE_LIST_MY_REQUEST,
+  VEHICLE_LIST_MY_SUCCESS,
+  VEHICLE_LIST_MY_FAIL,
+  VEHICLE_DETAILS_REQUEST,
+  VEHICLE_DETAILS_SUCCESS,
+  VEHICLE_DETAILS_FAIL,
+} from "../../constants/admin/vehicleConstants";
+import {
   USER_CREATE_REQUEST,
   USER_CREATE_SUCCESS,
   USER_CREATE_FAIL,
@@ -95,6 +103,50 @@ export const getCompany = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: COMPANY_LIST_MY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listVehicle = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: VEHICLE_LIST_MY_REQUEST,
+    });
+
+    const { data } = await axios.get(`http://localhost:4000/user/getVehicle`);
+
+    dispatch({
+      type: VEHICLE_LIST_MY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: VEHICLE_LIST_MY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listVehicleDetails = (vehicleId) => async (dispatch) => {
+  dispatch({ type: VEHICLE_DETAILS_REQUEST });
+  try {
+    const { data } = await axios.get(
+      `http://localhost:4000/user/getVehicleById/${vehicleId}`
+    );
+    dispatch({
+      type: VEHICLE_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: VEHICLE_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

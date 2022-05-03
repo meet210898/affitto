@@ -4,6 +4,7 @@ const User = require("../../model/user/registerUserModel");
 const VehicleType = require("../../model/admin/vehicleTypeModel");
 const Company = require("../../model/admin/companyModel");
 const multer = require("multer");
+const Vehicle = require("../../model/admin/vehicleModel");
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -66,6 +67,25 @@ const getCompany = async (req, res) => {
   }
 };
 
+const getVehicle = async (req, res) => {
+  try {
+    const vehicle = await Vehicle.find({});
+    res.status(200).send(vehicle);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const getVehicleById = async (req, res) => {
+  try {
+    const vehicleId = req.params.id;
+    const vehicle = await Vehicle.findById(vehicleId);
+    res.status(200).send(vehicle);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
 const getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -119,4 +139,6 @@ module.exports = {
   upload,
   getVehicleType,
   getCompany,
+  getVehicle,
+  getVehicleById,
 };
