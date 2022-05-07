@@ -94,7 +94,7 @@ export default function UserProfileScreen() {
     const emptyData = new FormData();
     emptyData.append("personalImage", event.target.files[0]);
 
-    dispatch(updateProfile(user._id, emptyData));
+    dispatch(updateProfile(user?._id, emptyData));
   };
 
   return (
@@ -133,7 +133,7 @@ export default function UserProfileScreen() {
                     component="span"
                   >
                     <ReactRoundedImage
-                      image={`http://localhost:4000/${user.personalImage}`}
+                      image={`http://localhost:4000/${user?.personalImage}`}
                       alt="vehicle"
                       style={{ objectFit: "cover" }}
                       imageWidth="150"
@@ -176,20 +176,6 @@ export default function UserProfileScreen() {
                 <Grid display="block" xs={6}>
                   <Typography mt={2} component="div">
                     <b>Email</b>{" "}
-                    <IconButton
-                      onClick={(event) => {
-                        handleClick(event);
-                        setValue(user.email);
-                        setType("textField");
-                        setName("email");
-                        setLabel("Email");
-                      }}
-                      aria-label="edit"
-                      size="small"
-                      color="primary"
-                    >
-                      <EditIcon fontSize="inherit" />
-                    </IconButton>
                   </Typography>
                   {user.email}
                   <Typography marginTop="30px" mt={2} component="div">

@@ -18,8 +18,6 @@ export default function VehicleDetails() {
   const vehicleDetails = useSelector((state) => state.vehicleDetails);
   const { vehicle } = vehicleDetails;
 
-  console.log(vehicle, "vehicle");
-
   const companyList = useSelector((state) => state.companyList);
   const { companiesInfo } = companyList;
 

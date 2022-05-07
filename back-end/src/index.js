@@ -11,6 +11,7 @@ const vehicleTypeRouter = require("./router/admin/vehicleTypeRouter");
 const companyRouter = require("./router/admin/companyRouter");
 const adminUserRouter = require("./router/admin/userRouter");
 const vehicleRoutter = require("./router/admin/vehicleRouter");
+const faqRouter = require("./router/admin/faqRouter");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -25,10 +26,11 @@ app.use(
 app.use(stateRouter);
 app.use(cityRouter);
 app.use(loginRouter);
-app.use(vehicleTypeRouter)
+app.use(vehicleTypeRouter);
 app.use(companyRouter);
 app.use(adminUserRouter);
 app.use(vehicleRoutter);
+app.use(faqRouter);
 //user
 app.use(registerUserRouter);
 app.use(userRouter);

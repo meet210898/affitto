@@ -15,6 +15,19 @@ import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../actions/loginActions";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Collapse from "@mui/material/Collapse";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ExpandMore from "@mui/icons-material/ExpandMore";
+import PersonIcon from "@mui/icons-material/Person";
+import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
+import HouseIcon from "@mui/icons-material/House";
+import LocationCityIcon from "@mui/icons-material/LocationCity";
+import CarRentalIcon from "@mui/icons-material/CarRental";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 
 const drawerWidth = 240;
 
@@ -27,12 +40,32 @@ function Sidebar(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const pages = [
+    { page: "State", icon: <AddLocationAltIcon style={{ color: "white" }} /> },
+    { page: "City", icon: <LocationCityIcon style={{ color: "white" }} /> },
+    { page: "VehicleType", icon: <CarRentalIcon style={{ color: "white" }} /> },
+    { page: "Company", icon: <HouseIcon style={{ color: "white" }} /> },
+    { page: "Vehicle", icon: <DirectionsCarIcon style={{ color: "white" }} /> },
+    { page: "Faq", icon: <QuestionAnswerIcon style={{ color: "white" }} /> },
+  ];
+
   const useStyles = makeStyles({
     paper: {
       backgroundColor: "#21325E !important",
       color: "white !important",
     },
   });
+  const [open, setOpen] = React.useState({
+    State: false,
+    City: false,
+    VehicleType: false,
+    Company: false,
+    Vehicle: false,
+  });
+
+  const handleClick = (page) => {
+    setOpen({ ...open, [page]: !open[page] });
+  };
 
   const classes = useStyles();
 
@@ -45,68 +78,42 @@ function Sidebar(props) {
           style={{ color: "white", textDecoration: "none" }}
           to="/AdminDashboard/viewUser"
         >
-          <ListItem name="Users" icon="fa fa-building" />
+          <ListItemButton>
+            <ListItemIcon>
+              <PersonIcon style={{ color: "white" }} />
+            </ListItemIcon>
+            <ListItemText primary="User" />
+          </ListItemButton>
         </NavLink>
-        <NavLink
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/AddCity"
-        >
-          <ListItem name="City" icon="fa fa-building" />
-        </NavLink>
-        <NavLink
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/viewCity"
-        >
-          <ListItem name="View City" icon="fa fa-building" />
-        </NavLink>
-        <NavLink
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/State"
-        >
-          <ListItem name="State" icon="fa fa-map-pin" />
-        </NavLink>
-        <NavLink
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/viewState"
-        >
-          <ListItem name="View State" icon="fa fa-building" />
-        </NavLink>
-        <NavLink
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/addVehicletype"
-        >
-          <ListItem name="Add Vehicle Type" icon="fa fa-building" />
-        </NavLink>
-        <NavLink
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/ViewVehicleType"
-        >
-          <ListItem name="View Vehicle Type" icon="fa fa-building" />
-        </NavLink>
-        <NavLink
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/addCompany"
-        >
-          <ListItem name="Add Company" icon="fa fa-building" />
-        </NavLink>
-        <NavLink
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/ViewCompany"
-        >
-          <ListItem name="View Company" icon="fa fa-building" />
-        </NavLink>
-        <NavLink
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/AddVehicle"
-        >
-          <ListItem name="Add Vehicle" icon="fa fa-building" />
-        </NavLink>
-        <NavLink
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/ViewVehicle"
-        >
-          <ListItem name="View Vehicle" icon="fa fa-building" />
-        </NavLink>
+        {pages.map((item) => (
+          <>
+            <ListItemButton onClick={() => handleClick(item.page)}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.page} />
+              {open[item.page] ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={open[item.page]} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <NavLink
+                    style={{ color: "white", textDecoration: "none" }}
+                    to={`/AdminDashboard/add${item.page}`}
+                  >
+                    <ListItem name={`Add ${item.page}`} />
+                  </NavLink>
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <NavLink
+                    style={{ color: "white", textDecoration: "none" }}
+                    to={`/AdminDashboard/view${item.page}`}
+                  >
+                    <ListItem name={`View ${item.page}`} />
+                  </NavLink>
+                </ListItemButton>
+              </List>
+            </Collapse>
+          </>
+        ))}
       </List>
       <Divider style={{ backgroundColor: "white" }} />
     </div>

@@ -35,6 +35,16 @@ const vehicleSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  fuelType: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  transmission: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   ac: {
     type: Boolean,
     required: true,

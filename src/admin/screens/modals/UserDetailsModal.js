@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { listCities } from "../../../actions/admin/cityActions";
 import { listStates } from "../../../actions/admin/stateActions";
+import { updateUserStatus } from "../../../actions/admin/userActions";
 
 const style = {
   position: "absolute",
@@ -18,6 +19,8 @@ const style = {
 };
 
 const ModalCall = ({ open, setOpen, editData }) => {
+  const [status, setStatus] = React.useState(null);
+
   const statesList = useSelector((state) => state.statesList);
   const { statesInfo } = statesList;
 
@@ -38,6 +41,11 @@ const ModalCall = ({ open, setOpen, editData }) => {
     dispatch(listCities());
   }, [dispatch, navigate]);
 
+  const editStatus = (userId) => {
+    dispatch(updateUserStatus(userId, { isVerify: status }));
+    handleClose();
+  };
+
   const handleClose = () => setOpen(false);
   return (
     // <div>
@@ -50,19 +58,12 @@ const ModalCall = ({ open, setOpen, editData }) => {
     >
       <Box sx={style}>
         <Grid container>
-          {/* <Grid md={12}>
-            <h1>Information</h1>
-          </Grid> */}
           <Grid xs={12}>
             <img
               src={`http://localhost:4000/${
                 editData && editData.personalImage
               }`}
               alt="city"
-              // imageWidth="100%"
-              // imageHeight="150"
-              // roundedSize="0"
-              // borderRadius="30"
               style={{ width: "100%", height: "200px", maxWidth: "100%" }}
             />
           </Grid>
@@ -81,10 +82,43 @@ const ModalCall = ({ open, setOpen, editData }) => {
 
             <Typography id="modal-modal-title" variant="h6" component="h2">
               <Typography variant="h6" component="div">
-                Name:{fullName}
+                Name: {fullName}
               </Typography>
               <Typography variant="h6" component="div">
-                City Name:
+                Email: {editData && editData.email}
+              </Typography>
+              <Typography variant="h6" component="div">
+                Status:{" "}
+                <Button
+                  variant="contained"
+                  style={{
+                    height: "auto",
+                    width: "auto",
+                    fontSize: "12px",
+                    fontWeight: "bold",
+                  }}
+                  color={
+                    editData && editData.isVerify === true ? "success" : "error"
+                  }
+                  onClick={() => {
+                    editStatus(editData && editData._id);
+                    setStatus(editData && editData.isVerify);
+                  }}
+                >
+                  {editData && editData.isVerify === true
+                    ? "Verified"
+                    : "Not Verified"}
+                </Button>
+              </Typography>
+
+              <Typography variant="h6" component="div">
+                Contact: {editData && editData.phoneNumber}
+              </Typography>
+              <Typography variant="h6" component="div">
+                Address: {editData && editData.address}
+              </Typography>
+              <Typography variant="h6" component="div">
+                City:{" "}
                 {citiesInfo?.map((data) => {
                   return data._id === (editData && editData.cityId)
                     ? data.cityName
@@ -92,7 +126,7 @@ const ModalCall = ({ open, setOpen, editData }) => {
                 })}
               </Typography>
               <Typography variant="h6" component="div">
-                State Name:
+                State:{" "}
                 {statesInfo?.map((data) => {
                   return data._id === (editData && editData.stateId)
                     ? data.stateName
@@ -100,16 +134,7 @@ const ModalCall = ({ open, setOpen, editData }) => {
                 })}
               </Typography>
               <Typography variant="h6" component="div">
-                Email:{editData && editData.email}
-              </Typography>
-              <Typography variant="h6" component="div">
-                Contact:{editData && editData.phoneNumber}
-              </Typography>
-              <Typography variant="h6" component="div">
-                Address:{editData && editData.address}
-              </Typography>
-              <Typography variant="h6" component="div">
-                Pincode:{editData && editData.pincode}
+                Pincode: {editData && editData.pincode}
               </Typography>
             </Typography>
 

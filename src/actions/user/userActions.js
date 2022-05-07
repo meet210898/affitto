@@ -41,6 +41,9 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
+  VEHICLEBYCOMPANY_DETAILS_REQUEST,
+  VEHICLEBYCOMPANY_DETAILS_SUCCESS,
+  VEHICLEBYCOMPANY_DETAILS_FAIL,
 } from "../../constants/user/userConstants";
 export const getStates = () => async (dispatch) => {
   try {
@@ -156,19 +159,19 @@ export const listVehicleDetails = (vehicleId) => async (dispatch) => {
 };
 
 export const listVehicleByCompanyDetails = (companyId) => async (dispatch) => {
-  dispatch({ type: VEHICLE_DETAILS_REQUEST });
+  dispatch({ type: VEHICLEBYCOMPANY_DETAILS_REQUEST });
   try {
     const { data } = await axios.get(
       `http://localhost:4000/user/getVehicleByCompanyId/${companyId}`
     );
     console.log(data, "data--------------");
     dispatch({
-      type: VEHICLE_DETAILS_SUCCESS,
+      type: VEHICLEBYCOMPANY_DETAILS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: VEHICLE_DETAILS_FAIL,
+      type: VEHICLEBYCOMPANY_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

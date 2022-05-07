@@ -9,7 +9,8 @@ import CompanyList from "./screens/CompanyScreen";
 import VehicleList from "./screens/VehicleScreen";
 import VehicleDetails from "./screens/VehicleDetails";
 import VehicleByCompanyScreen from "./screens/VehicleByCompanyScreen";
-import BookingScreen from "./screens/BookingScreen.js";
+import BookingScreen from "./screens/BookingScreen";
+import BookingList from "./screens/BookingListScreen";
 
 const index = () => {
   return (
@@ -22,7 +23,8 @@ const index = () => {
         <Route path="/user/profile" element={<UserProfileScreen />} />
         <Route path="/user/company" element={<CompanyList />} />
         <Route path="/user/vehicles" element={<VehicleList />} />
-        <Route path="/user/booking" element={<BookingScreen />} />
+        <Route path="/user/booking/:vehicleId" element={<BookingScreen />} />
+        <Route path="/user/booking" element={<BookingList />} />
         <Route
           path="/user/vehicledetails/:vehicleId"
           element={<VehicleDetails />}

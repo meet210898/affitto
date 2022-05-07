@@ -9,6 +9,19 @@ const getUser = async (req, res) => {
   }
 };
 
+const editUser = async (req, res) => {
+  const status = req.body;
+  try {
+    let user = await User.findByIdAndUpdate(req.params.id, {
+      $set: { isVerify: status.isVerify },
+    });
+
+    res.send(user);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
 const getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -22,4 +35,5 @@ const getUserById = async (req, res) => {
 module.exports = {
   getUser,
   getUserById,
+  editUser,
 };

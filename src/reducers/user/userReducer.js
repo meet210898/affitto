@@ -17,6 +17,9 @@ import {
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAIL,
   USER_UPDATE_RESET,
+  VEHICLEBYCOMPANY_DETAILS_REQUEST,
+  VEHICLEBYCOMPANY_DETAILS_SUCCESS,
+  VEHICLEBYCOMPANY_DETAILS_FAIL,
 } from "../../constants/user/userConstants";
 
 export const userCreateReducer = (state = {}, action) => {
@@ -77,7 +80,10 @@ export const userReducer = (state = { usersInfo: [] }, action) => {
   }
 };
 
-export const userDetailsReducer = (user = { user: { reviews: [] } }, action) => {
+export const userDetailsReducer = (
+  user = { user: { reviews: [] } },
+  action
+) => {
   switch (action.type) {
     case USER_DETAILS_REQUEST:
       return { loading: true, ...user };
@@ -87,5 +93,21 @@ export const userDetailsReducer = (user = { user: { reviews: [] } }, action) => 
       return { loading: false, error: action.payload };
     default:
       return user;
+  }
+};
+
+export const listVehicleByCompanyDetails = (
+  state = { state: { vehicleByCompany: [] } },
+  action
+) => {
+  switch (action.type) {
+    case VEHICLEBYCOMPANY_DETAILS_REQUEST:
+      return { loading: true, ...state };
+    case VEHICLEBYCOMPANY_DETAILS_SUCCESS:
+      return { loading: false, vehicleByCompany: action.payload };
+    case VEHICLEBYCOMPANY_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
   }
 };

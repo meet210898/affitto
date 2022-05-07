@@ -205,7 +205,7 @@ const TopBar = () => {
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <ReactRoundedImage
-                    image={`http://localhost:4000/${user.personalImage}`}
+                    image={`http://localhost:4000/${user?.personalImage}`}
                     alt="vehicle"
                     style={{ objectFit: "cover" }}
                     imageWidth="50"
@@ -220,7 +220,17 @@ const TopBar = () => {
                 to={`/user/Login`}
               >
                 <MenuItem key="Login" onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">Login</Typography>
+                  <Button
+                    sx={{
+                      my: 2,
+                      color: "black",
+                      display: "block",
+                      fontSize: "18px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Login
+                  </Button>
                 </MenuItem>
               </NavLink>
             )}

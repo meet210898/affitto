@@ -2,6 +2,9 @@ import {
   USER_LIST_MY_REQUEST,
   USER_LIST_MY_SUCCESS,
   USER_LIST_MY_FAIL,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAIL,
 } from "../../constants/user/userConstants";
 import axios from "axios";
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
@@ -37,6 +40,39 @@ const userToken = JSON.parse(localStorage.getItem("auth-token"));
 //   }
 // };
 
+export const updateUserStatus = (userId, status) => async (dispatch) => {
+  try {
+    dispatch({
+      type: USER_UPDATE_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken.token}`,
+      },
+    };
+
+    const { data } = await axios.patch(
+      `http://localhost:4000/editUser/${userId}`,
+      status,
+      config
+    );
+
+    dispatch({
+      type: USER_UPDATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: USER_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const listUser = () => async (dispatch) => {
   try {
     dispatch({
@@ -49,10 +85,7 @@ export const listUser = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(
-      `http://localhost:4000/getUser`,
-      config
-    );
+    const { data } = await axios.get(`http://localhost:4000/getUser`, config);
 
     dispatch({
       type: USER_LIST_MY_SUCCESS,

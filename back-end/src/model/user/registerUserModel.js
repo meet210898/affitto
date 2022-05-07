@@ -87,7 +87,7 @@ registerUserSchema.methods.generateAuthToken = function () {
 };
 
 registerUserSchema.statics.findByCredentials = async (email, password) => {
-  const user = await registerUser.findOne({ email });
+  const user = await registerUser.findOne({ email: email, isVerify: true });
   if (!user) {
     throw new Error("Unable to find user by email");
   }

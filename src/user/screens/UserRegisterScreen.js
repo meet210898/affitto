@@ -62,15 +62,17 @@ const UserRegisterScreen = () => {
   const cityList = useSelector((state) => state.cityList);
   const { citiesInfo } = cityList;
 
+  console.log(citiesInfo, "citiesInfo");
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const emptyData = new FormData();
-    emptyData.append("firstName",data.get("firstName"))
+    emptyData.append("firstName", data.get("firstName"));
     emptyData.append("lastName", data.get("lastName"));
     emptyData.append("phoneNumber", data.get("phoneNumber"));
     emptyData.append("stateId", stateId);
-    emptyData.append("cityId",cityId);
+    emptyData.append("cityId", cityId);
     emptyData.append("username", data.get("username"));
     emptyData.append("email", data.get("email"));
     emptyData.append("password", data.get("password"));
@@ -81,7 +83,7 @@ const UserRegisterScreen = () => {
 
     dispatch(addUser(emptyData));
   };
-
+  console.log(statesInfo, stateId, "statessssssssssssssssssss");
   return (
     <Grid>
       <Topbar />
@@ -146,7 +148,7 @@ const UserRegisterScreen = () => {
                     id="address"
                     name="address"
                     aria-label="maximum height"
-                    placeholder="Agency Address"
+                    placeholder="Address"
                     autoFocus
                     style={{ width: "100%", height: "100px" }}
                   />
@@ -172,10 +174,16 @@ const UserRegisterScreen = () => {
                         name="stateId"
                         label="State"
                         value={stateId}
-                        onChange={(e) => setStateId(e.target.value)}
+                        // defaultValue=""
+                        onChange={(e) => {
+                          console.log(e, "ffff");
+                          setStateId(e.target.value);
+                        }}
                       >
                         {statesInfo?.map((data) => (
-                          <MenuItem value={data._id}>{data.stateName}</MenuItem>
+                          <MenuItem key={data._id} value={data._id}>
+                            {data.stateName}
+                          </MenuItem>
                         ))}
                       </Select>
                     </FormControl>
@@ -191,18 +199,20 @@ const UserRegisterScreen = () => {
                         id="cityName"
                         name="cityName"
                         label="City"
+                        defaultValue=""
                         value={cityId}
                         onChange={(e) => setCityId(e.target.value)}
                       >
-                        {citiesInfo?.map((data) => {
-                          if (stateId === data.stateId)
+                        {citiesInfo
+                          ?.filter((item) => stateId === item.stateId)
+                          .map((data) => {
                             return (
-                              <MenuItem value={data._id}>
+                              <MenuItem key={data._id} value={data._id}>
                                 {data.cityName}
                               </MenuItem>
                             );
-                          else return "Please select State first!";
-                        })}
+                            // else return "Please select State first!";
+                          })}
                       </Select>
                     </FormControl>
                   </Box>

@@ -27,6 +27,13 @@ import {
   vehicleDetailsReducer,
 } from "./reducers/admin/vehicleReducer";
 import {
+  faqCreateReducer,
+  faqReducer,
+  faqUpdateReducer,
+  faqDeleteReducer,
+  faqDetailsReducer,
+} from "./reducers/admin/faqReducer";
+import {
   companyCreateReducer,
   companyReducer,
   companyUpdateReducer,
@@ -39,6 +46,7 @@ import {
   userLoginReducer,
   userDetailsReducer,
   userUpdateReducer,
+  listVehicleByCompanyDetails,
 } from "./reducers/user/userReducer";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
@@ -75,14 +83,21 @@ const reducer = combineReducers({
   companyUpdate: companyUpdateReducer,
   companyDetails: companyDetailsReducer,
   companyDelete: companyDeleteReducer,
+  //FAQ
+  faqCreate: faqCreateReducer,
+  faqList: faqReducer,
+  faqUpdate: faqUpdateReducer,
+  faqDetails: faqDetailsReducer,
+  faqDelete: faqDeleteReducer,
   //ADMIN:USER
   userList: userReducer,
 
   //USER
   userCreate: userCreateReducer,
-  userUpdate:userUpdateReducer,
+  userUpdate: userUpdateReducer,
   userLogin: userLoginReducer,
   userDetails: userDetailsReducer,
+  vehicleByCompanyDetails: listVehicleByCompanyDetails,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

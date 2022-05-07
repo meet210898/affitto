@@ -4,17 +4,13 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
 import { IconButton, TableContainer } from "@mui/material";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import {Paper,Button} from "@mui/material";
-import DetailsIcon from "@mui/icons-material/Details";
-
+import { Paper, Button } from "@mui/material";
+import { updateUserStatus } from "../../actions/admin/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  listUser,
-} from "../../actions/admin/userActions";
+import { listUser } from "../../actions/admin/userActions";
 import { useNavigate } from "react-router-dom";
 import ReactRoundedImage from "react-rounded-image";
 
@@ -49,29 +45,30 @@ export default function ViewUserScreen() {
   const userList = useSelector((state) => state.userList);
   const { usersInfo } = userList;
 
-//   const vehicleTypeUpdate = useSelector((state) => state.vehicleTypeUpdate);
-//   const { vehicleType } = vehicleTypeUpdate;
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const { success } = userUpdate;
 
-//   const vehicleTypeDelete = useSelector((state) => state.vehicleTypeDelete);
-//   const { deleteSuccess } = vehicleTypeDelete;
+  //   const vehicleTypeDelete = useSelector((state) => state.vehicleTypeDelete);
+  //   const { deleteSuccess } = vehicleTypeDelete;
 
   React.useEffect(() => {
     if (!localStorage.getItem("auth-token")) {
       navigate("/");
     }
     dispatch(listUser());
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, success]);
 
-//   const deleteHandler = (typeId) => {
-//     if (window.confirm("Are you sure")) {
-//       dispatch(deleteVehicleType(typeId));
-//       navigate("/AdminDashboard/ViewVehicleType");
-//     }
-//   };
+  //   const deleteHandler = (typeId) => {
+  //     if (window.confirm("Are you sure")) {
+  //       dispatch(deleteVehicleType(typeId));
+  //       navigate("/AdminDashboard/ViewVehicleType");
+  //     }
+  //   };
+  
+  const editStatus = (userId, isVerify) =>
+    dispatch(updateUserStatus(userId, { isVerify: !isVerify }));
 
-  const editHandler = (row) => {
-    setEditData(row);
-  };
+  const editHandler = (row) => setEditData(row);
 
   return (
     <TableContainer component={Paper}>
@@ -82,6 +79,7 @@ export default function ViewUserScreen() {
             <StyledTableCell>No</StyledTableCell>
             <StyledTableCell>Name</StyledTableCell>
             <StyledTableCell>Image</StyledTableCell>
+            <StyledTableCell>Status</StyledTableCell>
             <StyledTableCell>Details</StyledTableCell>
             <StyledTableCell>Action</StyledTableCell>
           </TableRow>
@@ -103,6 +101,18 @@ export default function ViewUserScreen() {
                   roundedSize="0"
                   borderRadius="30"
                 />
+              </StyledTableCell>
+              <StyledTableCell>
+                <Button
+                  variant="contained"
+                  style={{ height: "auto", width: "auto", fontWeight: "bold" }}
+                  color={row.isVerify === true ? "success" : "error"}
+                  onClick={() => {
+                    editStatus(row._id, row.isVerify);
+                  }}
+                >
+                  {row.isVerify === true ? "Verified" : "Not Verified"}
+                </Button>
               </StyledTableCell>
               <StyledTableCell>
                 <Button
