@@ -28,8 +28,9 @@ import LocationCityIcon from "@mui/icons-material/LocationCity";
 import CarRentalIcon from "@mui/icons-material/CarRental";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
+import CategoryIcon from "@mui/icons-material/Category";
 
-const drawerWidth = 240;
+const drawerWidth = 265;
 
 function Sidebar(props) {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ function Sidebar(props) {
     { page: "Company", icon: <HouseIcon style={{ color: "white" }} /> },
     { page: "Vehicle", icon: <DirectionsCarIcon style={{ color: "white" }} /> },
     { page: "Faq", icon: <QuestionAnswerIcon style={{ color: "white" }} /> },
+    { page: "FaqCategory", icon: <CategoryIcon style={{ color: "white" }} /> },
   ];
 
   const useStyles = makeStyles({

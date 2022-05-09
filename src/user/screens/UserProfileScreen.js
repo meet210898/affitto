@@ -21,7 +21,9 @@ const theme = createTheme({
     button: {
       textTransform: "none",
     },
+    color: "textPrimary",
   },
+  fontFamily: "Sans-serif",
 });
 const Input = styled("input")({
   display: "none",

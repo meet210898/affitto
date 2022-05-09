@@ -1,10 +1,18 @@
 import * as React from "react";
 import { Box, Typography, Modal } from "@mui/material";
-import { Button, TextField } from "@mui/material";
-import { useDispatch } from "react-redux";
+import {
+  Button,
+  TextField,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl,
+} from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import { updateFaq } from "../../../actions/admin/faqActions";
+import { listFaqCategory } from "../../../actions/admin/faqCategoryActions";
 
 const style = {
   position: "absolute",
@@ -33,7 +41,11 @@ const ModalCall = ({ open, setOpen, editData }) => {
     if (!localStorage.getItem("auth-token")) {
       navigate("/");
     }
+    dispatch(listFaqCategory());
   }, [dispatch, navigate]);
+
+  const faqCategoryList = useSelector((state) => state.faqCategoryList);
+  const { faqCategoryInfo } = faqCategoryList;
 
   React.useEffect(() => {
     if (editData) {
@@ -71,6 +83,24 @@ const ModalCall = ({ open, setOpen, editData }) => {
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="faqCategoryId">Vehicle Type</InputLabel>
+
+            <Select
+              labelId="faqCategoryId"
+              id="faqCategoryId"
+              name="faqCategoryId"
+              label="FAQ Category"
+              defaultValue={editData && editData.faqCategoryId}
+              onChange={handleChange}
+            >
+              {faqCategoryInfo?.map((data) => (
+                <MenuItem value={data._id}>{data.faqCategory}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
         <Typography id="modal-modal-title" variant="h6" component="h2">
           <TextField
             label="Question"

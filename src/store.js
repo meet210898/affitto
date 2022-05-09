@@ -34,6 +34,13 @@ import {
   faqDetailsReducer,
 } from "./reducers/admin/faqReducer";
 import {
+  faqCategoryCreateReducer,
+  faqCategoryReducer,
+  faqCategoryUpdateReducer,
+  faqCategoryDeleteReducer,
+  faqCategoryDetailsReducer,
+} from "./reducers/admin/faqCategoryReducer";
+import {
   companyCreateReducer,
   companyReducer,
   companyUpdateReducer,
@@ -47,6 +54,7 @@ import {
   userDetailsReducer,
   userUpdateReducer,
   listVehicleByCompanyDetails,
+  listFaqByFaqCategoryDetails,
 } from "./reducers/user/userReducer";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
@@ -89,6 +97,12 @@ const reducer = combineReducers({
   faqUpdate: faqUpdateReducer,
   faqDetails: faqDetailsReducer,
   faqDelete: faqDeleteReducer,
+  //FAQCATEGORY
+  faqCategoryCreate: faqCategoryCreateReducer,
+  faqCategoryList: faqCategoryReducer,
+  faqCategoryUpdate: faqCategoryUpdateReducer,
+  faqCategoryDetails: faqCategoryDetailsReducer,
+  faqCategoryDelete: faqCategoryDeleteReducer,
   //ADMIN:USER
   userList: userReducer,
 
@@ -98,6 +112,7 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userDetails: userDetailsReducer,
   vehicleByCompanyDetails: listVehicleByCompanyDetails,
+  FaqByFaqCategoryDetails: listFaqByFaqCategoryDetails,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

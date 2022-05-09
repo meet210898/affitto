@@ -20,6 +20,7 @@ import { makeStyles } from "@mui/styles";
 const useStyles = makeStyles({
   root: {
     textTransform: "none",
+    fontFamily: "Poppins",
   },
 });
 

@@ -20,6 +20,9 @@ import {
   VEHICLEBYCOMPANY_DETAILS_REQUEST,
   VEHICLEBYCOMPANY_DETAILS_SUCCESS,
   VEHICLEBYCOMPANY_DETAILS_FAIL,
+  FAQBYFAQCATEGORY_DETAILS_REQUEST,
+  FAQBYFAQCATEGORY_DETAILS_SUCCESS,
+  FAQBYFAQCATEGORY_DETAILS_FAIL,
 } from "../../constants/user/userConstants";
 
 export const userCreateReducer = (state = {}, action) => {
@@ -106,6 +109,22 @@ export const listVehicleByCompanyDetails = (
     case VEHICLEBYCOMPANY_DETAILS_SUCCESS:
       return { loading: false, vehicleByCompany: action.payload };
     case VEHICLEBYCOMPANY_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const listFaqByFaqCategoryDetails = (
+  state = { state: { FaqByFaqCategory: [] } },
+  action
+) => {
+  switch (action.type) {
+    case FAQBYFAQCATEGORY_DETAILS_REQUEST:
+      return { loading: true, ...state };
+    case FAQBYFAQCATEGORY_DETAILS_SUCCESS:
+      return { loading: false, FaqByFaqCategory: action.payload };
+    case FAQBYFAQCATEGORY_DETAILS_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

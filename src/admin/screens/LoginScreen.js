@@ -27,7 +27,7 @@ const LoginScreen = () => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-  
+
   useEffect(() => {
     if (localStorage.getItem("auth-token")) {
       navigate("/AdminDashboard");
@@ -44,7 +44,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={{ fontFamily: "Poppins" }}>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid

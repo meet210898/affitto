@@ -12,9 +12,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import ModalCall from "./modals/EditFaqModal";
-import { listFaq, deleteFaq } from "../../actions/admin/faqActions";
-import { listFaqCategory } from "../../actions/admin/faqCategoryActions";
+import ModalCall from "./modals/EditFaqCategoryModal";
+import {
+  listFaqCategory,
+  deleteFaqCategory,
+} from "../../actions/admin/faqCategoryActions";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -36,36 +38,32 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function ViewFaqScreen() {
+export default function ViewFaqCategoryScreen() {
   const dispatch = useDispatch();
   const [openEdit, setOpenEdit] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
   const navigate = useNavigate();
 
-  const faqUpdate = useSelector((state) => state.faqUpdate);
-  const { success } = faqUpdate;
+  const faqCategoryUpdate = useSelector((state) => state.faqCategoryUpdate);
+  const { success } = faqCategoryUpdate;
 
-  const faqDelete = useSelector((state) => state.faqDelete);
-  const { deleteSuccess } = faqDelete;
+  const faqCategoryDelete = useSelector((state) => state.faqCategoryDelete);
+  const { deleteSuccess } = faqCategoryDelete;
 
   React.useEffect(() => {
     if (!localStorage.getItem("auth-token")) {
       navigate("/");
     }
     dispatch(listFaqCategory());
-    dispatch(listFaq());
   }, [dispatch, navigate, success, deleteSuccess]);
 
   const faqCategoryList = useSelector((state) => state.faqCategoryList);
   const { faqCategoryInfo } = faqCategoryList;
 
-  const faqList = useSelector((state) => state.faqList);
-  const { faqInfo } = faqList;
-
-  const deleteHandler = (faqId) => {
+  const deleteHandler = (faqCategoryId) => {
     if (window.confirm("Are you sure")) {
-      dispatch(deleteFaq(faqId));
-      navigate("/AdminDashboard/ViewFaq");
+      dispatch(deleteFaqCategory(faqCategoryId));
+      navigate("/AdminDashboard/ViewFaqCategory");
     }
   };
 
@@ -81,24 +79,15 @@ export default function ViewFaqScreen() {
         <TableHead>
           <TableRow>
             <StyledTableCell>No</StyledTableCell>
-            <StyledTableCell>FAQ Category</StyledTableCell>
-            <StyledTableCell>Question</StyledTableCell>
-            <StyledTableCell>Answer</StyledTableCell>
+            <StyledTableCell>Category</StyledTableCell>
             <StyledTableCell>Action</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {faqInfo?.map((row) => (
+          {faqCategoryInfo?.map((row) => (
             <StyledTableRow key={row._id}>
               <StyledTableCell>0</StyledTableCell>
-              <StyledTableCell>
-                {faqCategoryInfo?.map((data) => {
-                  return data._id === row.faqCategoryId ? data.faqCategory : "";
-                })}
-              </StyledTableCell>
-              <StyledTableCell>{row.question}</StyledTableCell>
-              <StyledTableCell>{row.answer}</StyledTableCell>
-
+              <StyledTableCell>{row.faqCategory}</StyledTableCell>
               <StyledTableCell>
                 <IconButton
                   onClick={() => {

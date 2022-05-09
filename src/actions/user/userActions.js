@@ -28,6 +28,16 @@ import {
   VEHICLE_DETAILS_FAIL,
 } from "../../constants/admin/vehicleConstants";
 import {
+  FAQCATEGORY_LIST_MY_REQUEST,
+  FAQCATEGORY_LIST_MY_SUCCESS,
+  FAQCATEGORY_LIST_MY_FAIL,
+} from "../../constants/admin/faqCategoryConstants";
+import {
+  FAQ_LIST_MY_REQUEST,
+  FAQ_LIST_MY_SUCCESS,
+  FAQ_LIST_MY_FAIL,
+} from "../../constants/admin/faqConstants";
+import {
   USER_CREATE_REQUEST,
   USER_CREATE_SUCCESS,
   USER_CREATE_FAIL,
@@ -164,7 +174,7 @@ export const listVehicleByCompanyDetails = (companyId) => async (dispatch) => {
     const { data } = await axios.get(
       `http://localhost:4000/user/getVehicleByCompanyId/${companyId}`
     );
-    console.log(data, "data--------------");
+
     dispatch({
       type: VEHICLEBYCOMPANY_DETAILS_SUCCESS,
       payload: data,
@@ -315,7 +325,6 @@ export const loginUser = (loginData) => async (dispatch) => {
       config
     );
 
-    console.log(data, "data");
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
@@ -352,6 +361,77 @@ export const listUserDetails = (userId) => async (dispatch) => {
     });
   }
 };
+
+export const listFaq = (no) => async (dispatch) => {
+  try {
+    dispatch({
+      type: FAQ_LIST_MY_REQUEST,
+    });
+
+    const { data } = await axios.get(`http://localhost:4000/user/getFaq/${no}`);
+
+    dispatch({
+      type: FAQ_LIST_MY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FAQ_LIST_MY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listFaqCategory = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: FAQCATEGORY_LIST_MY_REQUEST,
+    });
+
+    const { data } = await axios.get(
+      `http://localhost:4000/user/getFaqCategory`
+    );
+
+    dispatch({
+      type: FAQCATEGORY_LIST_MY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FAQCATEGORY_LIST_MY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listFaqByFaqCategoryDetails =
+  (faqCategoryId) => async (dispatch) => {
+    dispatch({ type: VEHICLEBYCOMPANY_DETAILS_REQUEST });
+    try {
+      const { data } = await axios.get(
+        `http://localhost:4000/user/getFaqByFaqCategoryId/${faqCategoryId}`
+      );
+
+      dispatch({
+        type: VEHICLEBYCOMPANY_DETAILS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: VEHICLEBYCOMPANY_DETAILS_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
 
 export const logout = () => (dispatch) => {
   localStorage.removeItem("user-token");

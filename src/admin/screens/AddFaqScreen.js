@@ -6,8 +6,10 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Button, TextField } from "@mui/material";
 import { addFaq } from "../../actions/admin/faqActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { listFaqCategory } from "../../actions/admin/faqCategoryActions";
+import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
 
 const AddFaqScreen = () => {
   const [faqData, setFaqData] = React.useState({
@@ -22,8 +24,11 @@ const AddFaqScreen = () => {
     if (!localStorage.getItem("auth-token")) {
       navigate("/");
     }
+    dispatch(listFaqCategory());
   }, [dispatch, navigate]);
 
+  const faqCategoryList = useSelector((state) => state.faqCategoryList);
+  const { faqCategoryInfo } = faqCategoryList;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,6 +51,30 @@ const AddFaqScreen = () => {
       sx={{ maxWidth: 275 }}
     >
       <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h5" component="div">
+            FAQ Category:
+          </Typography>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="faqCategoryId">FAQ Category</InputLabel>
+
+              <Select
+                labelId="faqCategoryId"
+                id="faqCategoryId"
+                name="faqCategoryId"
+                // value={faqCategoryInfo.typeId}
+                label="FAQ Category"
+                onChange={handleChange}
+              >
+                {faqCategoryInfo?.map((data) => (
+                  <MenuItem value={data._id}>{data.faqCategory}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </CardContent>
+
         <CardContent>
           <Typography variant="h5" component="div">
             Question:

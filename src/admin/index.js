@@ -15,6 +15,8 @@ import AddVehicleScreen from "./screens/AddVehicleScreen";
 import ViewVehicleScreen from "./screens/VehicleListScreen";
 import AddFaqScreen from "./screens/AddFaqScreen";
 import ViewFaqScreen from "./screens/FaqListScreen";
+import AddFaqCategoryScreen from "./screens/AddFaqCategoryScreen";
+import ViewFaqCategoryScreen from "./screens/FaqCategoryListScreen";
 
 const index = () => {
   return (
@@ -42,6 +44,9 @@ const index = () => {
 
           <Route path="AddFaq" element={<AddFaqScreen />} />
           <Route path="ViewFaq" element={<ViewFaqScreen />} />
+
+          <Route path="AddFaqCategory" element={<AddFaqCategoryScreen />} />
+          <Route path="ViewFaqCategory" element={<ViewFaqCategoryScreen />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -7,7 +7,7 @@ import Card from "@mui/material/Card";
 import { makeStyles } from "@mui/styles";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@mui/material";
 
@@ -15,6 +15,7 @@ import {
   getCities,
   getCompany,
   getVehicleType,
+  listFaq,
 } from "../../actions/user/userActions";
 
 const useStyles = makeStyles((theme) => ({
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
     color: "white",
     fontSize: "20px",
-    fontFamily: "Comic Sans MS",
+    fontFamily: "Sans-serif",
   },
 }));
 
@@ -36,6 +37,7 @@ const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
+
   React.useEffect(() => {
     if (!localStorage.getItem("user-token")) {
       navigate("/user");
@@ -45,6 +47,7 @@ const HomeScreen = () => {
     dispatch(getCompany());
     dispatch(getCities());
     dispatch(getVehicleType());
+    dispatch(listFaq(4));
   }, [dispatch]);
 
   const companyList = useSelector((state) => state.companyList);
@@ -55,6 +58,9 @@ const HomeScreen = () => {
 
   const vehicleTypeList = useSelector((state) => state.vehicleTypeList);
   const { vehicleTypesInfo } = vehicleTypeList;
+
+  const faqList = useSelector((state) => state.faqList);
+  const { faqInfo } = faqList;
 
   return (
     <div>
@@ -83,6 +89,7 @@ const HomeScreen = () => {
       </Carousel>
       <br />
       <br />
+
       <Grid
         container
         direction="row"
@@ -133,7 +140,7 @@ const HomeScreen = () => {
         justifyContent="space-evenly"
         alignItems="start"
       >
-        <Grid xs={3} >
+        <Grid xs={3}>
           <h4>Company</h4>
           <ul
             style={{
@@ -175,6 +182,48 @@ const HomeScreen = () => {
             })}
           </ul>
         </Grid>
+      </Grid>
+      <Grid container md={12} xs={12}>
+        <Grid md={1} xs={1}></Grid>
+        <Grid md={10} xs={10}>
+          <h2>FAQs</h2>
+        </Grid>
+        <Grid md={1} xs={1}></Grid>
+      </Grid>
+      <Grid container md={12} xs={12}>
+        <Grid md={1} xs={1}></Grid>
+
+        <Grid md={10} xs={10}>
+          <Card style={{ padding: "20px 30px" }} variant="outlined">
+            {faqInfo?.map((data) => (
+              <>
+                <h4 style={{ margin: "0px" }}>{data.question}</h4>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    lineHeight: "1.43",
+                    color: "rgba(18,34,50,.7)",
+                  }}
+                >
+                  {data.answer}
+                </p>
+                {/* <hr style={{ border: "0", padding: "8px" }}></hr> */}
+              </>
+            ))}
+          </Card>
+        </Grid>
+        <Grid md={1} xs={1}></Grid>
+      </Grid>
+      <Grid container md={12} xs={12}>
+        <Grid md={1} xs={1}></Grid>
+
+        <Grid md={10} xs={10} display="flex" justifyContent="right">
+          <NavLink to="/user/faq">
+            <h2>View all..</h2>
+          </NavLink>
+        </Grid>
+
+        <Grid md={1} xs={1}></Grid>
       </Grid>
     </div>
   );

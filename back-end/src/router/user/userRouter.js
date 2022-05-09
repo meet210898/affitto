@@ -11,6 +11,9 @@ const {
   getVehicle,
   getVehicleById,
   getVehicleByCompanyId,
+  getFaqByFaqCategoryId,
+  getFaq,
+  getFaqCategory,
 } = require("../../controller/user/userController");
 
 router.get("/user/getState", getState);
@@ -20,7 +23,10 @@ router.get("/user/getUserById/:id", getUserById);
 router.get("/user/getVehicleType", getVehicleType);
 router.get("/user/getCompany", getCompany);
 router.get("/user/getVehicle", getVehicle);
+router.get("/user/getFaq/:id", getFaq);
+router.get("/user/getFaqCategory", getFaqCategory);
 router.get("/user/getVehicleById/:id", getVehicleById);
 router.get("/user/getVehicleByCompanyId/:id", getVehicleByCompanyId);
+router.get("/user/getFaqByFaqCategoryId/:id", getFaqByFaqCategoryId);
 
 module.exports = router;

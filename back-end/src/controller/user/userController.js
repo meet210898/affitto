@@ -3,8 +3,10 @@ const City = require("../../model/admin/cityModel");
 const User = require("../../model/user/registerUserModel");
 const VehicleType = require("../../model/admin/vehicleTypeModel");
 const Company = require("../../model/admin/companyModel");
-const multer = require("multer");
 const Vehicle = require("../../model/admin/vehicleModel");
+const Faq = require("../../model/admin/faqModel");
+const FaqCategory = require("../../model/admin/faqCategoryModel");
+const multer = require("multer");
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -141,6 +143,38 @@ const editUser = async (req, res) => {
   }
 };
 
+const getFaqByFaqCategoryId = async (req, res) => {
+  try {
+    const faq = await Faq.find({ faqCategory: req.params.id });
+    res.status(200).send(faq);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const getFaq = async (req, res) => {
+  let faq;
+  try {
+    if (req.params.id !== "0") {
+      faq = await Faq.find().limit(4);
+    } else {
+      faq = await Faq.find();
+    }
+    res.status(200).send(faq);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const getFaqCategory = async (req, res) => {
+  try {
+    const faqCategory = await FaqCategory.find({});
+    res.status(200).send(faqCategory);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
 module.exports = {
   getState,
   getCity,
@@ -152,4 +186,7 @@ module.exports = {
   getVehicle,
   getVehicleById,
   getVehicleByCompanyId,
+  getFaqByFaqCategoryId,
+  getFaq,
+  getFaqCategory,
 };

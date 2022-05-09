@@ -11,9 +11,6 @@ import {
   FAQ_DELETE_REQUEST,
   FAQ_DELETE_SUCCESS,
   FAQ_DELETE_FAIL,
-  FAQ_DETAILS_REQUEST,
-  FAQ_DETAILS_SUCCESS,
-  FAQ_DETAILS_FAIL,
 } from "../../constants/admin/faqConstants";
 import axios from "axios";
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
