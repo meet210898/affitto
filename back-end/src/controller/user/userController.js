@@ -6,6 +6,7 @@ const Company = require("../../model/admin/companyModel");
 const Vehicle = require("../../model/admin/vehicleModel");
 const Faq = require("../../model/admin/faqModel");
 const FaqCategory = require("../../model/admin/faqCategoryModel");
+
 const multer = require("multer");
 
 let storage = multer.diskStorage({

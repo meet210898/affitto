@@ -35,16 +35,7 @@ const bookingSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    accidentalInsurance: {
-      type: Number,
-      required: true,
-      trim: true,
-    },
-    theftInsurance: {
-      type: Number,
-      required: true,
-      trim: true,
-    },
+    
     transactionNumber: {
       type: String,
       required: true,

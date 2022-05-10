@@ -28,5 +28,6 @@ router.get("/user/getFaqCategory", getFaqCategory);
 router.get("/user/getVehicleById/:id", getVehicleById);
 router.get("/user/getVehicleByCompanyId/:id", getVehicleByCompanyId);
 router.get("/user/getFaqByFaqCategoryId/:id", getFaqByFaqCategoryId);
+// router.post("/payment/payumoney", payController.payUMoneyPayment);
 
 module.exports = router;

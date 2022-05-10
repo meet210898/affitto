@@ -17,6 +17,7 @@ import jwt_decode from "jwt-decode";
 import ReactRoundedImage from "react-rounded-image";
 import { makeStyles } from "@mui/styles";
 
+
 const useStyles = makeStyles({
   root: {
     textTransform: "none",
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-const pages = ["Home", "Company", "Vehicles", "Booking", "Register"];
+const pages = ["Home", "Company", "Vehicles", "Booking", "Register","FAQ"];
 
 const TopBar = () => {
   const classes = useStyles();

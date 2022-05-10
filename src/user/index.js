@@ -12,6 +12,7 @@ import VehicleByCompanyScreen from "./screens/VehicleByCompanyScreen";
 import BookingScreen from "./screens/BookingScreen";
 import BookingList from "./screens/BookingListScreen";
 import FaqScreen from "./screens/FaqScreen";
+import ConfirmBookingScreen from "./screens/BookingConfirmScreen";
 
 const index = () => {
   return (
@@ -26,6 +27,7 @@ const index = () => {
         <Route path="/user/vehicles" element={<VehicleList />} />
         <Route path="/user/booking/:vehicleId" element={<BookingScreen />} />
         <Route path="/user/booking" element={<BookingList />} />
+        <Route path="/user/confirmBooking" element={<ConfirmBookingScreen />} />
         <Route path="/user/faq" element={<FaqScreen />} />
         <Route
           path="/user/vehicledetails/:vehicleId"

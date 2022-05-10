@@ -1,0 +1,44 @@
+.imgsetting {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.imgWrapper {
+  position: relative;
+}
+.imgTitle {
+  position: absolute;
+  top: 25%;
+  left: 5%;
+  color: white;
+  font-size: 60px;
+  letter-spacing: 20px;
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.description {
+  position: absolute;
+  top: 45%;
+  left: 5%;
+  color: white;
+  font-size: 26px;
+  text-transform: capitalize;
+  margin: 0;
+  width: 50%;
+  text-align: left;
+  border-bottom: 1px solid white;
+}
+.btn {
+  position: absolute;
+  top: 60%;
+  left: 5%;
+  color: white;
+  font-size: 16px;
+  margin: 0;
+  border-color: white;
+  text-align: left;
+}
+
+

@@ -47,8 +47,6 @@ export default function UserProfileScreen() {
     }
   }, [navigate, decodeUserId]);
 
-  console.log(decodeUserId, "decodeUserId");
-
   const userUpdate = useSelector((state) => state.userUpdate);
   const { success } = userUpdate;
 

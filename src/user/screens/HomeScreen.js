@@ -9,7 +9,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
+import "../components/css/imgTxt.css";
 
 import {
   getCities,
@@ -31,12 +32,21 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "20px",
     fontFamily: "Sans-serif",
   },
+  // overrides: {
+  //   MuiButton: {
+  //     outlined: {
+  //       borderColor: "white !important",
+  //     },
+  //   },
+  // },
 }));
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyles();
+
+  const imgs = [img1, img2];
 
   React.useEffect(() => {
     if (!localStorage.getItem("user-token")) {
@@ -66,35 +76,43 @@ const HomeScreen = () => {
     <div>
       <Topbar />
       <br></br>
-      <Carousel>
-        {
-          <img
-            src={img1}
-            style={{ objectFit: "cover" }}
-            height="350px"
-            width="100%"
-            alt="blank"
-          />
-        }
-
-        {
-          <img
-            src={img2}
-            style={{ objectFit: "cover" }}
-            height="350px"
-            width="100%"
-            alt="blank"
-          />
-        }
-      </Carousel>
-      <br />
-      <br />
+      <div className="imgsetting">
+        <Carousel>
+          {imgs.map((img) => (
+            <div className="imgWrapper">
+              <img
+                src={img}
+                style={{ objectFit: "cover" }}
+                height="350px"
+                width="100%"
+                alt="blank"
+              />
+              <h1 className="imgTitle">AFFITTO</h1>
+              <p className="description">Our fastest way to rent a vehicle.</p>
+              <NavLink
+                to=""
+                className="btn"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                <Button
+                  variant="outlined"
+                  style={{ color: "white", borderColor: "white" }}
+                  // className="btn"
+                >
+                  View Detail
+                </Button>
+              </NavLink>
+            </div>
+          ))}
+        </Carousel>
+      </div>
 
       <Grid
         container
         direction="row"
         justifyContent="space-evenly"
         alignItems="center"
+        marginTop="20px"
       >
         <Grid md={3} className={classes.root}>
           <Card>

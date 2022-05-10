@@ -1,24 +1,23 @@
 import * as React from "react";
 import Topbar from "../components/topbar";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCompany, listVehicleDetails } from "../../actions/user/userActions";
+import moment from "moment";
 
-import isWeekend from "date-fns/isWeekend";
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { StaticDatePicker } from "@mui/x-date-pickers/StaticDatePicker";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Button, Grid } from "@mui/material";
 
 export default function BookingScreen() {
   const dispatch = useDispatch();
 
-  const [startDate, setStartDate] = React.useState(null);
-  const [endDate, setEndDate] = React.useState(null);
-
   const { vehicleId } = useParams("id");
+
+  const [startDate, setStartDate] = React.useState(new Date());
+  const [endDate, setEndDate] = React.useState(new Date());
 
   React.useEffect(() => {
     dispatch(getCompany());
@@ -30,6 +29,18 @@ export default function BookingScreen() {
 
   const companyList = useSelector((state) => state.companyList);
   const { companiesInfo } = companyList;
+
+  const time_difference = endDate.getTime() - startDate.getTime();
+  const days_difference = time_difference / (1000 * 60 * 60 * 24);
+
+  const payableAmount = vehicle?.priceperday * days_difference;
+
+  const data = {
+    vehicleId: vehicleId,
+    startDate: moment(startDate).format("LL"),
+    endDate: moment(endDate).format("LL"),
+    payableAmount: payableAmount,
+  };
 
   return (
     <>
@@ -66,7 +77,7 @@ export default function BookingScreen() {
             </Grid>
           </Grid>
           <Grid container>
-            <Grid xs={12} display="block" style={{ marginTop: "10px" }}>
+            <Grid xs={12} md={5} display="block" style={{ marginTop: "10px" }}>
               <LocalizationProvider
                 style={{ margin: "10px" }}
                 dateAdapter={AdapterDateFns}
@@ -75,28 +86,50 @@ export default function BookingScreen() {
                   label="Start date"
                   value={startDate}
                   style={{ margin: "10px" }}
-                  onChange={(newValue) => {
-                    setStartDate(newValue);
-                  }}
+                  minDate={new Date()}
+                  onChange={(date) => setStartDate(date)}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </Grid>
-            <Grid xs={12} display="block" style={{ marginTop: "10px" }}>
+            <Grid xs={12} md={1}></Grid>
+            <Grid xs={12} md={5} display="block" style={{ marginTop: "10px" }}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label="End date"
                   value={endDate}
                   style={{ margin: "10px" }}
-                  onChange={(newValue) => {
-                    setEndDate(newValue);
-                  }}
+                  minDate={startDate}
+                  onChange={(date) => setEndDate(date)}
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </Grid>
-            <Grid xs={12} justifyContent="center" style={{ marginTop: "10px" }}>
-              <Button variant="contained">Search</Button>
+            <Grid
+              xs={12}
+              md={12}
+              style={{ fontSize: "20px", marginTop: "10px" }}
+            >
+              {endDate.getMilliseconds() === 0 ? (
+                <b>Payable Amount:{payableAmount}</b>
+              ) : (
+                ""
+              )}
+            </Grid>
+
+            <Grid
+              xs={12}
+              md={12}
+              justifyContent="center"
+              style={{ marginTop: "10px" }}
+            >
+              <NavLink
+                style={{ textDecoration: "none" }}
+                to={`/user/confirmBooking`}
+                state={{ data: data }}
+              >
+                <Button variant="contained">Book</Button>
+              </NavLink>
             </Grid>
           </Grid>
         </Grid>
