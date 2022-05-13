@@ -41,6 +41,7 @@ export default function ViewUserScreen() {
   const [open, setOpen] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
   const navigate = useNavigate();
+  let counter = 0;
 
   const userList = useSelector((state) => state.userList);
   const { usersInfo } = userList;
@@ -64,7 +65,7 @@ export default function ViewUserScreen() {
   //       navigate("/AdminDashboard/ViewVehicleType");
   //     }
   //   };
-  
+
   const editStatus = (userId, isVerify) =>
     dispatch(updateUserStatus(userId, { isVerify: !isVerify }));
 
@@ -87,7 +88,7 @@ export default function ViewUserScreen() {
         <TableBody>
           {usersInfo?.map((row) => (
             <StyledTableRow key={row._id}>
-              <StyledTableCell>0</StyledTableCell>
+              <StyledTableCell>{++counter}</StyledTableCell>
               <StyledTableCell>
                 {row.firstName} {row.lastName}
               </StyledTableCell>

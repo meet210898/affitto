@@ -14,7 +14,7 @@ import ViewUserScreen from "./screens/UserListScreen";
 import AddVehicleScreen from "./screens/AddVehicleScreen";
 import ViewVehicleScreen from "./screens/VehicleListScreen";
 import AddFaqScreen from "./screens/AddFaqScreen";
-import ViewFaqScreen from "./screens/FaqListScreen";
+import ViewFaqScreen from "./screens/FaqListScreen2";
 import AddFaqCategoryScreen from "./screens/AddFaqCategoryScreen";
 import ViewFaqCategoryScreen from "./screens/FaqCategoryListScreen";
 

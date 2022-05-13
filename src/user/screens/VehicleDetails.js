@@ -50,15 +50,22 @@ export default function VehicleDetails() {
                 {vehicle?.vehicleName}
               </p>
             </Grid>
-            <Grid xs={10} marginTop={2}>
-              <img
-                src={`http://localhost:4000/${vehicle?.vehicleImage}`}
-                style={{ height: "100%", width: "100%" }}
-                alt="tata"
-              />
+            <Grid container>
+              <Grid xs={12} md={8} marginTop={2}>
+                <img
+                  src={`http://localhost:4000/${vehicle?.vehicleImage}`}
+                  style={{ height: "100%", maxWidth: "700px", width: "100%" }}
+                  alt="tata"
+                />
+              </Grid>
+              <Grid xs={12} md={1}></Grid>
+              <Grid xs={12} md={3}>
+                <h3>Pickup Location</h3>
+                <p>305-306,AFITTO,City Light Road,Surat,Gujarat.</p>
+              </Grid>
             </Grid>
             <Grid xs={12} display="flex">
-              <Grid xs={5}>
+              <Grid xs={12}>
                 <h3>About Vehicle</h3>
 
                 <ul
@@ -100,10 +107,6 @@ export default function VehicleDetails() {
                     </li>
                   </ul>
                 </b>
-              </Grid>
-              <Grid xs={6}>
-                <h3>Pickup Location</h3>
-                <p>305-306,AFITTO,City Light Road,Surat,Gujarat.</p>
               </Grid>
             </Grid>
           </Grid>

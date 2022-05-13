@@ -44,6 +44,7 @@ export default function ViewStateScreen() {
   const [open, setOpen] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
   const navigate = useNavigate();
+  let counter = 0;
 
   const vehicleTypeList = useSelector((state) => state.vehicleTypeList);
   const { vehicleTypesInfo } = vehicleTypeList;
@@ -87,7 +88,7 @@ export default function ViewStateScreen() {
         <TableBody>
           {vehicleTypesInfo?.map((row) => (
             <StyledTableRow key={row._id}>
-              <StyledTableCell>0</StyledTableCell>
+              <StyledTableCell>{++counter}</StyledTableCell>
               <StyledTableCell>{row.typeName}</StyledTableCell>
               <StyledTableCell>
                 <ReactRoundedImage

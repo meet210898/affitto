@@ -60,7 +60,7 @@ export default function ViewUserScreen() {
     dispatch(listCompany());
     dispatch(listVehicle());
   }, [dispatch, navigate, deleteSuccess, success]);
-
+  let counter = 0;
   const vehicleList = useSelector((state) => state.vehicleList);
   const { vehiclesInfo } = vehicleList;
 
@@ -104,7 +104,7 @@ export default function ViewUserScreen() {
         <TableBody>
           {vehiclesInfo?.map((row) => (
             <StyledTableRow key={row._id}>
-              <StyledTableCell>0</StyledTableCell>
+              <StyledTableCell>{++counter}</StyledTableCell>
               <StyledTableCell>
                 {vehicleTypesInfo?.map((data) => {
                   return data._id === row.typeId ? data.typeName : "";

@@ -11,7 +11,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { viewVehicleType } from "../../actions/admin/vehicleTypeActions";
-import { listCompany,deleteCompany } from "../../actions/admin/companyActions";
+import { listCompany, deleteCompany } from "../../actions/admin/companyActions";
 import { useNavigate } from "react-router-dom";
 import ReactRoundedImage from "react-rounded-image";
 import "../components/css/main.css";
@@ -42,6 +42,7 @@ export default function ViewCityScreen() {
   const [open, setOpen] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
   const navigate = useNavigate();
+  let counter = 0;
 
   const companyDelete = useSelector((state) => state.companyDelete);
   const { deleteSuccess } = companyDelete;
@@ -55,7 +56,7 @@ export default function ViewCityScreen() {
     }
     dispatch(viewVehicleType());
     dispatch(listCompany());
-  }, [dispatch, navigate, success,deleteSuccess]);
+  }, [dispatch, navigate, success, deleteSuccess]);
 
   const companyList = useSelector((state) => state.companyList);
   const { companiesInfo } = companyList;
@@ -91,7 +92,7 @@ export default function ViewCityScreen() {
           <TableBody>
             {companiesInfo?.map((row) => (
               <StyledTableRow key={row._id}>
-                <StyledTableCell>0</StyledTableCell>
+                <StyledTableCell>{++counter}</StyledTableCell>
                 <StyledTableCell>
                   {vehicleTypesInfo?.map((data) => {
                     return data._id === row.typeId ? data.typeName : "";

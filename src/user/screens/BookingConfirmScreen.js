@@ -5,13 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCompany, listVehicleDetails } from "../../actions/user/userActions";
 import jwt_decode from "jwt-decode";
 import { listUserDetails } from "../../actions/user/userActions";
-import { Typography, IconButton } from "@mui/material";
-
-import TextField from "@mui/material/TextField";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Typography } from "@mui/material";
 import { Button, Grid } from "@mui/material";
+import { NavLink } from "react-router-dom";
 
 export default function BookingScreen() {
   const dispatch = useDispatch();
@@ -122,9 +118,15 @@ export default function BookingScreen() {
           <Grid container>
             <Grid xs={12} md={12}>
               <Typography mt={2} style={{ fontSize: "20px" }} component="div">
-                <Button variant="contained" color="secondary">
-                  Pay Now
-                </Button>
+                <NavLink
+                  style={{ textDecoration: "none" }}
+                  to={`/user/payment`}
+                  state={{ data: data }}
+                >
+                  <Button variant="contained" color="secondary">
+                    Pay Now
+                  </Button>
+                </NavLink>
               </Typography>
             </Grid>
           </Grid>

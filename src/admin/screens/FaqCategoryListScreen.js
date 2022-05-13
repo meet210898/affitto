@@ -43,6 +43,7 @@ export default function ViewFaqCategoryScreen() {
   const [openEdit, setOpenEdit] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
   const navigate = useNavigate();
+  let counter = 0;
 
   const faqCategoryUpdate = useSelector((state) => state.faqCategoryUpdate);
   const { success } = faqCategoryUpdate;
@@ -86,7 +87,7 @@ export default function ViewFaqCategoryScreen() {
         <TableBody>
           {faqCategoryInfo?.map((row) => (
             <StyledTableRow key={row._id}>
-              <StyledTableCell>0</StyledTableCell>
+              <StyledTableCell>{++counter}</StyledTableCell>
               <StyledTableCell>{row.faqCategory}</StyledTableCell>
               <StyledTableCell>
                 <IconButton

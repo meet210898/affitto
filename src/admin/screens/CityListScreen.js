@@ -42,6 +42,7 @@ export default function ViewCityScreen() {
   const [open, setOpen] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
   const navigate = useNavigate();
+  let counter = 0;
 
   const cityDelete = useSelector((city) => city.cityDelete);
   const { deleteSuccess } = cityDelete;
@@ -55,15 +56,13 @@ export default function ViewCityScreen() {
     }
     dispatch(listStates());
     dispatch(listCities());
-  }, [dispatch, navigate,success, deleteSuccess]);
+  }, [dispatch, navigate, success, deleteSuccess]);
 
   const cityList = useSelector((city) => city.cityList);
   const { citiesInfo } = cityList;
 
   const statesList = useSelector((state) => state.statesList);
   const { statesInfo } = statesList;
-
-  
 
   const deleteHandler = (stateId) => {
     if (window.confirm("Are you sure")) {
@@ -93,7 +92,7 @@ export default function ViewCityScreen() {
           <TableBody>
             {citiesInfo?.map((row) => (
               <StyledTableRow key={row._id}>
-                <StyledTableCell>0</StyledTableCell>
+                <StyledTableCell>{++counter}</StyledTableCell>
                 <StyledTableCell>
                   {statesInfo?.map((data) => {
                     return data._id === row.stateId ? data.stateName : "";

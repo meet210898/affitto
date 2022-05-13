@@ -1,3 +1,17 @@
+.center {
+  display: block;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.read-or-hide{
+  color: blue;
+  cursor: pointer;
+}
+
 .imgsetting {
   position: relative;
   text-align: center;
@@ -7,6 +21,34 @@
 .imgWrapper {
   position: relative;
 }
+
+.imgWrapper:before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.imgsettingAbout {
+  position: relative;
+  text-align: center;
+  color: white;
+  /* -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0)); */
+  /* background: linear-gradient(to bottom, rgba(0,47,75,0.5) 0%,rgba(220, 66, 37, 0.5) 100%);  */
+  /* -webkit-mask-image: linear-gradient(to top, rgb(0 0 0 / 38%) 0%, black 35%);
+  mask-image: linear-gradient(to top, transparent 0%, black 75%); */
+}
+
+.imgWrapper {
+  position: relative;
+}
+
 .imgTitle {
   position: absolute;
   top: 25%;
@@ -16,6 +58,35 @@
   letter-spacing: 20px;
   text-transform: capitalize;
   margin: 0;
+}
+
+.imgTitleAbout {
+  position: absolute;
+  top: 45%;
+  left: 5%;
+  color: white;
+  font-size: 60px;
+  letter-spacing: 2px;
+  text-transform: capitalize;
+  margin: 0;
+  width: 50%;
+  text-align:left;
+  border-bottom: 1px solid white;
+  /* background-image:
+    linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)) */
+}
+
+.descriptionAbout {
+  position: absolute;
+  top: 65%;
+  left: 5%;
+  color: white;
+  font-size: 30px;
+  text-transform: capitalize;
+  margin: 0;
+  width: 50%;
+  letter-spacing: 1px;
+  text-align: left;
 }
 
 .description {
@@ -35,10 +106,323 @@
   top: 60%;
   left: 5%;
   color: white;
-  font-size: 16px;
+  /* font-size: 16px;
   margin: 0;
   border-color: white;
-  text-align: left;
+  text-align: left; */
 }
 
+.fontsize {
+  font-size: 20px !important;
+}
 
+.myfont {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.diagonal-gradient {
+  background: linear-gradient(to bottom left, black);
+}
+
+@media only screen and (max-width: 830px) {
+  .imgTitleAbout {
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    color: white;
+    font-size: 50px;
+    letter-spacing: 2px;
+    width: 50%;
+    text-align:left;
+    text-transform: capitalize;
+    margin: 0;
+  }
+  .descriptionAbout {
+    position: absolute;
+    top: 62%;
+    left: 5%;
+    color: white;
+    font-size: 26px;
+    text-transform: capitalize;
+    margin: 0;
+    width: 50%;
+    letter-spacing: 1px;
+    text-align: left;
+  }
+  .imgTitle {
+    position: absolute;
+    top: 25%;
+    left: 5%;
+    color: white;
+    font-size: 50px;
+    letter-spacing: 16px;
+    text-transform: capitalize;
+    margin: 0;
+  }
+  .description {
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    color: white;
+    font-size: 22px;
+    text-transform: capitalize;
+    margin: 0;
+    width: 60%;
+    text-align: left;
+    border-bottom: 1px solid white;
+  }
+  .btn {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    color: white;
+    /* font-size: 16px;
+    margin: 0;
+    border-color: white;
+    text-align: left; */
+  }
+  .fontsize {
+    font-size: 20px !important;
+  }
+}
+
+@media only screen and (max-width: 610px) {
+  .imgTitleAbout {
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    color: white;
+    font-size: 40px;
+    letter-spacing: 2px;
+    width: 50%;
+    text-align:left;
+    text-transform: capitalize;
+    margin: 0;
+  }
+  .descriptionAbout {
+    position: absolute;
+    top: 59%;
+    left: 5%;
+    color: white;
+    font-size: 22px;
+    text-transform: capitalize;
+    margin: 0;
+    width: 50%;
+    letter-spacing: 1px;
+    text-align: left;
+  }
+  .imgTitle {
+    position: absolute;
+    top: 25%;
+    left: 5%;
+    color: white;
+    font-size: 40px;
+    letter-spacing: 14px;
+    text-transform: capitalize;
+    margin: 0;
+  }
+  .description {
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    color: white;
+    font-size: 18px;
+    text-transform: capitalize;
+    margin: 0;
+    width: 60%;
+    text-align: left;
+    border-bottom: 1px solid white;
+  }
+  .btn {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    color: white;
+    /* font-size: 16px;
+    margin: 0;
+    border-color: white;
+    text-align: left; */
+  }
+  .myfont{
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .fontsize {
+    font-size: 14px !important;
+  }
+}
+
+@media only screen and (max-width: 510px) {
+  .imgTitleAbout {
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    color: white;
+    font-size: 26px;
+    letter-spacing: 2px;
+    width: 50%;
+    text-align:left;
+    text-transform: capitalize;
+    margin: 0;
+  }
+  .myfont{
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .descriptionAbout {
+    position: absolute;
+    top: 55%;
+    left: 5%;
+    color: white;
+    font-size: 16px;
+    text-transform: capitalize;
+    margin: 0;
+    width: 50%;
+    letter-spacing: 1px;
+    text-align: left;
+  }
+  .imgTitle {
+    position: absolute;
+    top: 35%;
+    left: 5%;
+    color: white;
+    font-size: 26px;
+    letter-spacing: 6px;
+    text-transform: capitalize;
+    margin: 0;
+  }
+  .description {
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    color: white;
+    font-size: 10px;
+    text-transform: capitalize;
+    margin: 0;
+    width: 60%;
+    text-align: left;
+    border-bottom: 1px solid white;
+  }
+  .btn {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    color: white;
+    margin: 0;
+    /* width: 20px;
+    height: 20px;
+    font-size: 6px;
+    border-color: white;
+    text-align: left; */
+  }
+  .fontsize {
+    font-size: 8px !important;
+  }
+  /* .MuiButton-root {
+    font-size: 6px;
+    background-color: red;
+  } */
+}
+
+@media only screen and (max-width: 350px) {
+  .imgTitleAbout {
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    color: white;
+    font-size: 22px;
+    letter-spacing: 2px;
+    width: 50%;
+    text-align:left;
+    text-transform: capitalize;
+    margin: 0;
+  }
+  .descriptionAbout {
+    position: absolute;
+    top: 55%;
+    left: 5%;
+    color: white;
+    font-size: 14px;
+    text-transform: capitalize;
+    margin: 0;
+    width: 50%;
+    letter-spacing: 1px;
+    text-align: left;
+  }
+  .imgTitle {
+    position: absolute;
+    top: 35%;
+    left: 5%;
+    color: white;
+    font-size: 22px;
+    letter-spacing: 6px;
+    text-transform: capitalize;
+    margin: 0;
+  }
+  .description {
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    color: white;
+    font-size: 8px;
+    text-transform: capitalize;
+    margin: 0;
+    width: 60%;
+    text-align: left;
+    border-bottom: 1px solid white;
+  }
+  .btn {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    color: white;
+    margin: 0;
+    /* width: 20px;
+    height: 20px;
+    font-size: 6px;
+    border-color: white;
+    text-align: left; */
+  }
+  .fontsize {
+    font-size: 8px !important;
+  }
+  .myfont{
+    font-weight: bold;
+    font-size: 14px;
+  }
+  /* .MuiButton-root {
+    font-size: 6px;
+    background-color: red;
+  } */
+}
+@media only screen and (max-width: 300px) {
+  .imgTitleAbout {
+    position: absolute;
+    top: 45%;
+    left: 5%;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 2px;
+    width: 50%;
+    text-align:left;
+    text-transform: capitalize;
+    margin: 0;
+  }
+  .descriptionAbout {
+    position: absolute;
+    top: 52%;
+    left: 5%;
+    color: white;
+    font-size: 10px;
+    text-transform: capitalize;
+    margin: 0;
+    width: 50%;
+    letter-spacing: 1px;
+    text-align: left;
+  }
+  .myfont{
+    font-weight: bold;
+    font-size: 10px;
+  }
+}

@@ -41,6 +41,7 @@ export default function ViewStateScreen() {
   const [open, setOpen] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
   const navigate = useNavigate();
+  let counter = 0;
 
   const statesList = useSelector((state) => state.statesList);
   const { statesInfo } = statesList;
@@ -57,8 +58,6 @@ export default function ViewStateScreen() {
     }
     dispatch(listStates());
   }, [dispatch, navigate, success, deleteSuccess]);
-
-  
 
   const deleteHandler = (stateId) => {
     if (window.confirm("Are you sure")) {
@@ -89,7 +88,7 @@ export default function ViewStateScreen() {
         <TableBody>
           {statesInfo?.map((row) => (
             <StyledTableRow key={row._id}>
-              <StyledTableCell>0</StyledTableCell>
+              <StyledTableCell>{++counter}</StyledTableCell>
               <StyledTableCell>{row.stateName}</StyledTableCell>
               <StyledTableCell>
                 <ReactRoundedImage

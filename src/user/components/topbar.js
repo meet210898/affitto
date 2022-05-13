@@ -16,7 +16,7 @@ import { listUserDetails, logout } from "../../actions/user/userActions";
 import jwt_decode from "jwt-decode";
 import ReactRoundedImage from "react-rounded-image";
 import { makeStyles } from "@mui/styles";
-
+import logo from "../public/image/logo/logo.png";
 
 const useStyles = makeStyles({
   root: {
@@ -25,7 +25,15 @@ const useStyles = makeStyles({
   },
 });
 
-const pages = ["Home", "Company", "Vehicles", "Booking", "Register","FAQ"];
+const pages = [
+  "Home",
+  "Company",
+  "Vehicles",
+  "Booking",
+  "Register",
+  "FAQ",
+  "About us",
+];
 
 const TopBar = () => {
   const classes = useStyles();
@@ -79,7 +87,14 @@ const TopBar = () => {
               component="div"
               sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
             >
-              LOGO
+              <img
+                src={logo}
+                style={{ objectFit: "cover" }}
+                height="auto"
+                width="150px"
+                // maxWidth="100px"
+                alt="blank"
+              />
             </Typography>
           </NavLink>
 
@@ -133,7 +148,7 @@ const TopBar = () => {
                 ) : (
                   <NavLink
                     style={{ color: "black", textDecoration: "none" }}
-                    to={`/user/${page}`}
+                    to={`/user/${page.replace(/\s/g, "")}`}
                   >
                     <MenuItem
                       className={classes.root}
@@ -155,7 +170,14 @@ const TopBar = () => {
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             style={{ color: "black" }}
           >
-            LOGO
+            <img
+              src={logo}
+              style={{ objectFit: "cover" }}
+              height="auto"
+              width="150px"
+              // maxWidth="100px"
+              alt="blank"
+            />
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) =>
@@ -181,7 +203,7 @@ const TopBar = () => {
               ) : (
                 <NavLink
                   style={{ textDecoration: "none" }}
-                  to={`/user/${page}`}
+                  to={`/user/${page.replace(/\s/g, "")}`}
                 >
                   <Button
                     className={classes.root}

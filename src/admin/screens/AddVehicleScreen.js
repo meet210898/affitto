@@ -103,7 +103,8 @@ const AddVehicleScreen = () => {
                 labelId="typeName"
                 id="typeId"
                 name="typeId"
-                value={vehicleData.typeId}
+                defaultValue=""
+                value={vehicleData?.typeId}
                 label="vehicleType"
                 onChange={handleChange}
               >
@@ -126,17 +127,17 @@ const AddVehicleScreen = () => {
                 labelId="companyName"
                 id="companyId"
                 name="companyId"
-                value={vehicleData.companyId}
+                value={vehicleData?.companyId}
                 label="company"
                 onChange={handleChange}
               >
-                {companiesInfo?.map((data) => {
-                  if (vehicleData.typeId === data.typeId)
+                {companiesInfo
+                  ?.filter((item) => vehicleData?.typeId === item.typeId)
+                  .map((data) => {
                     return (
                       <MenuItem value={data._id}>{data.companyName}</MenuItem>
                     );
-                  else return "Please select State first!";
-                })}
+                  })}
               </Select>
             </FormControl>
           </Box>
@@ -226,6 +227,52 @@ const AddVehicleScreen = () => {
               >
                 <MenuItem value="true">AC</MenuItem>
                 <MenuItem value="false">Non-AC</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        </CardContent>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            Transmission:
+          </Typography>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="transmission">Transmission</InputLabel>
+
+              <Select
+                labelId="transmission"
+                id="transmission"
+                name="transmission"
+                // value={ac}
+                label="Transmission"
+                onChange={handleChange}
+              >
+                <MenuItem value="true">AUTO</MenuItem>
+                <MenuItem value="false">MANUAL</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        </CardContent>
+        <CardContent>
+          <Typography variant="h5" component="div">
+            Fuel Type:
+          </Typography>
+          <Box sx={{ minWidth: 120 }}>
+            <FormControl fullWidth>
+              <InputLabel id="fuelType">Fuel Type</InputLabel>
+
+              <Select
+                labelId="fuelType"
+                id="fuelType"
+                name="fuelType"
+                // value={ac}
+                label="fuelType"
+                onChange={handleChange}
+              >
+                <MenuItem value="true">Petrol</MenuItem>
+                <MenuItem value="false">Diesel</MenuItem>
+                <MenuItem value="false">CNG</MenuItem>
+                <MenuItem value="false">LPG</MenuItem>
               </Select>
             </FormControl>
           </Box>
