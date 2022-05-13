@@ -68,15 +68,15 @@ html{
     transition: all 0.3s;
   }
   
-  button:hover, button:active{
-    color: #9D50BB;
+  /* button:hover, button:active{
+    color: hsl(283, 44%, 52%);
       background: #fff;  
   }
   
   button:hover:after,
   button:active:after {
       width: 100%;
-  }
+  } */
   
   .pay_amount, .refund_amount{
     font-size: 140%;

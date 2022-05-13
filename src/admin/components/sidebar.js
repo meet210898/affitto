@@ -29,6 +29,9 @@ import CarRentalIcon from "@mui/icons-material/CarRental";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import CategoryIcon from "@mui/icons-material/Category";
+import BookOnlineIcon from "@mui/icons-material/BookOnline";
+import logo from "../public/logo/logo4.png";
+// import "./style.css";
 
 const drawerWidth = 265;
 
@@ -53,7 +56,7 @@ function Sidebar(props) {
 
   const useStyles = makeStyles({
     paper: {
-      backgroundColor: "#21325E !important",
+      backgroundColor: "black !important",
       color: "white !important",
     },
   });
@@ -73,10 +76,26 @@ function Sidebar(props) {
 
   const drawer = (
     <div>
-      <Toolbar />
+      <center>
+        <img
+          src={logo}
+          style={{
+            objectFit: "cover",
+            height: "55px",
+            width: "180px",
+          }}
+          height="auto"
+          width="150px"
+          // maxWidth="100px"
+          alt="blank"
+        />
+      </center>
       <Divider style={{ backgroundColor: "white", width: "100%" }} />
       <List>
         <NavLink
+          className={(isActive) =>
+            "nav-link" + (!isActive ? " unselected" : "")
+          }
           style={{ color: "white", textDecoration: "none" }}
           to="/AdminDashboard/viewUser"
         >
@@ -87,10 +106,27 @@ function Sidebar(props) {
             <ListItemText primary="User" />
           </ListItemButton>
         </NavLink>
+        <NavLink
+          className={(isActive) =>
+            "nav-link" + (!isActive ? " unselected" : "")
+          }
+          style={{ color: "white", textDecoration: "none" }}
+          to="/AdminDashboard/viewBooking"
+        >
+          <ListItemButton>
+            <ListItemIcon>
+              <BookOnlineIcon style={{ color: "white" }} />
+            </ListItemIcon>
+            <ListItemText primary="Booking" />
+          </ListItemButton>
+        </NavLink>
         {pages.map((item) => (
           <>
-            <ListItemButton onClick={() => handleClick(item.page)}>
-              <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemButton
+              className="navListItem"
+              onClick={() => handleClick(item.page)}
+            >
+              <ListItemIcon className="icon">{item.icon}</ListItemIcon>
               <ListItemText primary={item.page} />
               {open[item.page] ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
@@ -207,9 +243,11 @@ function Sidebar(props) {
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "64px",
         }}
       >
-        <Toolbar />
         <Outlet />
       </Box>
     </Box>

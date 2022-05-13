@@ -45,7 +45,6 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 let counter = 0;
 
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -185,10 +184,9 @@ export default function EnhancedTable() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      {/* {faqInfo?.map((rows) => ( */}
       <ModalCall open={openEdit} setOpen={setOpenEdit} editData={editData} />
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <TableContainer>
+        <TableContainer adjustForCheckbox={false} displaySelectAll={false}>
           <Table sx={{ minWidth: 750 }} aria-labelledby="customized table">
             <EnhancedTableHead
               order={order}
@@ -196,48 +194,29 @@ export default function EnhancedTable() {
               onRequestSort={handleRequestSort}
               rowCount={faqInfo?.length}
             />
-            <TableBody>
-              {/* {stableSort(faqInfo, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  return (
-                    <TableRow tabIndex={-1} key={counter}>
-                      <StyledTableCell
-                        component="th"
-                        scope="row"
-                        padding="none"
-                      >
-                        {++counter}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {row.name}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {row.calories}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">{row.fat}</StyledTableCell>
-                      <StyledTableCell align="right">
-                        {row.carbs}
-                      </StyledTableCell>
-                      <StyledTableCell align="right">
-                        {row.protein}
-                      </StyledTableCell>
-                    </TableRow>
-                  );
-                })} */}
-
+            <TableBody adjustForCheckbox={false} displaySelectAll={false}>
               {faqInfo &&
                 stableSort(faqInfo, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     return (
-                      <TableRow tabIndex={-1} key={counter}>
+                      <TableRow
+                        key={counter}
+                        adjustForCheckbox={false}
+                        displaySelectAll={false}
+                        displayRowCheckbox={false}
+                      >
+                        {/* <StyledTableCell>{row.question}</StyledTableCell> */}
+
                         <StyledTableCell>
                           {faqCategoryInfo?.map((data) => {
-                            return data._id === row.faqCategoryId
-                              ? data.faqCategory
-                              : "";
+                            return data._id === row.faqCategoryId ? (
+                              <p> {data.faqCategory}</p>
+                            ) : (
+                              ""
+                            );
                           })}
+                          {/* {row.faqCategoryId + 1} */}
                         </StyledTableCell>
                         <StyledTableCell>{row.question}</StyledTableCell>
 

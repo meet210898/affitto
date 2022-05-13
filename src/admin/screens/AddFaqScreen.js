@@ -48,7 +48,12 @@ const AddFaqScreen = () => {
       component="form"
       noValidate
       onSubmit={handleSubmit}
-      sx={{ maxWidth: 275 }}
+      sx={{
+        maxWidth: 275,
+        margin: "0px",
+        padding: "20px",
+        boxShadow: "2px 1px 9px 2px #888888",
+      }}
     >
       <Card variant="outlined">
         <CardContent>

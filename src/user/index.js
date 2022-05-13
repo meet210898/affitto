@@ -14,7 +14,6 @@ import BookingList from "./screens/BookingListScreen";
 import FaqScreen from "./screens/FaqScreen";
 import ConfirmBookingScreen from "./screens/BookingConfirmScreen";
 import AboutUsScreen from "./screens/AboutUsScreen";
-import BookingPayment from "./screens/BookingPayment";
 
 const index = () => {
   return (
@@ -32,7 +31,6 @@ const index = () => {
         <Route path="/user/confirmBooking" element={<ConfirmBookingScreen />} />
         <Route path="/user/faq" element={<FaqScreen />} />
         <Route path="/user/aboutus" element={<AboutUsScreen />} />
-        <Route path="/user/payment" element={<BookingPayment />} />
         <Route
           path="/user/vehicledetails/:vehicleId"
           element={<VehicleDetails />}

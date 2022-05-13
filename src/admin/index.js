@@ -17,6 +17,7 @@ import AddFaqScreen from "./screens/AddFaqScreen";
 import ViewFaqScreen from "./screens/FaqListScreen2";
 import AddFaqCategoryScreen from "./screens/AddFaqCategoryScreen";
 import ViewFaqCategoryScreen from "./screens/FaqCategoryListScreen";
+import ViewBookingScreen from "./screens/BookingListScreen";
 
 const index = () => {
   return (
@@ -26,6 +27,7 @@ const index = () => {
 
         <Route path="/AdminDashboard" element={<Sidebar />}>
           <Route path="viewUser" element={<ViewUserScreen />} />
+          <Route path="viewBooking" element={<ViewBookingScreen />} />
 
           <Route path="AddState" element={<AddStateScreen />} />
           <Route path="ViewState" element={<ViewStateScreen />} />

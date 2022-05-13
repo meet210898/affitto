@@ -10,7 +10,6 @@ import { addType } from "../../actions/admin/vehicleTypeActions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-
 const AddStateScreen = () => {
   const [typeImage, setTypeImage] = React.useState("");
 
@@ -25,7 +24,6 @@ const AddStateScreen = () => {
     setTypeImage(event.target.files[0]);
   }
 
-  
   React.useEffect(() => {
     if (!localStorage.getItem("auth-token")) {
       navigate("/");
@@ -36,7 +34,7 @@ const AddStateScreen = () => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const emptyData = new FormData();
-    emptyData.append("typeName",data.get("typeName"));
+    emptyData.append("typeName", data.get("typeName"));
     emptyData.append("typeImage", typeImage);
     dispatch(addType(emptyData));
   };
@@ -45,7 +43,12 @@ const AddStateScreen = () => {
       component="form"
       noValidate
       onSubmit={handleSubmit}
-      sx={{ maxWidth: 275 }}
+      sx={{
+        maxWidth: 275,
+        margin: "0px",
+        padding: "20px",
+        boxShadow: "2px 1px 9px 2px #888888",
+      }}
     >
       <Card variant="outlined">
         <CardContent>

@@ -8,6 +8,8 @@ import { listUserDetails } from "../../actions/user/userActions";
 import { Typography } from "@mui/material";
 import { Button, Grid } from "@mui/material";
 import { NavLink } from "react-router-dom";
+import logo from "../public/image/logo/logo.png";
+import { addBooking } from "../../actions/admin/bookingActions";
 
 export default function BookingScreen() {
   const dispatch = useDispatch();
@@ -31,6 +33,64 @@ export default function BookingScreen() {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
+
+  const bookingData = {
+    userId: decodeUserId._id,
+    companyId: vehicle.companyId,
+    vehicleId: data.vehicleId,
+    startDate: data.startDate,
+    endDate: data.endDate,
+    payment: data.payableAmount,
+  };
+
+  const paymentHandler = () => {
+    const options = {
+      key: "rzp_test_bolvGRv48sO691",
+      amount: bookingData.payment * 100,
+      name: "Booking Payment",
+      image: logo,
+
+      prefill: {
+        name: user.firstName + " " + user.lastName,
+        email: user.email,
+        contact: user.phoneNumber,
+      },
+      notes: {
+        address: user.address,
+      },
+      theme: {
+        color: "#1b6dc1",
+      },
+      handler(response) {
+        const paymentId = response.razorpay_payment_id;
+        const url =
+          "http://localhost:3000/api/v1/rzp_capture/" +
+          paymentId +
+          "/" +
+          bookingData.payment;
+        // Using my server endpoints to capture the payment
+        fetch(url, {
+          method: "get",
+          headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+          },
+        })
+          .then(function (data) {
+            //api call insert booking
+            dispatch(addBooking(bookingData));
+            console.log(bookingData.payment, "payment done");
+            console.log("Request succeeded with JSON response", data);
+          })
+          .catch(function (error) {
+            //error booking
+            console.log("Request failed", error);
+          });
+      },
+    };
+    const rzp1 = new window.Razorpay(options);
+
+    rzp1.open();
+  };
 
   return (
     <>
@@ -118,15 +178,9 @@ export default function BookingScreen() {
           <Grid container>
             <Grid xs={12} md={12}>
               <Typography mt={2} style={{ fontSize: "20px" }} component="div">
-                <NavLink
-                  style={{ textDecoration: "none" }}
-                  to={`/user/payment`}
-                  state={{ data: data }}
-                >
-                  <Button variant="contained" color="secondary">
-                    Pay Now
-                  </Button>
-                </NavLink>
+                <Button onClick={paymentHandler} variant="contained">
+                  Pay Now
+                </Button>
               </Typography>
             </Grid>
           </Grid>

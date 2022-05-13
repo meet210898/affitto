@@ -4,9 +4,7 @@ import img from "../public/image/aboutus/aboutus.jpg";
 import registerUser from "../public/image/aboutus/registerUser.png";
 import vehicleType from "../public/image/aboutus/type.jpg";
 import selectVehicle from "../public/image/aboutus/selectVehicle.png";
-import vehicle from "../public/image/dashboard/vehicle.jpg";
 import Card from "@mui/material/Card";
-import { makeStyles } from "@mui/styles";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Grid } from "@mui/material";
@@ -136,7 +134,7 @@ const HomeScreen = () => {
                   Register an Account
                 </p>
                 <p>Registration of User</p>
-                <NavLink to="/user/register">Register New User </NavLink>
+                <b>Register New User </b>
               </Card>
             </Grid>
           </Grid>
@@ -156,7 +154,7 @@ const HomeScreen = () => {
                   Choose a Type
                 </p>
                 <p>Different Type of Vehicle</p>
-                <NavLink to="/user/type">Choose a Type</NavLink>
+                <b>Choose a Type</b>
               </Card>
             </Grid>
           </Grid>

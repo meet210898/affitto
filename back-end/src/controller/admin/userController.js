@@ -1,4 +1,5 @@
 const User = require("../../model/user/registerUserModel");
+const { VerifyUserWhen } = require("../../Email/email");
 
 const getUser = async (req, res) => {
   try {
@@ -15,7 +16,7 @@ const editUser = async (req, res) => {
     let user = await User.findByIdAndUpdate(req.params.id, {
       $set: { isVerify: status.isVerify },
     });
-
+    VerifyUserWhen(user.email, user.name);
     res.send(user);
   } catch (e) {
     res.status(500).send({ error: e.message });

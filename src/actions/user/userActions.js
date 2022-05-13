@@ -55,6 +55,7 @@ import {
   VEHICLEBYCOMPANY_DETAILS_SUCCESS,
   VEHICLEBYCOMPANY_DETAILS_FAIL,
 } from "../../constants/user/userConstants";
+
 export const getStates = () => async (dispatch) => {
   try {
     dispatch({

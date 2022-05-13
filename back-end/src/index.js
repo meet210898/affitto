@@ -13,6 +13,7 @@ const adminUserRouter = require("./router/admin/userRouter");
 const vehicleRoutter = require("./router/admin/vehicleRouter");
 const faqRouter = require("./router/admin/faqRouter");
 const faqCategoryRouter = require("./router/admin/faqCategoryRouter");
+const bookingRouter = require("./router/admin/bookingRouter");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -33,6 +34,7 @@ app.use(adminUserRouter);
 app.use(vehicleRoutter);
 app.use(faqCategoryRouter);
 app.use(faqRouter);
+app.use(bookingRouter);
 //user
 app.use(registerUserRouter);
 app.use(userRouter);

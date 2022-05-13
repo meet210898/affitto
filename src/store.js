@@ -48,6 +48,13 @@ import {
   companyDetailsReducer,
 } from "./reducers/admin/companyReducer";
 import {
+  bookingCreateReducer,
+  bookingReducer,
+  bookingUpdateReducer,
+  bookingDeleteReducer,
+  bookingDetailsReducer,
+} from "./reducers/admin/bookingReducer";
+import {
   userCreateReducer,
   userReducer,
   userLoginReducer,
@@ -103,6 +110,12 @@ const reducer = combineReducers({
   faqCategoryUpdate: faqCategoryUpdateReducer,
   faqCategoryDetails: faqCategoryDetailsReducer,
   faqCategoryDelete: faqCategoryDeleteReducer,
+  //BOOKING
+  bookingCreate: bookingCreateReducer,
+  bookingList: bookingReducer,
+  bookingUpdate: bookingUpdateReducer,
+  bookingDetails: bookingDetailsReducer,
+  bookingDelete: bookingDeleteReducer,
   //ADMIN:USER
   userList: userReducer,
 

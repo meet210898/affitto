@@ -7,16 +7,21 @@ const bookingSchema = new mongoose.Schema(
       required: true,
       ref: "User",
     },
+    companyId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Company",
+    },
     vehicleId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "Vehicle",
     },
-    startData: {
+    startDate: {
       type: Date,
       required: true,
     },
-    endData: {
+    endDate: {
       type: Date,
       required: true,
     },
@@ -24,21 +29,6 @@ const bookingSchema = new mongoose.Schema(
       type: Number,
       required: true,
       trim: true,
-    },
-    status: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    walletAmount: {
-      type: Number,
-      required: true,
-      trim: true,
-    },
-    
-    transactionNumber: {
-      type: String,
-      required: true,
     },
   },
   {

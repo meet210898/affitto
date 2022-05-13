@@ -17,6 +17,7 @@ import jwt_decode from "jwt-decode";
 import ReactRoundedImage from "react-rounded-image";
 import { makeStyles } from "@mui/styles";
 import logo from "../public/image/logo/logo.png";
+import Avatar from "@mui/material/Avatar";
 
 const useStyles = makeStyles({
   root: {
@@ -77,15 +78,15 @@ const TopBar = () => {
     <AppBar style={{ backgroundColor: "white" }} position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <NavLink
-            style={{ color: "black", textDecoration: "none" }}
-            to="/user"
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+            <NavLink
+              style={{ color: "black", textDecoration: "none" }}
+              to="/user"
             >
               <img
                 src={logo}
@@ -95,8 +96,8 @@ const TopBar = () => {
                 // maxWidth="100px"
                 alt="blank"
               />
-            </Typography>
-          </NavLink>
+            </NavLink>
+          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -163,6 +164,7 @@ const TopBar = () => {
               )}
             </Menu>
           </Box>
+
           <Typography
             variant="h6"
             noWrap
@@ -170,14 +172,19 @@ const TopBar = () => {
             sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
             style={{ color: "black" }}
           >
-            <img
-              src={logo}
-              style={{ objectFit: "cover" }}
-              height="auto"
-              width="150px"
-              // maxWidth="100px"
-              alt="blank"
-            />
+            <NavLink
+              style={{ color: "black", textDecoration: "none" }}
+              to="/user"
+            >
+              <img
+                src={logo}
+                style={{ objectFit: "cover" }}
+                height="auto"
+                width="150px"
+                // maxWidth="100px"
+                alt="blank"
+              />
+            </NavLink>
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) =>
@@ -227,7 +234,7 @@ const TopBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             {localStorage.getItem("user-token") ? (
               <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <ReactRoundedImage
                     image={`http://localhost:4000/${user?.personalImage}`}
                     alt="vehicle"
@@ -235,6 +242,12 @@ const TopBar = () => {
                     imageWidth="50"
                     imageHeight="50"
                     roundedSize="0"
+                  />
+                </IconButton> */}
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar
+                    alt="personalImage"
+                    src={`http://localhost:4000/${user?.personalImage}`}
                   />
                 </IconButton>
               </Tooltip>
