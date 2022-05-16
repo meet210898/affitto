@@ -14,7 +14,6 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listUserDetails, logout } from "../../actions/user/userActions";
 import jwt_decode from "jwt-decode";
-import ReactRoundedImage from "react-rounded-image";
 import { makeStyles } from "@mui/styles";
 import logo from "../public/image/logo/logo.png";
 import Avatar from "@mui/material/Avatar";
@@ -29,8 +28,9 @@ const useStyles = makeStyles({
 const pages = [
   "Home",
   "Company",
+  "Category",
   "Vehicles",
-  "Booking",
+  "My Booking",
   "Register",
   "FAQ",
   "About us",

@@ -45,7 +45,7 @@ export default function UserProfileScreen() {
     if (!localStorage.getItem("user-token")) {
       navigate("/user");
     }
-  }, [navigate, decodeUserId]);
+  }, [navigate]);
 
   const userUpdate = useSelector((state) => state.userUpdate);
   const { success } = userUpdate;

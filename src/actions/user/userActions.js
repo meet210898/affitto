@@ -56,6 +56,13 @@ import {
   VEHICLEBYCOMPANY_DETAILS_FAIL,
 } from "../../constants/user/userConstants";
 
+import {
+  BOOKING_LIST_MY_REQUEST,
+  BOOKING_LIST_MY_SUCCESS,
+  BOOKING_LIST_MY_FAIL,
+} from "../../constants/admin/bookingConstants";
+const userToken = JSON.parse(localStorage.getItem("user-token"));
+
 export const getStates = () => async (dispatch) => {
   try {
     dispatch({
@@ -125,13 +132,45 @@ export const getCompany = () => async (dispatch) => {
   }
 };
 
-export const listVehicle = () => async (dispatch) => {
+export const listBooking = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: BOOKING_LIST_MY_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `http://localhost:4000/user/getBookingByUserId/`,
+      config
+    );
+
+    dispatch({
+      type: BOOKING_LIST_MY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: BOOKING_LIST_MY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listVehicle = (no) => async (dispatch) => {
   try {
     dispatch({
       type: VEHICLE_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(`http://localhost:4000/user/getVehicle`);
+    const { data } = await axios.get(`http://localhost:4000/user/getVehicle/${no}`);
 
     dispatch({
       type: VEHICLE_LIST_MY_SUCCESS,

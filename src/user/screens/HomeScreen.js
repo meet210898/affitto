@@ -15,14 +15,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Grid } from "@mui/material";
 import "../components/css/imgTxt.css";
 import useWindowSize from "../components/useWindowSize";
-
+// import { FadeIn } from "react-animated-components";
+import Fade from "react-reveal/Fade";
 import {
   getCities,
   getCompany,
   getVehicleType,
   listFaq,
 } from "../../actions/user/userActions";
-
+import Reveal from "react-reveal/Reveal";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -100,7 +101,7 @@ const HomeScreen = () => {
                 </Grid>
                 <Grid xs={5} md={5}>
                   <NavLink
-                    to=""
+                    to="/user/aboutus"
                     className="btn"
                     style={{ color: "white", textDecoration: "none" }}
                   >
@@ -157,22 +158,27 @@ const HomeScreen = () => {
           </NavLink>
         </Grid>
         <Grid md={3} className={classes.root}>
-          <Card>
-            <CardMedia
-              component="img"
-              height="140"
-              image={category}
-              alt="Category"
-            />
-            <Typography variant="h5" component="h2" className={classes.font}>
-              Category
-            </Typography>
-          </Card>
+          <NavLink to={`/user/category`}>
+            <Card>
+              <CardMedia
+                component="img"
+                height="140"
+                image={category}
+                alt="Category"
+              />
+              <Typography variant="h5" component="h2" className={classes.font}>
+                Category
+              </Typography>
+            </Card>
+          </NavLink>
         </Grid>
       </Grid>
-      <Grid container justifyContent="center">
-        <h2>Browse Our Listing</h2>
-      </Grid>
+      <Fade left>
+        <Grid container justifyContent="center">
+          <h2>Browse Our Listing</h2>
+        </Grid>
+      </Fade>
+
       <Grid
         container
         direction="row"
@@ -180,54 +186,61 @@ const HomeScreen = () => {
         alignItems="start"
       >
         <Grid xs={12} md={3}>
-          <Card style={{ padding: "20px 30px" }} variant="outlined">
-            <h4 style={{ margin: "0px" }}>Company</h4>
-            <ul
-              style={{
-                listStyleType: "none",
-                textAlign: "left",
-                paddingInlineStart: "0px",
-              }}
-            >
-              {companiesInfo?.map((data) => {
-                return <li>{data.companyName}</li>;
-              })}
-            </ul>
-          </Card>
+          <Reveal effect="fadeOutLeft" effectOut="fadeInLeft">
+            <Card style={{ padding: "20px 30px" }} variant="outlined">
+              <h4 style={{ margin: "0px" }}>Company</h4>
+              <ul
+                style={{
+                  listStyleType: "none",
+                  textAlign: "left",
+                  paddingInlineStart: "0px",
+                }}
+              >
+                {companiesInfo?.map((data) => {
+                  return <li>{data.companyName}</li>;
+                })}
+              </ul>
+            </Card>
+          </Reveal>
         </Grid>
         <Grid xs={12} md={3}>
-          <Card style={{ padding: "20px 30px" }} variant="outlined">
-            <h4 style={{ margin: "0px" }}>Cities</h4>
-            <ul
-              style={{
-                listStyleType: "none",
-                textAlign: "left",
-                paddingInlineStart: "0px",
-              }}
-            >
-              {citiesInfo?.map((data) => {
-                return <li>{data.cityName}</li>;
-              })}
-            </ul>
-          </Card>
+          <Fade bottom>
+            <Card style={{ padding: "20px 30px" }} variant="outlined">
+              <h4 style={{ margin: "0px" }}>Cities</h4>
+              <ul
+                style={{
+                  listStyleType: "none",
+                  textAlign: "left",
+                  paddingInlineStart: "0px",
+                }}
+              >
+                {citiesInfo?.map((data) => {
+                  return <li>{data.cityName}</li>;
+                })}
+              </ul>
+            </Card>
+          </Fade>
         </Grid>
         <Grid xs={12} md={3}>
-          <Card style={{ padding: "20px 30px" }} variant="outlined">
-            <h4 style={{ margin: "0px" }}>Category</h4>
-            <ul
-              style={{
-                listStyleType: "none",
-                textAlign: "left",
-                paddingInlineStart: "0px",
-              }}
-            >
-              {vehicleTypesInfo?.map((data) => {
-                return <li>{data.typeName}</li>;
-              })}
-            </ul>
-          </Card>
+          <Fade bottom>
+            <Card style={{ padding: "20px 30px" }} variant="outlined">
+              <h4 style={{ margin: "0px" }}>Category</h4>
+              <ul
+                style={{
+                  listStyleType: "none",
+                  textAlign: "left",
+                  paddingInlineStart: "0px",
+                }}
+              >
+                {vehicleTypesInfo?.map((data) => {
+                  return <li>{data.typeName}</li>;
+                })}
+              </ul>
+            </Card>
+          </Fade>
         </Grid>
       </Grid>
+
       <Grid container md={12} xs={12}>
         <Grid md={1} xs={1}></Grid>
         <Grid md={10} xs={10}>
@@ -235,55 +248,63 @@ const HomeScreen = () => {
         </Grid>
         <Grid md={1} xs={1}></Grid>
       </Grid>
+
       <Grid container md={12} xs={12}>
         <Grid md={1} xs={1}></Grid>
         {windowSize.width < 900 ? (
           <Grid md={10} xs={10}>
             {faqInfo?.map((data) => (
-              <Accordion>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id={data._id}
-                  style={{
-                    padding: "10px",
-                    backgroundColor: "#f1f1f1",
-                  }}
-                >
-                  <Typography style={{ fontSize: "13px", fontWeight: "bold" }}>
-                    {data.question}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography style={{ fontSize: "13px", color: "#7f868e" }}>
-                    {data.answer}
-                  </Typography>
-                </AccordionDetails>
-              </Accordion>
+              <Fade bottom>
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id={data._id}
+                    style={{
+                      padding: "10px",
+                      backgroundColor: "#f1f1f1",
+                    }}
+                  >
+                    <Typography
+                      style={{ fontSize: "13px", fontWeight: "bold" }}
+                    >
+                      {data.question}
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography style={{ fontSize: "13px", color: "#7f868e" }}>
+                      {data.answer}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              </Fade>
             ))}
           </Grid>
         ) : (
           <Grid md={10} xs={10}>
-            <Card style={{ padding: "20px 30px" }} variant="outlined">
-              {faqInfo?.map((data) => (
-                <>
-                  <h4 style={{ margin: "0px" }}>{data.question}</h4>
-                  <p
-                    style={{
-                      fontSize: "14px",
-                      lineHeight: "1.43",
-                      color: "rgba(18,34,50,.7)",
-                    }}
-                  >
-                    {data.answer}
-                  </p>
-                </>
-              ))}
-            </Card>
+            <Fade bottom>
+              <Card style={{ padding: "20px 30px" }} variant="outlined">
+                {faqInfo?.map((data) => (
+                  <>
+                    <h4 style={{ margin: "0px" }}>{data.question}</h4>
+                    <p
+                      style={{
+                        fontSize: "14px",
+                        lineHeight: "1.43",
+                        color: "rgba(18,34,50,.7)",
+                      }}
+                    >
+                      {data.answer}
+                    </p>
+                  </>
+                ))}
+              </Card>
+            </Fade>
           </Grid>
         )}
         <Grid md={1} xs={1}></Grid>
       </Grid>
+
       <Grid container md={12} xs={12}>
         <Grid md={1} xs={1}></Grid>
 

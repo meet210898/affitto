@@ -14,6 +14,7 @@ const vehicleRoutter = require("./router/admin/vehicleRouter");
 const faqRouter = require("./router/admin/faqRouter");
 const faqCategoryRouter = require("./router/admin/faqCategoryRouter");
 const bookingRouter = require("./router/admin/bookingRouter");
+const bookingUserRouter = require("./router/user/bookingRouter");
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -24,6 +25,7 @@ app.use(
   "/public/uploads",
   express.static(path.join(__dirname, "../public/uploads"))
 );
+
 //admin
 app.use(stateRouter);
 app.use(cityRouter);
@@ -35,9 +37,12 @@ app.use(vehicleRoutter);
 app.use(faqCategoryRouter);
 app.use(faqRouter);
 app.use(bookingRouter);
+
 //user
+app.use(bookingUserRouter);
 app.use(registerUserRouter);
 app.use(userRouter);
+
 app.listen(port, () => {
   console.log("The server is up on port " + port);
 });

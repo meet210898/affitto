@@ -14,11 +14,15 @@ import BookingList from "./screens/BookingListScreen";
 import FaqScreen from "./screens/FaqScreen";
 import ConfirmBookingScreen from "./screens/BookingConfirmScreen";
 import AboutUsScreen from "./screens/AboutUsScreen";
+import VehicleTypeList from "./screens/VehicleTypeScreen";
+import NotFoundScreen from "./screens/404Screen";
+import MyBookingScreen from "./screens/MyBookingScreen";
 
 const index = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/user/*" element={<NotFoundScreen />} />
         <Route path="/user" element={<HomeScreen />} />
         <Route path="/user/login" element={<UserLoginScreen />} />
         <Route path="/user/register" element={<UserRegisterScreen />} />
@@ -30,7 +34,9 @@ const index = () => {
         <Route path="/user/booking" element={<BookingList />} />
         <Route path="/user/confirmBooking" element={<ConfirmBookingScreen />} />
         <Route path="/user/faq" element={<FaqScreen />} />
+        <Route path="/user/category" element={<VehicleTypeList />} />
         <Route path="/user/aboutus" element={<AboutUsScreen />} />
+        <Route path="/user/mybooking" element={<MyBookingScreen />} />
         <Route
           path="/user/vehicledetails/:vehicleId"
           element={<VehicleDetails />}

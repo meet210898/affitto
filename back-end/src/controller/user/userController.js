@@ -71,8 +71,13 @@ const getCompany = async (req, res) => {
 };
 
 const getVehicle = async (req, res) => {
+  let vehicle;
   try {
-    const vehicle = await Vehicle.find({});
+    if (req.params.id !== "0") {
+      vehicle = await Vehicle.find().limit(2);
+    } else {
+      vehicle = await Vehicle.find();
+    }
     res.status(200).send(vehicle);
   } catch (e) {
     res.status(500).send({ error: e.message });

@@ -1,27 +1,8 @@
 import * as React from "react";
-import ImageList from "@mui/material/ImageList";
-import ImageListItem from "@mui/material/ImageListItem";
-import ListSubheader from "@mui/material/ListSubheader";
 import Topbar from "../components/topbar";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { listVehicle, getCompany } from "../../actions/user/userActions";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
-
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-
-import carSeat from "../public/image/svgs/car-seat.webp";
-import carGear from "../public/image/svgs/car-gear.webp";
-import carFuel from "../public/image/svgs/car-fuel.webp";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -30,7 +11,6 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import {
-  listFaqByFaqCategoryDetails,
   listFaq,
   listFaqCategory,
 } from "../../actions/user/userActions";

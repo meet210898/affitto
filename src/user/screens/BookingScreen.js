@@ -3,13 +3,13 @@ import Topbar from "../components/topbar";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCompany, listVehicleDetails } from "../../actions/user/userActions";
-import moment from "moment";
 
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Button, Grid } from "@mui/material";
+
+import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
 export default function BookingScreen() {
   const dispatch = useDispatch();
@@ -33,12 +33,12 @@ export default function BookingScreen() {
   const time_difference = endDate.getTime() - startDate.getTime();
   const days_difference = time_difference / (1000 * 60 * 60 * 24);
 
-  const payableAmount = vehicle?.priceperday * days_difference;
+  const payableAmount = vehicle?.priceperday * Math.trunc(days_difference);
 
   const data = {
     vehicleId: vehicleId,
-    startDate: moment(startDate).format("LL"),
-    endDate: moment(endDate).format("LL"),
+    startDate: startDate,
+    endDate: endDate,
     payableAmount: payableAmount,
   };
 
@@ -78,30 +78,27 @@ export default function BookingScreen() {
           </Grid>
           <Grid container>
             <Grid xs={12} md={5} display="block" style={{ marginTop: "10px" }}>
-              <LocalizationProvider
-                style={{ margin: "10px" }}
-                dateAdapter={AdapterDateFns}
-              >
-                <DatePicker
-                  label="Start date"
-                  value={startDate}
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DateTimePicker
+                  renderInput={(props) => <TextField {...props} />}
+                  label="DateTimePicker"
                   style={{ margin: "10px" }}
                   minDate={new Date()}
+                  value={startDate}
                   onChange={(date) => setStartDate(date)}
-                  renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </Grid>
             <Grid xs={12} md={1}></Grid>
             <Grid xs={12} md={5} display="block" style={{ marginTop: "10px" }}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DatePicker
-                  label="End date"
-                  value={endDate}
+                <DateTimePicker
+                  renderInput={(props) => <TextField {...props} />}
+                  label="DateTimePicker"
                   style={{ margin: "10px" }}
                   minDate={startDate}
+                  value={endDate}
                   onChange={(date) => setEndDate(date)}
-                  renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>
             </Grid>

@@ -61,7 +61,6 @@ userSchema.pre('save',async function(next){
 userSchema.methods.generateAuthToken =  function () {
     const user = this;
     const token = jwt.sign({_id:user._id.toString()},'thisismynewcourse');
-    console.log(user._id.toString());
     return token;
 };
 

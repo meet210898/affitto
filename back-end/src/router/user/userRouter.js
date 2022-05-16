@@ -22,7 +22,7 @@ router.patch("/user/editUser/:id", upload.single("personalImage"), editUser);
 router.get("/user/getUserById/:id", getUserById);
 router.get("/user/getVehicleType", getVehicleType);
 router.get("/user/getCompany", getCompany);
-router.get("/user/getVehicle", getVehicle);
+router.get("/user/getVehicle/:id", getVehicle);
 router.get("/user/getFaq/:id", getFaq);
 router.get("/user/getFaqCategory", getFaqCategory);
 router.get("/user/getVehicleById/:id", getVehicleById);

@@ -211,7 +211,6 @@ const UserRegisterScreen = () => {
                                 {data.cityName}
                               </MenuItem>
                             );
-                            // else return "Please select State first!";
                           })}
                       </Select>
                     </FormControl>

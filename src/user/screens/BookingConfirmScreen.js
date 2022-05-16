@@ -7,12 +7,14 @@ import jwt_decode from "jwt-decode";
 import { listUserDetails } from "../../actions/user/userActions";
 import { Typography } from "@mui/material";
 import { Button, Grid } from "@mui/material";
-import { NavLink } from "react-router-dom";
 import logo from "../public/image/logo/logo.png";
-import { addBooking } from "../../actions/admin/bookingActions";
+import { addBooking } from "../../actions/user/bookingActions";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 export default function BookingScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const location = useLocation();
 
@@ -78,8 +80,6 @@ export default function BookingScreen() {
           .then(function (data) {
             //api call insert booking
             dispatch(addBooking(bookingData));
-            console.log(bookingData.payment, "payment done");
-            console.log("Request succeeded with JSON response", data);
           })
           .catch(function (error) {
             //error booking
@@ -104,7 +104,7 @@ export default function BookingScreen() {
           style={{ padding: "20px", boxShadow: "2px 1px 9px 2px #888888" }}
         >
           <Grid xs={12} md={12}>
-            <h1>Confirmation</h1>
+            <h1 style={{ margin: "0px" }}>Confirmation</h1>
           </Grid>
           {/* user detail */}
           <Grid container>
@@ -122,13 +122,13 @@ export default function BookingScreen() {
             </Grid>
           </Grid>
           <Grid container>
-            <Grid xs={6} md={6}>
+            <Grid xs={12} md={6}>
               <Typography mt={2} component="div">
                 <b>Email</b>
               </Typography>
               {user.email}
             </Grid>
-            <Grid xs={6} md={6}>
+            <Grid xs={12} md={6}>
               <Typography mt={2} component="div">
                 <b>Phone Number</b>
               </Typography>
@@ -158,13 +158,27 @@ export default function BookingScreen() {
               <Typography mt={2} component="div">
                 <b>Start Date</b>
               </Typography>
-              {data.startDate}
+              {moment(data.startDate).format("LL")}
             </Grid>
             <Grid xs={6} md={6}>
               <Typography mt={2} component="div">
                 <b>End Date</b>
               </Typography>
-              {data.endDate}
+              {moment(data.endDate).format("LL")}
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={6} md={6}>
+              <Typography mt={2} component="div">
+                <b>Pick up Time</b>
+              </Typography>
+              {moment(data.startDate).format("LT")}
+            </Grid>
+            <Grid xs={6} md={6}>
+              <Typography mt={2} component="div">
+                <b>Deliver Time</b>
+              </Typography>
+              {moment(data.endDate).format("LT")}
             </Grid>
           </Grid>
           <Grid container>
@@ -180,6 +194,13 @@ export default function BookingScreen() {
               <Typography mt={2} style={{ fontSize: "20px" }} component="div">
                 <Button onClick={paymentHandler} variant="contained">
                   Pay Now
+                </Button>
+                <Button
+                  style={{ marginLeft: "10px", background: "red" }}
+                  onClick={() => navigate("/user/vehicles")}
+                  variant="contained"
+                >
+                  Cancel
                 </Button>
               </Typography>
             </Grid>
