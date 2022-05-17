@@ -1,0 +1,35 @@
+.info,
+.success,
+.warning,
+.error {
+margin: 10px 0px;
+padding: 12px;
+}
+.info {
+color: #00529B;
+background-color: #BDE5F8;
+border-radius: #00529B;
+}
+.success {
+color: #4F8A10;
+background-color: #DFF2BF;
+}
+.warning {
+color: #9F6000;
+background-color: #FEEFB3;
+}
+.error {
+    margin:0;
+    padding:0; 
+    color: #f80612;
+    font-size: 16px;
+    font-weight: bold;
+}
+.info i,
+.success i,
+.warning i,
+.error i {
+margin: 10px 22px;
+font-size: 2em;
+vertical-align: middle;
+}

@@ -48,7 +48,9 @@ export default function VehicleList() {
         <Grid xs={10}>
           <ImageList>
             <ImageListItem key="Subheader">
-              <ListSubheader component="div">Vehicles</ListSubheader>
+              <ListSubheader component="div" style={{ background: "none" }}>
+                Vehicles
+              </ListSubheader>
             </ImageListItem>
           </ImageList>
           <Grid container display="flex">
@@ -162,7 +164,6 @@ export default function VehicleList() {
               </Grid>
             ))}
           </Grid>
-          
         </Grid>
 
         <Grid xs={1}></Grid>

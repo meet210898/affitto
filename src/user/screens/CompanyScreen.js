@@ -6,7 +6,7 @@ import Topbar from "../components/topbar";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { getCompany } from "../../actions/user/userActions";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -29,7 +29,9 @@ export default function CompanyList() {
         <Grid xs={10}>
           <ImageList>
             <ImageListItem key="Subheader">
-              <ListSubheader component="div">Company</ListSubheader>
+              <ListSubheader component="div" style={{ background: "none" }}>
+                Company
+              </ListSubheader>
             </ImageListItem>
           </ImageList>
         </Grid>
@@ -41,7 +43,10 @@ export default function CompanyList() {
           <Grid container display="flex">
             {companiesInfo?.map((data) => (
               <Grid md={4}>
-                <Link to={`/user/vehicles/${data._id}`}>
+                <NavLink
+                  style={{ textDecoration: "none" }}
+                  to={`/user/vehicles/${data._id}`}
+                >
                   <Card sx={{ maxWidth: 300, height: "auto", margin: "20px" }}>
                     <CardMedia
                       component="img"
@@ -55,7 +60,7 @@ export default function CompanyList() {
                       </center>
                     </CardContent>
                   </Card>
-                </Link>
+                </NavLink>
               </Grid>
             ))}
           </Grid>

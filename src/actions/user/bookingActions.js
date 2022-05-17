@@ -5,19 +5,15 @@ import {
   BOOKING_UPDATE_REQUEST,
   BOOKING_UPDATE_SUCCESS,
   BOOKING_UPDATE_FAIL,
-  BOOKING_DELETE_REQUEST,
-  BOOKING_DELETE_SUCCESS,
-  BOOKING_DELETE_FAIL,
-  BOOKING_DETAILS_REQUEST,
-  BOOKING_DETAILS_SUCCESS,
-  BOOKING_DETAILS_FAIL,
   BOOKINGBYUSER_DETAILS_REQUEST,
   BOOKINGBYUSER_DETAILS_SUCCESS,
   BOOKINGBYUSER_DETAILS_FAIL,
+  BOOKINGBYID_DETAILS_REQUEST,
+  BOOKINGBYID_DETAILS_SUCCESS,
+  BOOKINGBYID_DETAILS_FAIL,
 } from "../../constants/user/bookingConstants";
 import axios from "axios";
 const userToken = JSON.parse(localStorage.getItem("user-token"));
-console.log(userToken, "userToken");
 
 export const addBooking = (bookingData) => async (dispatch) => {
   try {
@@ -85,31 +81,10 @@ export const updateBooking = (bookingId, bookingData) => async (dispatch) => {
   }
 };
 
-// export const getVehicleTypeDetails = (typeId) => async (dispatch) => {
-//   dispatch({ type: VEHICLE_DETAILS_REQUEST });
-//   try {
-//     const { data } = await axios.get(
-//       `http://localhost:4000/getVehicleTypeById/${typeId}`
-//     );
-//     dispatch({
-//       type: VEHICLE_DETAILS_SUCCESS,
-//       payload: data,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: VEHICLE_DETAILS_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     });
-//   }
-// };
-
-export const deleteBooking = (bookingId) => async (dispatch) => {
+export const updateBookingStatus = (bookingId, status) => async (dispatch) => {
   try {
     dispatch({
-      type: BOOKING_DELETE_REQUEST,
+      type: BOOKING_UPDATE_REQUEST,
     });
 
     const config = {
@@ -118,17 +93,51 @@ export const deleteBooking = (bookingId) => async (dispatch) => {
       },
     };
 
-    await axios.delete(
-      `http://localhost:4000/user/deleteBooking/${bookingId}`,
+    const { data } = await axios.patch(
+      `http://localhost:4000/editBookingStatus/${bookingId}`,
+      status,
       config
     );
 
     dispatch({
-      type: BOOKING_DELETE_SUCCESS,
+      type: BOOKING_UPDATE_SUCCESS,
+      payload: data,
     });
   } catch (error) {
     dispatch({
-      type: BOOKING_DELETE_FAIL,
+      type: BOOKING_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listBookingById = (bookingId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: BOOKINGBYID_DETAILS_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `http://localhost:4000/user/getBookingById/${bookingId}`,
+      config
+    );
+
+    dispatch({
+      type: BOOKINGBYID_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: BOOKINGBYID_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

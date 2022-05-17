@@ -58,7 +58,9 @@ export default function VehicleTypeList() {
         <Grid xs={10} md={10}>
           <ImageList>
             <ImageListItem key="Subheader">
-              <ListSubheader component="div">Category</ListSubheader>
+              <ListSubheader component="div" style={{ background: "none" }}>
+                Category
+              </ListSubheader>
             </ImageListItem>
           </ImageList>
         </Grid>

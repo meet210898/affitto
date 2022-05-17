@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
+import { Button, Grid } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -11,6 +12,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import ListItem from "./list";
+import SingleListItem from "./list/singleList";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -31,18 +33,71 @@ import QuestionAnswerIcon from "@mui/icons-material/QuestionAnswer";
 import CategoryIcon from "@mui/icons-material/Category";
 import BookOnlineIcon from "@mui/icons-material/BookOnline";
 import logo from "../public/logo/logo4.png";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+
+import { styled, alpha } from "@mui/material/styles";
+import SearchIcon from "@mui/icons-material/Search";
+import InputBase from "@mui/material/InputBase";
+
 // import "./style.css";
+import Tooltip from "@mui/material/Tooltip";
+import Avatar from "@mui/material/Avatar";
 
 const drawerWidth = 265;
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
+
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
+  },
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  width: "100%",
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
 
 function Sidebar(props) {
   const dispatch = useDispatch();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const SearchIconWrapper = styled("div")(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }));
 
   const pages = [
     { page: "State", icon: <AddLocationAltIcon style={{ color: "white" }} /> },
@@ -92,34 +147,17 @@ function Sidebar(props) {
       </center>
       <Divider style={{ backgroundColor: "white", width: "100%" }} />
       <List>
-        <NavLink
-          className={(isActive) =>
-            "nav-link" + (!isActive ? " unselected" : "")
-          }
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/viewUser"
-        >
-          <ListItemButton>
-            <ListItemIcon>
-              <PersonIcon style={{ color: "white" }} />
-            </ListItemIcon>
-            <ListItemText primary="User" />
-          </ListItemButton>
-        </NavLink>
-        <NavLink
-          className={(isActive) =>
-            "nav-link" + (!isActive ? " unselected" : "")
-          }
-          style={{ color: "white", textDecoration: "none" }}
-          to="/AdminDashboard/viewBooking"
-        >
-          <ListItemButton>
-            <ListItemIcon>
-              <BookOnlineIcon style={{ color: "white" }} />
-            </ListItemIcon>
-            <ListItemText primary="Booking" />
-          </ListItemButton>
-        </NavLink>
+        <ListItem
+          headerIcon={<PersonIcon style={{ color: "white" }} />}
+          name="User"
+          site="viewUser"
+        />
+        <ListItem
+          headerIcon={<BookOnlineIcon style={{ color: "white" }} />}
+          name="Booking"
+          site="viewBooking"
+        />
+
         {pages.map((item) => (
           <>
             <ListItemButton
@@ -133,20 +171,18 @@ function Sidebar(props) {
             <Collapse in={open[item.page]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItemButton sx={{ pl: 4 }}>
-                  <NavLink
-                    style={{ color: "white", textDecoration: "none" }}
-                    to={`/AdminDashboard/add${item.page}`}
-                  >
-                    <ListItem name={`Add ${item.page}`} />
-                  </NavLink>
+                  <ListItem
+                    headerIcon={<ArrowForwardIcon style={{ color: "white" }} />}
+                    site={`add${item.page}`}
+                    name={`Add ${item.page}`}
+                  />
                 </ListItemButton>
                 <ListItemButton sx={{ pl: 4 }}>
-                  <NavLink
-                    style={{ color: "white", textDecoration: "none" }}
-                    to={`/AdminDashboard/view${item.page}`}
-                  >
-                    <ListItem name={`View ${item.page}`} />
-                  </NavLink>
+                  <ListItem
+                    headerIcon={<ArrowForwardIcon style={{ color: "white" }} />}
+                    site={`view${item.page}`}
+                    name={`View ${item.page}`}
+                  />
                 </ListItemButton>
               </List>
             </Collapse>
@@ -172,29 +208,53 @@ function Sidebar(props) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
+          background: "black",
         }}
       >
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Responsive drawer
-          </Typography>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <NavLink
-            style={{ color: "white", textDecoration: "none" }}
-            to="/"
-            onClick={logoutHandler}
-          >
-            Logout
-          </NavLink>
+          <Grid container>
+            <Grid xs={2}>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{ mr: 2, display: { sm: "none" } }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Grid>
+            <Grid xs={8} md={8}>
+              <Search sx={{ width: { xs: "70%", md: "50%" } }}>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </Search>
+            </Grid>
+            <Grid
+              style={{ display: "flex", justifyContent: "right" }}
+              xs={2}
+              md={2}
+            >
+              <NavLink
+                style={{
+                  marginLeft: "20px",
+                  color: "white",
+                  textDecoration: "none",
+                  justifyContent: "right",
+                  display: "flex",
+                }}
+                to="/"
+                onClick={logoutHandler}
+              >
+                <Button sx={{ color: "white" }}>Logout</Button>
+              </NavLink>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
       <Box
@@ -237,12 +297,13 @@ function Sidebar(props) {
           {drawer}
         </Drawer>
       </Box>
+
       <Box
         component="main"
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: { xs: `calc(100% - ${drawerWidth}px)` },
           display: "flex",
           justifyContent: "center",
           marginTop: "64px",

@@ -23,7 +23,7 @@ const index = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginScreen />} />
+        <Route path="/login" element={<LoginScreen />} />
 
         <Route path="/AdminDashboard" element={<Sidebar />}>
           <Route path="viewUser" element={<ViewUserScreen />} />

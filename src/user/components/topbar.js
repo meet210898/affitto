@@ -75,7 +75,7 @@ const TopBar = () => {
   const { user } = userDetails;
 
   return (
-    <AppBar style={{ backgroundColor: "white" }} position="static">
+    <AppBar style={{ backgroundColor: "white" }} position="sticky">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
@@ -233,17 +233,7 @@ const TopBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             {localStorage.getItem("user-token") ? (
-              <Tooltip title="Open settings">
-                {/* <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <ReactRoundedImage
-                    image={`http://localhost:4000/${user?.personalImage}`}
-                    alt="vehicle"
-                    style={{ objectFit: "cover" }}
-                    imageWidth="50"
-                    imageHeight="50"
-                    roundedSize="0"
-                  />
-                </IconButton> */}
+              <Tooltip title="Open settings">               
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt="personalImage"

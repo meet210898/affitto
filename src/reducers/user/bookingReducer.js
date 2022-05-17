@@ -7,9 +7,9 @@ import {
   BOOKING_UPDATE_SUCCESS,
   BOOKING_UPDATE_FAIL,
   BOOKING_UPDATE_RESET,
-  BOOKING_DELETE_REQUEST,
-  BOOKING_DELETE_SUCCESS,
-  BOOKING_DELETE_FAIL,
+  BOOKINGBYID_DETAILS_REQUEST,
+  BOOKINGBYID_DETAILS_SUCCESS,
+  BOOKINGBYID_DETAILS_FAIL,
   BOOKINGBYUSER_DETAILS_REQUEST,
   BOOKINGBYUSER_DETAILS_SUCCESS,
   BOOKINGBYUSER_DETAILS_FAIL,
@@ -46,6 +46,22 @@ export const bookingByUserReducer = (
   }
 };
 
+export const bookingByIdReducer = (
+  state = { bookingsByIdInfo: [] },
+  action
+) => {
+  switch (action.type) {
+    case BOOKINGBYID_DETAILS_REQUEST:
+      return { loading: true };
+    case BOOKINGBYID_DETAILS_SUCCESS:
+      return { loading: false, bookingsByIdInfo: action.payload };
+    case BOOKINGBYID_DETAILS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
 export const bookingUpdateReducer = (state = { booking: {} }, action) => {
   switch (action.type) {
     case BOOKING_UPDATE_REQUEST:
@@ -56,19 +72,6 @@ export const bookingUpdateReducer = (state = { booking: {} }, action) => {
       return { loading: false, error: action.payload };
     case BOOKING_UPDATE_RESET:
       return { state: {} };
-    default:
-      return state;
-  }
-};
-
-export const bookingDeleteReducer = (state = {}, action) => {
-  switch (action.type) {
-    case BOOKING_DELETE_REQUEST:
-      return { loading: true };
-    case BOOKING_DELETE_SUCCESS:
-      return { loading: false, deleteSuccess: true };
-    case BOOKING_DELETE_FAIL:
-      return { loading: false, error: action.payload };
     default:
       return state;
   }

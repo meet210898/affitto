@@ -8,9 +8,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Paper } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { Button, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { listCompany } from "../../actions/admin/companyActions";
-import { listBooking } from "../../actions/admin/bookingActions";
+import { deleteBooking, listBooking } from "../../actions/admin/bookingActions";
 
 import { listUser } from "../../actions/admin/userActions";
 import { listVehicle } from "../../actions/admin/vehicleActions";
@@ -40,6 +42,9 @@ export default function ViewBookingScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const bookingDelete = useSelector((state) => state.bookingDelete);
+  const { deleteSuccess } = bookingDelete;
+
   React.useEffect(() => {
     if (!localStorage.getItem("auth-token")) {
       navigate("/");
@@ -48,7 +53,7 @@ export default function ViewBookingScreen() {
     dispatch(listBooking());
     dispatch(listCompany());
     dispatch(listVehicle());
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, deleteSuccess]);
   let counter = 0;
 
   const vehicleList = useSelector((state) => state.vehicleList);
@@ -63,6 +68,13 @@ export default function ViewBookingScreen() {
   const bookingList = useSelector((state) => state.bookingList);
   const { bookingsInfo } = bookingList;
 
+  const deleteHandler = (bookingId) => {
+    if (window.confirm("Are you sure")) {
+      dispatch(deleteBooking(bookingId));
+      navigate("/AdminDashboard/ViewBooking");
+    }
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -75,6 +87,8 @@ export default function ViewBookingScreen() {
             <StyledTableCell>Start Date</StyledTableCell>
             <StyledTableCell>End Date</StyledTableCell>
             <StyledTableCell>Payment</StyledTableCell>
+            <StyledTableCell>Status</StyledTableCell>
+            <StyledTableCell>Action</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -105,6 +119,25 @@ export default function ViewBookingScreen() {
                 {moment(row.endDate).format("LL")}
               </StyledTableCell>
               <StyledTableCell>{row.payment}</StyledTableCell>
+              <StyledTableCell>
+                <Button
+                  variant="contained"
+                  style={{ height: "auto", width: "auto", fontWeight: "bold" }}
+                  color={row.status === true ? "success" : "error"}
+                >
+                  {row.status === true ? "Booked" : "Cancelled"}
+                </Button>
+              </StyledTableCell>
+              <StyledTableCell>
+                <IconButton
+                  aria-label="delete"
+                  size="large"
+                  style={{ color: "red" }}
+                  onClick={() => deleteHandler(row._id)}
+                >
+                  <DeleteIcon fontSize="inherit" />
+                </IconButton>
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

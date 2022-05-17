@@ -54,7 +54,7 @@ const NotFoundScreen = () => {
 
   React.useEffect(() => {
     dispatch(getCompany());
-    dispatch(listVehicle());
+    dispatch(listVehicle(0));
     dispatch(listBookingByUserId(decodeUserId._id));
     dispatch(listUserDetails(decodeUserId._id));
   }, [dispatch, decodeUserId._id, deleteSuccess]);
@@ -72,6 +72,10 @@ const NotFoundScreen = () => {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
+
+  const bookHandler = (bookingId) => {
+    navigate(`/user/modifyBooking/${bookingId}`);
+  };
 
   return (
     <>
@@ -98,11 +102,11 @@ const NotFoundScreen = () => {
           ) : (
             bookingsByUserInfo?.map((data) => (
               <Card
-                style={{ padding: "20px 30px", marginTop: "20px" }}
+                style={{ padding: "20px 30px", marginBottom: "20px" }}
                 variant="outlined"
               >
                 <Grid container>
-                  <Grid xs={12} md={9}>
+                  <Grid xs={12} md={12}>
                     {companiesInfo
                       ?.filter((item) => item._id === data.companyId)
                       .map((company) => {
@@ -119,12 +123,6 @@ const NotFoundScreen = () => {
                           <p style={{ margin: "0px" }}>{vehicle.vehicleName}</p>
                         );
                       })}
-                  </Grid>
-                  <Grid xs={12} md={3}>
-                    <p style={{ margin: "0px", color: "rgba(0, 0, 0, 0.6)" }}>
-                      Booking ID
-                    </p>
-                    <p style={{ margin: "0px" }}>{data._id}</p>
                   </Grid>
                 </Grid>
 
@@ -217,23 +215,15 @@ const NotFoundScreen = () => {
                     </Button>
                     <Button
                       style={{ marginLeft: "10px" }}
-                      onClick=""
+                      onClick={() => {
+                        bookHandler(data._id);
+                      }}
                       variant="contained"
                     >
                       Modify
                     </Button>
                   </Grid>
                 </Grid>
-
-                {/* <CardMedia
-              component="img"
-              height="140"
-              //   image={companies}
-              alt="Companies"
-            />
-            <Typography variant="h5" component="h2" className={classes.font}>
-              Companies
-            </Typography> */}
               </Card>
             ))
           )}

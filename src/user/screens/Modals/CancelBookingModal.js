@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
-import { deleteBooking } from "../../../actions/user/bookingActions";
+import { updateBookingStatus } from "../../../actions/user/bookingActions";
 
 const style = {
   position: "absolute",
@@ -40,7 +40,7 @@ const ModalCall = ({ open, setOpen, editData }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    dispatch(deleteBooking(bookingId));
+    dispatch(updateBookingStatus(bookingId, { status: false }));
     handleClose();
   };
 

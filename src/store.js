@@ -47,12 +47,15 @@ import {
   companyDeleteReducer,
   companyDetailsReducer,
 } from "./reducers/admin/companyReducer";
-import { bookingReducer } from "./reducers/admin/bookingReducer";
+import {
+  bookingReducer,
+  bookingDeleteReducer,
+} from "./reducers/admin/bookingReducer";
 import {
   bookingCreateReducer,
   bookingUpdateReducer,
-  bookingDeleteReducer,
   bookingByUserReducer,
+  bookingByIdReducer,
 } from "./reducers/user/bookingReducer";
 import {
   userCreateReducer,
@@ -112,6 +115,7 @@ const reducer = combineReducers({
   faqCategoryDelete: faqCategoryDeleteReducer,
   //BOOKING
   bookingList: bookingReducer,
+  bookingDelete: bookingDeleteReducer,
   //ADMIN:USER
   userList: userReducer,
 
@@ -126,7 +130,7 @@ const reducer = combineReducers({
   bookingCreate: bookingCreateReducer,
   bookingByUser: bookingByUserReducer,
   bookingUpdate: bookingUpdateReducer,
-  bookingDelete: bookingDeleteReducer,
+  bookingById: bookingByIdReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

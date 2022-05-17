@@ -17,6 +17,7 @@ import AboutUsScreen from "./screens/AboutUsScreen";
 import VehicleTypeList from "./screens/VehicleTypeScreen";
 import NotFoundScreen from "./screens/404Screen";
 import MyBookingScreen from "./screens/MyBookingScreen";
+import ModifyBookingScreen from "./screens/ModifyBookingScreen";
 
 const index = () => {
   return (
@@ -37,6 +38,10 @@ const index = () => {
         <Route path="/user/category" element={<VehicleTypeList />} />
         <Route path="/user/aboutus" element={<AboutUsScreen />} />
         <Route path="/user/mybooking" element={<MyBookingScreen />} />
+        <Route
+          path="/user/modifyBooking/:id"
+          element={<ModifyBookingScreen />}
+        />
         <Route
           path="/user/vehicledetails/:vehicleId"
           element={<VehicleDetails />}

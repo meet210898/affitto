@@ -18,7 +18,7 @@ import {
 import axios from "axios";
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
 
-export const addCity = (stateId, cityName, cityImage) => async (dispatch) => {
+export const addCity = (cityData) => async (dispatch) => {
   try {
     dispatch({
       type: CITY_CREATE_REQUEST,
@@ -31,14 +31,9 @@ export const addCity = (stateId, cityName, cityImage) => async (dispatch) => {
       },
     };
 
-    const formData = new FormData();
-    formData.append("stateId", stateId);
-    formData.append("cityName", cityName);
-    formData.append("cityImage", cityImage);
-    console.log(formData, "formData");
     const { data } = await axios.post(
       "http://localhost:4000/addCity",
-      formData,
+      cityData,
       config
     );
 

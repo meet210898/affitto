@@ -104,6 +104,16 @@ const getVehicleByCompanyId = async (req, res) => {
   }
 };
 
+const getVehicleByTypeId = async (req, res) => {
+  try {
+    const typeId = req.params.id;
+    const vehicle = await Vehicle.find({ typeId: typeId });
+    res.status(200).send(vehicle);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
 const getUserById = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -195,4 +205,5 @@ module.exports = {
   getFaqByFaqCategoryId,
   getFaq,
   getFaqCategory,
+  getVehicleByTypeId,
 };

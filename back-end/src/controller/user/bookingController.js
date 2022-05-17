@@ -15,22 +15,18 @@ const addBooking = async (req, res) => {
 
 const editBookingStatus = async (req, res) => {
   const status = req.body;
+  const currDate = new Date();
   try {
     let booking = await Booking.findByIdAndUpdate(req.params.id, {
-      $set: { status: status.bookingStatus },
+      $set: { status: status.status },
     });
-    // VerifyUserWhen(user.email, user.name);
-    res.send(booking);
-  } catch (e) {
-    res.status(500).send({ error: e.message });
-  }
-};
 
-const deleteBooking = async (req, res) => {
-  try {
-    const booking = await Booking.findById(req.params.id);
-    await booking.remove();
-    res.status(200).send({ msg: "Booking Deleted!!" });
+    // VerifyUserWhen(user.email, user.name);
+    await Booking.updateMany({
+      endDate: { $gt: currDate },
+      $set: { status: false },
+    });
+    res.send(booking);
   } catch (e) {
     res.status(500).send({ error: e.message });
   }
@@ -38,7 +34,16 @@ const deleteBooking = async (req, res) => {
 
 const getBookingByUserId = async (req, res) => {
   try {
-    const booking = await Booking.find({ userId: req.params.id });
+    const booking = await Booking.find({ userId: req.params.id, status: true });
+    res.status(200).send(booking);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const getBookingById = async (req, res) => {
+  try {
+    const booking = await Booking.findById(req.params.id);
     res.status(200).send(booking);
   } catch (e) {
     res.status(500).send({ error: e.message });
@@ -49,5 +54,5 @@ module.exports = {
   addBooking,
   editBookingStatus,
   getBookingByUserId,
-  deleteBooking,
+  getBookingById,
 };

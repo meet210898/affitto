@@ -43,6 +43,7 @@ export default function BookingScreen() {
     startDate: data.startDate,
     endDate: data.endDate,
     payment: data.payableAmount,
+    status: true,
   };
 
   const paymentHandler = () => {
@@ -80,6 +81,7 @@ export default function BookingScreen() {
           .then(function (data) {
             //api call insert booking
             dispatch(addBooking(bookingData));
+            navigate("/user/MyBooking");
           })
           .catch(function (error) {
             //error booking
@@ -101,7 +103,11 @@ export default function BookingScreen() {
         <Grid
           xs={10}
           md={6}
-          style={{ padding: "20px", boxShadow: "2px 1px 9px 2px #888888" }}
+          style={{
+            background: "white",
+            padding: "20px",
+            boxShadow: "2px 1px 9px 2px #888888",
+          }}
         >
           <Grid xs={12} md={12}>
             <h1 style={{ margin: "0px" }}>Confirmation</h1>

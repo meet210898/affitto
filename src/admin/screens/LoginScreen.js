@@ -7,8 +7,6 @@ import {
   Button,
   CssBaseline,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Link,
   Paper,
 } from "@mui/material";
@@ -44,7 +42,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <ThemeProvider theme={{ fontFamily: "Poppins" }}>
+    <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
         <CssBaseline />
         <Grid
@@ -105,10 +103,7 @@ const LoginScreen = () => {
                 id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+
               <Button
                 type="submit"
                 fullWidth

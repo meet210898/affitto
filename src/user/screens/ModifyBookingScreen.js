@@ -2,7 +2,8 @@ import * as React from "react";
 import Topbar from "../components/topbar";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCompany, listVehicleDetails } from "../../actions/user/userActions";
+import { getCompany, listVehicle } from "../../actions/user/userActions";
+import { listBookingById } from "../../actions/user/bookingActions";
 
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -14,34 +15,39 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 export default function BookingScreen() {
   const dispatch = useDispatch();
 
-  const { vehicleId } = useParams("id");
-
-  const [startDate, setStartDate] = React.useState(new Date());
-  const [endDate, setEndDate] = React.useState(new Date());
+  const { id } = useParams("id");
 
   React.useEffect(() => {
     dispatch(getCompany());
-    dispatch(listVehicleDetails(vehicleId));
-  }, [dispatch, vehicleId]);
+    dispatch(listVehicle(0));
+    dispatch(listBookingById(id));
+  }, [dispatch, id]);
 
-  const vehicleDetails = useSelector((state) => state.vehicleDetails);
-  const { vehicle } = vehicleDetails;
+  const bookingById = useSelector((state) => state.bookingById);
+  const { bookingsByIdInfo } = bookingById;
+
+  const vehicleList = useSelector((state) => state.vehicleList);
+  const { vehiclesInfo } = vehicleList;
 
   const companyList = useSelector((state) => state.companyList);
   const { companiesInfo } = companyList;
+
+  const [startDate, setStartDate] = React.useState(new Date());
+  const [endDate, setEndDate] = React.useState(new Date());
 
   const time_difference = endDate.getTime() - startDate.getTime();
   const days_difference = time_difference / (1000 * 60 * 60 * 24);
 
   let payableAmount = 0;
-  if (payableAmount > 0 && payableAmount < 1) {
-    payableAmount = vehicle?.priceperday;
+  if ((payableAmount > 0 && payableAmount < 1) || payableAmount === 0) {
+    payableAmount = bookingsByIdInfo?.payment;
   } else {
-    payableAmount = vehicle?.priceperday * Math.trunc(days_difference);
+    payableAmount = bookingsByIdInfo?.payment * Math.trunc(days_difference);
   }
+  console.log(payableAmount, "payableAmount");
 
   const data = {
-    vehicleId: vehicleId,
+    vehicleId: id,
     startDate: startDate,
     endDate: endDate,
     payableAmount: payableAmount,
@@ -55,12 +61,13 @@ export default function BookingScreen() {
       </Grid>
       <Grid container>
         <Grid xs={1} md={3}></Grid>
+
         <Grid xs={10} md={6}>
           <Grid container>
             <Grid xs={12}>
               <h2 style={{ padding: "0", margin: "0", marginTop: "15px" }}>
                 {companiesInfo?.map((data) => {
-                  return data._id === vehicle?.companyId
+                  return data._id === bookingsByIdInfo?.companyId
                     ? data.companyName
                     : "";
                 })}
@@ -77,7 +84,11 @@ export default function BookingScreen() {
                   fontSize: "16px",
                 }}
               >
-                {vehicle?.vehicleName}
+                {vehiclesInfo?.map((data) => {
+                  return data._id === bookingsByIdInfo?.vehicleId
+                    ? data.vehicleName
+                    : "";
+                })}
               </p>
             </Grid>
           </Grid>
@@ -94,7 +105,7 @@ export default function BookingScreen() {
                   label="DateTimePicker"
                   style={{ margin: "10px" }}
                   minDate={new Date()}
-                  value={startDate}
+                  value={bookingsByIdInfo?.startDate}
                   onChange={(date) => setStartDate(date)}
                 />
               </LocalizationProvider>
@@ -111,8 +122,8 @@ export default function BookingScreen() {
                   )}
                   label="DateTimePicker"
                   style={{ margin: "10px" }}
-                  minDate={startDate}
-                  value={endDate}
+                  minDate={bookingsByIdInfo?.startDate}
+                  value={bookingsByIdInfo?.endDate}
                   onChange={(date) => setEndDate(date)}
                 />
               </LocalizationProvider>
@@ -125,7 +136,7 @@ export default function BookingScreen() {
               {endDate.getMilliseconds() === 0 ? (
                 <b>Payable Amount:{payableAmount}</b>
               ) : (
-                ""
+                <b>Payable Amount:{bookingsByIdInfo?.payment}</b>
               )}
             </Grid>
 
@@ -145,6 +156,7 @@ export default function BookingScreen() {
             </Grid>
           </Grid>
         </Grid>
+
         <Grid xs={1} md={3}></Grid>
       </Grid>
     </>

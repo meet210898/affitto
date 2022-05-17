@@ -85,7 +85,6 @@ const ModalCall = ({ open, setOpen, editData }) => {
       emptyData.append(key, vehicleData[key]);
     }
 
-    console.log(vehicleData, "vehicledata");
 
     dispatch(updateVehicle(vehicleId, emptyData));
     handleClose();
