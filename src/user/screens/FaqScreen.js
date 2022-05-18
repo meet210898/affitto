@@ -2,7 +2,7 @@ import * as React from "react";
 import Topbar from "../components/topbar";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import Fade from "react-reveal/Fade";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -10,14 +10,10 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import {
-  listFaq,
-  listFaqCategory,
-} from "../../actions/user/userActions";
+import { listFaq, listFaqCategory } from "../../actions/user/userActions";
 
 export default function VehicleList() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   React.useEffect(() => {
     dispatch(listFaq(0));
@@ -35,41 +31,45 @@ export default function VehicleList() {
       <Topbar />
       <Grid container marginTop="20px">
         <Grid md={2} xs={1}></Grid>
-
         <Grid md={8} xs={10}>
-          {faqCategoryInfo?.map((item) => (
+          <Fade top>
             <>
-              <h3>{item.faqCategory}</h3>
-              {faqInfo
-                ?.filter((data) => item._id === data.faqCategoryId)
-                .map((data) => (
-                  <Accordion>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="panel1a-content"
-                      id={data._id}
-                      style={{
-                        padding: "10px",
-                        backgroundColor: "#f1f1f1",
-                      }}
-                    >
-                      <Typography
-                        style={{ fontSize: "13px", fontWeight: "bold" }}
-                      >
-                        {data.question}
-                      </Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography
-                        style={{ fontSize: "13px", color: "#7f868e" }}
-                      >
-                        {data.answer}
-                      </Typography>
-                    </AccordionDetails>
-                  </Accordion>
-                ))}
+              {faqCategoryInfo?.map((item) => (
+                <>
+                  <h3>{item.faqCategory}</h3>
+
+                  {faqInfo
+                    ?.filter((data) => item._id === data.faqCategoryId)
+                    .map((data) => (
+                      <Accordion>
+                        <AccordionSummary
+                          expandIcon={<ExpandMoreIcon />}
+                          aria-controls="panel1a-content"
+                          id={data._id}
+                          style={{
+                            padding: "10px",
+                            backgroundColor: "#f1f1f1",
+                          }}
+                        >
+                          <Typography
+                            style={{ fontSize: "13px", fontWeight: "bold" }}
+                          >
+                            {data.question}
+                          </Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography
+                            style={{ fontSize: "13px", color: "#7f868e" }}
+                          >
+                            {data.answer}
+                          </Typography>
+                        </AccordionDetails>
+                      </Accordion>
+                    ))}
+                </>
+              ))}
             </>
-          ))}
+          </Fade>
         </Grid>
         <Grid md={2} xs={1}></Grid>
       </Grid>

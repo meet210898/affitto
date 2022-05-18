@@ -66,7 +66,7 @@ export default function ViewFaqScreen() {
   const deleteHandler = (faqId) => {
     if (window.confirm("Are you sure")) {
       dispatch(deleteFaq(faqId));
-      navigate("/AdminDashboard/ViewFaq");
+      navigate("/Admin/ViewFaq");
     }
   };
 

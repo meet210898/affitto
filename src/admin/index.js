@@ -23,9 +23,9 @@ const index = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<LoginScreen />} />
+        <Route path="/" element={<LoginScreen />} />
 
-        <Route path="/AdminDashboard" element={<Sidebar />}>
+        <Route path="/Admin" element={<Sidebar />}>
           <Route path="viewUser" element={<ViewUserScreen />} />
           <Route path="viewBooking" element={<ViewBookingScreen />} />
 

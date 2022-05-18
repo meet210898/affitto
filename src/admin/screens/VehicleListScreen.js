@@ -73,7 +73,7 @@ export default function ViewUserScreen() {
   const deleteHandler = (vehicleId) => {
     if (window.confirm("Are you sure")) {
       dispatch(deleteVehicle(vehicleId));
-      navigate("/AdminDashboard/ViewVehicle");
+      navigate("/Admin/ViewVehicle");
     }
   };
 

@@ -44,8 +44,13 @@ const getState = async (req, res) => {
 };
 
 const getCity = async (req, res) => {
+  let city;
   try {
-    const city = await City.find({});
+    if (req.params.id !== "0") {
+      city = await City.find().limit(4);
+    } else {
+      city = await City.find();
+    }
     res.status(200).send(city);
   } catch (e) {
     res.status(500).send({ error: e.message });
@@ -62,8 +67,13 @@ const getVehicleType = async (req, res) => {
 };
 
 const getCompany = async (req, res) => {
+  let company;
   try {
-    const company = await Company.find({});
+    if (req.params.id !== "0") {
+      company = await Company.find().limit(4);
+    } else {
+      company = await Company.find();
+    }
     res.status(200).send(company);
   } catch (e) {
     res.status(500).send({ error: e.message });

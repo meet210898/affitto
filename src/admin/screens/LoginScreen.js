@@ -13,7 +13,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { login } from "../../actions/loginActions";
+import { login } from "../../actions/admin/loginActions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -23,14 +23,14 @@ const LoginScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
 
   useEffect(() => {
     if (localStorage.getItem("auth-token")) {
-      navigate("/AdminDashboard");
+      navigate("/Admin");
     }
-  }, [userInfo, navigate]);
+  }, [adminInfo, navigate]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

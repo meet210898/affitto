@@ -9,14 +9,12 @@ import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 import ListItem from "./list";
-import SingleListItem from "./list/singleList";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../../actions/loginActions";
+import { logout } from "../../actions/admin/loginActions";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
@@ -38,10 +36,6 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-
-// import "./style.css";
-import Tooltip from "@mui/material/Tooltip";
-import Avatar from "@mui/material/Avatar";
 
 const drawerWidth = 265;
 
@@ -79,14 +73,9 @@ function Sidebar(props) {
   const dispatch = useDispatch();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-  };
-
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
   };
 
   const SearchIconWrapper = styled("div")(({ theme }) => ({

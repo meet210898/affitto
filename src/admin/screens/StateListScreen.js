@@ -62,7 +62,7 @@ export default function ViewStateScreen() {
   const deleteHandler = (stateId) => {
     if (window.confirm("Are you sure")) {
       dispatch(deleteState(stateId));
-      navigate("/AdminDashboard/viewState");
+      navigate("/Admin/viewState");
     }
   };
 

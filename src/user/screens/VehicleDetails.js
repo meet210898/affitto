@@ -11,7 +11,7 @@ export default function VehicleDetails() {
   const { vehicleId } = useParams("id");
 
   React.useEffect(() => {
-    dispatch(getCompany());
+    dispatch(getCompany(0));
     dispatch(listVehicleDetails(vehicleId));
   }, [dispatch, vehicleId]);
 

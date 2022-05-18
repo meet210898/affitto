@@ -67,7 +67,7 @@ export default function ViewCityScreen() {
   const deleteHandler = (stateId) => {
     if (window.confirm("Are you sure")) {
       dispatch(deleteCity(stateId));
-      navigate("/AdminDashboard/viewCity");
+      navigate("/Admin/viewCity");
     }
   };
 

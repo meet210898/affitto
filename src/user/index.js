@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
 import UserLoginScreen from "../user/screens/UserLoginScreen";
 import UserRegisterScreen from "./screens/UserRegisterScreen";
-import AgencyRegisterScreen from "./screens/AgencyRegisterScreen";
 import UserProfileScreen from "./screens/UserProfileScreen";
 import CompanyList from "./screens/CompanyScreen";
 import VehicleList from "./screens/VehicleScreen";
@@ -18,6 +17,8 @@ import VehicleTypeList from "./screens/VehicleTypeScreen";
 import NotFoundScreen from "./screens/404Screen";
 import MyBookingScreen from "./screens/MyBookingScreen";
 import ModifyBookingScreen from "./screens/ModifyBookingScreen";
+import VehicleByTypeScreen from "./screens/VehicleByTypeScreen";
+import ComingSoonScreen from "./screens/ComingSoonScreen";
 
 const index = () => {
   return (
@@ -27,7 +28,6 @@ const index = () => {
         <Route path="/user" element={<HomeScreen />} />
         <Route path="/user/login" element={<UserLoginScreen />} />
         <Route path="/user/register" element={<UserRegisterScreen />} />
-        <Route path="/user/registerAgency" element={<AgencyRegisterScreen />} />
         <Route path="/user/profile" element={<UserProfileScreen />} />
         <Route path="/user/company" element={<CompanyList />} />
         <Route path="/user/vehicles" element={<VehicleList />} />
@@ -38,6 +38,7 @@ const index = () => {
         <Route path="/user/category" element={<VehicleTypeList />} />
         <Route path="/user/aboutus" element={<AboutUsScreen />} />
         <Route path="/user/mybooking" element={<MyBookingScreen />} />
+        <Route path="/user/comingsoon" element={<ComingSoonScreen />} />
         <Route
           path="/user/modifyBooking/:id"
           element={<ModifyBookingScreen />}
@@ -49,6 +50,10 @@ const index = () => {
         <Route
           path="/user/vehicles/:companyId"
           element={<VehicleByCompanyScreen />}
+        />
+        <Route
+          path="/user/vehiclesByType/:typeId"
+          element={<VehicleByTypeScreen />}
         />
       </Routes>
     </BrowserRouter>

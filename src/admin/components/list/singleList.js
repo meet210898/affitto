@@ -10,7 +10,7 @@ const singleListItem = (props) => {
   return (
     <NavLink
       style={{ color: "white", textDecoration: "none" }}
-      to={`/AdminDashboard/${props.site}`}
+      to={`/Admin/${props.site}`}
     >
       <ListItem button key="Inbox">
         <ListItemIcon>

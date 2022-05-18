@@ -38,11 +38,7 @@
   position: relative;
   text-align: center;
   color: white;
-  /* -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0)); */
-  /* background: linear-gradient(to bottom, rgba(0,47,75,0.5) 0%,rgba(220, 66, 37, 0.5) 100%);  */
-  /* -webkit-mask-image: linear-gradient(to top, rgb(0 0 0 / 38%) 0%, black 35%);
-  mask-image: linear-gradient(to top, transparent 0%, black 75%); */
+  
 }
 
 .imgWrapper {
@@ -72,8 +68,7 @@
   width: 50%;
   text-align:left;
   border-bottom: 1px solid white;
-  /* background-image:
-    linear-gradient(to bottom, rgba(245, 246, 252, 0.52), rgba(117, 19, 93, 0.73)) */
+  
 }
 
 .descriptionAbout {

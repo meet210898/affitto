@@ -33,8 +33,7 @@ export default function VehicleList() {
   const { companyId } = useParams("id");
 
   React.useEffect(() => {
-    console.log("called UF");
-    dispatch(getCompany());
+    dispatch(getCompany(0));
     dispatch(listVehicleByCompanyDetails(companyId));
   }, [dispatch, companyId]);
 
@@ -62,7 +61,9 @@ export default function VehicleList() {
         <Grid xs={10}>
           <ImageList>
             <ImageListItem key="Subheader">
-              <ListSubheader component="div">Vehicles</ListSubheader>
+              <ListSubheader component="div" style={{ background: "none" }}>
+                Vehicles
+              </ListSubheader>
             </ImageListItem>
           </ImageList>
           <Grid container display="flex">
@@ -111,7 +112,7 @@ export default function VehicleList() {
                         width="20px"
                         alt="gear"
                       />
-                      <span>Diesel</span>
+                      <span>{row.fuelType}</span>
                     </Grid>
                     <Grid display="flex" xs={4}>
                       <img
@@ -120,8 +121,8 @@ export default function VehicleList() {
                         width="15px"
                         style={{ marginLeft: "10px" }}
                         alt="gear"
-                      />
-                      <p> Manual</p>
+                      />{" "}
+                      <span>{row.transmission}</span>
                     </Grid>
                     <Grid display="flex" xs={4}>
                       <img

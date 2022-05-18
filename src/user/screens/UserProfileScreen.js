@@ -15,6 +15,7 @@ import { getCities, getStates } from "../../actions/user/userActions";
 import EditIcon from "@mui/icons-material/Edit";
 import { styled } from "@mui/material/styles";
 import EditPopover from "../components/popover/index";
+import Fade from "react-reveal/Fade";
 
 const theme = createTheme({
   typography: {
@@ -38,14 +39,17 @@ export default function UserProfileScreen() {
   const [label, setLabel] = React.useState("");
   const [infoArr, setInfoArr] = React.useState([]);
 
-  const userId = localStorage.getItem("user-token");
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const userId = userInfo.token;
   const decodeUserId = jwt_decode(userId);
 
   React.useEffect(() => {
-    if (!localStorage.getItem("user-token")) {
+    if (!userInfo.token) {
       navigate("/user");
     }
-  }, [navigate]);
+  }, [navigate, userInfo.token]);
 
   const userUpdate = useSelector((state) => state.userUpdate);
   const { success } = userUpdate;
@@ -53,7 +57,7 @@ export default function UserProfileScreen() {
   React.useEffect(() => {
     dispatch(listUserDetails(decodeUserId._id));
     dispatch(getStates());
-    dispatch(getCities());
+    dispatch(getCities(0));
   }, [dispatch, decodeUserId._id, success]);
 
   const cityList = useSelector((state) => state.cityList);
@@ -104,174 +108,187 @@ export default function UserProfileScreen() {
         <ThemeProvider theme={theme}>
           <Container style={{ padding: "20px" }} component="main" maxWidth="xs">
             <CssBaseline />
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                padding: "20px",
-                boxShadow: "2px 1px 9px 2px #888888",
-              }}
-            >
-              <Grid
-                container
-                display="flex"
-                justifyContent="center"
-                title="Click to change the Profile Picture"
+            <Fade top>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  padding: "20px",
+                  background: "white",
+                  boxShadow: "2px 1px 9px 2px #888888",
+                }}
               >
-                <label htmlFor="personalImage">
-                  <Input
-                    accept="image/*"
-                    id="personalImage"
-                    name="personalImage"
-                    type="file"
-                    onChange={changeImage}
-                  />
-                  <IconButton
-                    color="primary"
-                    aria-label="upload picture"
-                    component="span"
-                  >
-                    <ReactRoundedImage
-                      image={`http://localhost:4000/${user?.personalImage}`}
-                      alt="vehicle"
-                      style={{ objectFit: "cover" }}
-                      imageWidth="150"
-                      imageHeight="150"
-                      roundedSize="0"
-                    />
-                  </IconButton>
-                </label>
-              </Grid>
-              <Grid container display="flex" justifyContent="center">
-                <h3
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    margin: "0 0 0 8px",
-                  }}
+                <Grid
+                  container
+                  display="flex"
+                  justifyContent="center"
+                  title="Click to change the Profile Picture"
                 >
-                  {user.firstName} {user.lastName}{" "}
-                  <IconButton
-                    onClick={(event) => {
-                      handleClick(event);
-                      setValue(fullName);
-                      setType("fullname");
-                      setName("email");
-                      setLabel("Email");
+                  <label htmlFor="personalImage">
+                    <Input
+                      accept="image/*"
+                      id="personalImage"
+                      name="personalImage"
+                      type="file"
+                      onChange={changeImage}
+                    />
+                    <IconButton
+                      color="primary"
+                      aria-label="upload picture"
+                      component="span"
+                    >
+                      <ReactRoundedImage
+                        image={`http://localhost:4000/${user?.personalImage}`}
+                        alt="vehicle"
+                        style={{ objectFit: "cover" }}
+                        imageWidth="150"
+                        imageHeight="150"
+                        roundedSize="0"
+                      />
+                    </IconButton>
+                  </label>
+                </Grid>
+                <Grid container display="flex" justifyContent="center">
+                  <h3
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      margin: "0 0 0 8px",
                     }}
-                    aria-label="edit"
-                    size="small"
-                    color="primary"
                   >
-                    <EditIcon fontSize="inherit" />
-                  </IconButton>
-                </h3>
-              </Grid>
+                    {user.firstName} {user.lastName}{" "}
+                    <IconButton
+                      onClick={(event) => {
+                        handleClick(event);
+                        setValue(fullName);
+                        setType("fullname");
+                        setName("email");
+                        setLabel("Email");
+                      }}
+                      aria-label="edit"
+                      size="small"
+                      color="primary"
+                    >
+                      <EditIcon fontSize="inherit" />
+                    </IconButton>
+                  </h3>
+                </Grid>
 
-              <Grid container>
-                <h2>Your Details</h2>
-              </Grid>
-              <Grid xs={12} container>
-                <Grid display="block" xs={6}>
-                  <Typography mt={2} component="div">
-                    <b>Email</b>{" "}
-                  </Typography>
-                  {user.email}
-                  <Typography marginTop="30px" mt={2} component="div">
-                    <b>City</b>{" "}
-                    <IconButton
-                      onClick={(event) => {
-                        handleClick(event);
-                        setValue(user.cityId);
-                        setType("citySelect");
-                        setName("cityId");
-                        setLabel("City");
-                        setInfoArr(
-                          citiesInfo?.map((data) => ({
-                            stateId: data.stateId,
-                            cityId: data._id,
-                            cityName: data.cityName,
-                          }))
-                        );
-                      }}
-                      aria-label="edit"
-                      size="small"
-                      color="primary"
-                    >
-                      <EditIcon fontSize="inherit" />
-                    </IconButton>
-                  </Typography>
-                  {citiesInfo?.map((data) => {
-                    return data._id === user.cityId ? data.cityName : "";
-                  })}
-                  <Typography marginTop="30px" mt={2} component="div">
-                    <b>Phone</b>{" "}
-                    <IconButton
-                      onClick={(event) => {
-                        handleClick(event);
-                        setValue(user.phoneNumber);
-                        setType("textField");
-                        setName("phoneNumber");
-                        setLabel("Contact Number");
-                      }}
-                      aria-label="edit"
-                      size="small"
-                      color="primary"
-                    >
-                      <EditIcon fontSize="inherit" />
-                    </IconButton>
-                  </Typography>
-                  {user.phoneNumber}
+                <Grid container>
+                  <h2>Your Details</h2>
                 </Grid>
-                <Grid xs={6}>
-                  <Typography mt={2} component="div">
-                    <b>Username</b>{" "}
-                    <IconButton
-                      onClick={(event) => {
-                        handleClick(event);
-                        setValue(user.username);
-                        setType("textField");
-                        setName("username");
-                        setLabel("Username");
-                      }}
-                      aria-label="edit"
-                      size="small"
-                      color="primary"
+                <Grid xs={12} container>
+                  <Grid display="block" xs={12}>
+                    <Typography
+                      mt={2}
+                      style={{ margin: "0px" }}
+                      component="div"
                     >
-                      <EditIcon fontSize="inherit" />
-                    </IconButton>
-                  </Typography>
-                  {user.username}
-                  <Typography marginTop="30px" mt={2} component="div">
-                    <b>State</b>{" "}
-                    <IconButton
-                      onClick={(event) => {
-                        handleClick(event);
-                        setValue(user.stateId);
-                        setType("select");
-                        setName("stateId");
-                        setLabel("State");
-                        setInfoArr(
-                          statesInfo?.map((data) => ({
-                            dataId: data._id,
-                            dataName: data.stateName,
-                          }))
-                        );
-                      }}
-                      aria-label="edit"
-                      size="small"
-                      color="primary"
-                    >
-                      <EditIcon fontSize="inherit" />
-                    </IconButton>
-                  </Typography>
-                  {statesInfo?.map((data) => {
-                    return data._id === user.stateId ? data.stateName : "";
-                  })}
+                      <b>Email</b>{" "}
+                    </Typography>
+                  </Grid>
+                  <Grid display="block" xs={6}>
+                    <p style={{ margin: "0px" }}>{user.email}</p>
+                    <Typography marginTop="30px" mt={2} component="div">
+                      <b>City</b>{" "}
+                      <IconButton
+                        onClick={(event) => {
+                          handleClick(event);
+                          setValue(user.cityId);
+                          setType("citySelect");
+                          setName("cityId");
+                          setLabel("City");
+                          setInfoArr(
+                            citiesInfo?.map((data) => ({
+                              stateId: data.stateId,
+                              cityId: data._id,
+                              cityName: data.cityName,
+                            }))
+                          );
+                        }}
+                        aria-label="edit"
+                        size="small"
+                        color="primary"
+                      >
+                        <EditIcon fontSize="inherit" />
+                      </IconButton>
+                    </Typography>
+                    <p style={{ margin: "0px" }}>
+                      {citiesInfo?.map((data) => {
+                        return data._id === user.cityId ? data.cityName : "";
+                      })}
+                    </p>
+                    <Typography marginTop="30px" mt={2} component="div">
+                      <b>Phone</b>{" "}
+                      <IconButton
+                        onClick={(event) => {
+                          handleClick(event);
+                          setValue(user.phoneNumber);
+                          setType("textField");
+                          setName("phoneNumber");
+                          setLabel("Contact Number");
+                        }}
+                        aria-label="edit"
+                        size="small"
+                        color="primary"
+                      >
+                        <EditIcon fontSize="inherit" />
+                      </IconButton>
+                    </Typography>
+                    <p style={{ margin: "0px" }}>{user.phoneNumber}</p>
+                  </Grid>
+                  <Grid style={{ marginTop: "20px" }} xs={6}>
+                    <Typography mt={2} component="div">
+                      <b>Username</b>{" "}
+                      <IconButton
+                        onClick={(event) => {
+                          handleClick(event);
+                          setValue(user.username);
+                          setType("textField");
+                          setName("username");
+                          setLabel("Username");
+                        }}
+                        aria-label="edit"
+                        size="small"
+                        color="primary"
+                      >
+                        <EditIcon fontSize="inherit" />
+                      </IconButton>
+                    </Typography>
+                    <p style={{ margin: "0px" }}>{user.username}</p>
+                    <Typography marginTop="30px" mt={2} component="div">
+                      <b>State</b>{" "}
+                      <IconButton
+                        onClick={(event) => {
+                          handleClick(event);
+                          setValue(user.stateId);
+                          setType("select");
+                          setName("stateId");
+                          setLabel("State");
+                          setInfoArr(
+                            statesInfo?.map((data) => ({
+                              dataId: data._id,
+                              dataName: data.stateName,
+                            }))
+                          );
+                        }}
+                        aria-label="edit"
+                        size="small"
+                        color="primary"
+                      >
+                        <EditIcon fontSize="inherit" />
+                      </IconButton>
+                    </Typography>
+                    <p style={{ margin: "0px" }}>
+                      {statesInfo?.map((data) => {
+                        return data._id === user.stateId ? data.stateName : "";
+                      })}
+                    </p>
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
+              </Box>
+            </Fade>
             <EditPopover open={open} popObj={popObj} />
           </Container>
         </ThemeProvider>

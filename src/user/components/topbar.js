@@ -130,7 +130,9 @@ const TopBar = () => {
               }}
             >
               {pages.map((page) =>
-                localStorage.getItem("user-token") && page === "Register" ? (
+                (localStorage.getItem("user-token") && page === "Register") ||
+                (!localStorage.getItem("user-token") &&
+                  page === "My Booking") ? (
                   ""
                 ) : page === "Home" ? (
                   <NavLink
@@ -186,9 +188,16 @@ const TopBar = () => {
               />
             </NavLink>
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+              
+            }}
+          >
             {pages.map((page) =>
-              localStorage.getItem("user-token") && page === "Register" ? (
+              (localStorage.getItem("user-token") && page === "Register") ||
+              (!localStorage.getItem("user-token") && page === "My Booking") ? (
                 ""
               ) : page === "Home" ? (
                 <NavLink style={{ textDecoration: "none" }} to={`/user`}>
@@ -233,7 +242,7 @@ const TopBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
             {localStorage.getItem("user-token") ? (
-              <Tooltip title="Open settings">               
+              <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt="personalImage"

@@ -54,6 +54,9 @@ import {
   VEHICLEBYCOMPANY_DETAILS_REQUEST,
   VEHICLEBYCOMPANY_DETAILS_SUCCESS,
   VEHICLEBYCOMPANY_DETAILS_FAIL,
+  VEHICLEBYTYPE_DETAILS_REQUEST,
+  VEHICLEBYTYPE_DETAILS_SUCCESS,
+  VEHICLEBYTYPE_DETAILS_FAIL,
 } from "../../constants/user/userConstants";
 
 import {
@@ -86,13 +89,13 @@ export const getStates = () => async (dispatch) => {
   }
 };
 
-export const getCities = () => async (dispatch) => {
+export const getCities = (no) => async (dispatch) => {
   try {
     dispatch({
       type: CITY_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(`http://localhost:4000/user/getCity`);
+    const { data } = await axios.get(`http://localhost:4000/user/getCity/${no}`);
 
     dispatch({
       type: CITY_LIST_MY_SUCCESS,
@@ -109,13 +112,13 @@ export const getCities = () => async (dispatch) => {
   }
 };
 
-export const getCompany = () => async (dispatch) => {
+export const getCompany = (no) => async (dispatch) => {
   try {
     dispatch({
       type: COMPANY_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(`http://localhost:4000/user/getCompany`);
+    const { data } = await axios.get(`http://localhost:4000/user/getCompany/${no}`);
 
     dispatch({
       type: COMPANY_LIST_MY_SUCCESS,
@@ -170,7 +173,9 @@ export const listVehicle = (no) => async (dispatch) => {
       type: VEHICLE_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(`http://localhost:4000/user/getVehicle/${no}`);
+    const { data } = await axios.get(
+      `http://localhost:4000/user/getVehicle/${no}`
+    );
 
     dispatch({
       type: VEHICLE_LIST_MY_SUCCESS,
@@ -222,6 +227,28 @@ export const listVehicleByCompanyDetails = (companyId) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: VEHICLEBYCOMPANY_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const listVehicleByTypeDetails = (typeId) => async (dispatch) => {
+  dispatch({ type: VEHICLEBYTYPE_DETAILS_REQUEST });
+  try {
+    const { data } = await axios.get(
+      `http://localhost:4000/user/getVehicleByTypeId/${typeId}`
+    );
+
+    dispatch({
+      type: VEHICLEBYTYPE_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: VEHICLEBYTYPE_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -174,7 +174,7 @@ export default function EnhancedTable() {
   const deleteHandler = (faqId) => {
     if (window.confirm("Are you sure")) {
       dispatch(deleteFaq(faqId));
-      navigate("/AdminDashboard/ViewFaq");
+      navigate("/Admin/ViewFaq");
     }
   };
 

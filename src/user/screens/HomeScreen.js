@@ -6,16 +6,18 @@ import img2 from "../public/image/dashboard/dashboardimg2.jpg";
 import companies from "../public/image/dashboard/brand-logo.jpg";
 import category from "../public/image/dashboard/carbike.jpg";
 import vehicle from "../public/image/dashboard/vehicle.jpg";
+import mercedesInvestor from "../public/image/investor/mercedes.jpg";
+import tataInvestor from "../public/image/investor/tatamotors.jpg";
+import suzukiInvestor from "../public/image/investor/suzuki.jpg";
+import landroverInvestor from "../public/image/investor/landrover2.jpg";
+
 import Card from "@mui/material/Card";
-import { makeStyles } from "@mui/styles";
-import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Grid } from "@mui/material";
 import "../components/css/imgTxt.css";
 import useWindowSize from "../components/useWindowSize";
-// import { FadeIn } from "react-animated-components";
 import Fade from "react-reveal/Fade";
 import {
   getCities,
@@ -23,31 +25,18 @@ import {
   getVehicleType,
   listFaq,
 } from "../../actions/user/userActions";
-import Reveal from "react-reveal/Reveal";
+
+import Investor from "../components/investor";
+import Cards from "../components/cards";
+
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    position: "relative",
-  },
-  font: {
-    position: "absolute",
-    bottom: "1%",
-    width: "50%",
-    textAlign: "left",
-    color: "white",
-    fontSize: "20px",
-    fontFamily: "Sans-serif",
-  },
-}));
-
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const classes = useStyles();
   const windowSize = useWindowSize();
 
   const imgs = [img1, img2];
@@ -58,8 +47,8 @@ const HomeScreen = () => {
     }
   }, [navigate]);
   React.useEffect(() => {
-    dispatch(getCompany());
-    dispatch(getCities());
+    dispatch(getCompany(4));
+    dispatch(getCities(4));
     dispatch(getVehicleType());
     dispatch(listFaq(4));
   }, [dispatch]);
@@ -127,51 +116,9 @@ const HomeScreen = () => {
         alignItems="center"
         marginTop="20px"
       >
-        <Grid md={3} className={classes.root}>
-          <NavLink to={`/user/company`}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="140"
-                image={companies}
-                alt="Companies"
-              />
-              <Typography variant="h5" component="h2" className={classes.font}>
-                Companies
-              </Typography>
-            </Card>
-          </NavLink>
-        </Grid>
-        <Grid md={3} className={classes.root}>
-          <NavLink to={`/user/vehicles`}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="140"
-                image={vehicle}
-                alt="City"
-              />
-              <Typography variant="h5" component="h2" className={classes.font}>
-                Vehicles
-              </Typography>
-            </Card>
-          </NavLink>
-        </Grid>
-        <Grid md={3} className={classes.root}>
-          <NavLink to={`/user/category`}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="140"
-                image={category}
-                alt="Category"
-              />
-              <Typography variant="h5" component="h2" className={classes.font}>
-                Category
-              </Typography>
-            </Card>
-          </NavLink>
-        </Grid>
+        <Cards img={companies} linkName="company" name="Companies" />
+        <Cards img={vehicle} linkName="vehicle" name="Vehicles" />
+        <Cards img={category} linkName="category" name="Category" />
       </Grid>
       <Fade left>
         <Grid container justifyContent="center">
@@ -186,7 +133,7 @@ const HomeScreen = () => {
         alignItems="start"
       >
         <Grid xs={12} md={3}>
-          <Reveal effect="fadeOutLeft" effectOut="fadeInLeft">
+          <Fade bottom>
             <Card style={{ padding: "20px 30px" }} variant="outlined">
               <h4 style={{ margin: "0px" }}>Company</h4>
               <ul
@@ -201,7 +148,7 @@ const HomeScreen = () => {
                 })}
               </ul>
             </Card>
-          </Reveal>
+          </Fade>
         </Grid>
         <Grid xs={12} md={3}>
           <Fade bottom>
@@ -253,53 +200,59 @@ const HomeScreen = () => {
         <Grid md={1} xs={1}></Grid>
         {windowSize.width < 900 ? (
           <Grid md={10} xs={10}>
-            {faqInfo?.map((data) => (
-              <Fade bottom>
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="panel1a-content"
-                    id={data._id}
-                    style={{
-                      padding: "10px",
-                      backgroundColor: "#f1f1f1",
-                    }}
-                  >
-                    <Typography
-                      style={{ fontSize: "13px", fontWeight: "bold" }}
+            <Fade bottom>
+              <>
+                {faqInfo?.map((data) => (
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="panel1a-content"
+                      id={data._id}
+                      style={{
+                        padding: "10px",
+                        backgroundColor: "#f1f1f1",
+                      }}
                     >
-                      {data.question}
-                    </Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography style={{ fontSize: "13px", color: "#7f868e" }}>
-                      {data.answer}
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-              </Fade>
-            ))}
+                      <Typography
+                        style={{ fontSize: "13px", fontWeight: "bold" }}
+                      >
+                        {data.question}
+                      </Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography
+                        style={{ fontSize: "13px", color: "#7f868e" }}
+                      >
+                        {data.answer}
+                      </Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+              </>
+            </Fade>
           </Grid>
         ) : (
           <Grid md={10} xs={10}>
-            <Fade bottom>
-              <Card style={{ padding: "20px 30px" }} variant="outlined">
-                {faqInfo?.map((data) => (
-                  <>
-                    <h4 style={{ margin: "0px" }}>{data.question}</h4>
-                    <p
-                      style={{
-                        fontSize: "14px",
-                        lineHeight: "1.43",
-                        color: "rgba(18,34,50,.7)",
-                      }}
-                    >
-                      {data.answer}
-                    </p>
-                  </>
-                ))}
-              </Card>
-            </Fade>
+            <Card style={{ padding: "20px 30px" }} variant="outlined">
+              <Fade bottom>
+                <>
+                  {faqInfo?.map((data) => (
+                    <>
+                      <h4 style={{ margin: "0px" }}>{data.question}</h4>
+                      <p
+                        style={{
+                          fontSize: "14px",
+                          lineHeight: "1.43",
+                          color: "rgba(18,34,50,.7)",
+                        }}
+                      >
+                        {data.answer}
+                      </p>
+                    </>
+                  ))}
+                </>
+              </Fade>
+            </Card>
           </Grid>
         )}
         <Grid md={1} xs={1}></Grid>
@@ -309,11 +262,41 @@ const HomeScreen = () => {
         <Grid md={1} xs={1}></Grid>
 
         <Grid md={10} xs={10} display="flex" justifyContent="right">
-          <NavLink to="/user/faq">
+          <NavLink to="/user/faq" style={{ color: "#1b6dc1" }}>
             <h2>View all..</h2>
           </NavLink>
         </Grid>
 
+        <Grid md={1} xs={1}></Grid>
+      </Grid>
+      <Grid container md={12} xs={12}>
+        <Grid md={1} xs={1}></Grid>
+        <Grid md={10} xs={10}>
+          <h2>Our Investors</h2>
+        </Grid>
+        <Grid md={1} xs={1}></Grid>
+      </Grid>
+      <Grid container>
+        <Grid md={1} xs={1}></Grid>
+        <Grid md={10} xs={10} container>
+          <Fade bottom>
+            <Card
+              style={{ display: "flex", flexWrap: "wrap" }}
+              variant="outlined"
+            >
+              <Investor img={tataInvestor} investorName="TATA Motors" />
+              <Investor
+                img={mercedesInvestor}
+                investorName="Mercedes ///AMG Motorsport"
+              />
+              <Investor
+                img={landroverInvestor}
+                investorName="Land Rover Motors"
+              />
+              <Investor img={suzukiInvestor} investorName="Maruti Suzuki" />
+            </Card>
+          </Fade>
+        </Grid>
         <Grid md={1} xs={1}></Grid>
       </Grid>
     </div>

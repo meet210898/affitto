@@ -71,7 +71,7 @@ export default function ViewBookingScreen() {
   const deleteHandler = (bookingId) => {
     if (window.confirm("Are you sure")) {
       dispatch(deleteBooking(bookingId));
-      navigate("/AdminDashboard/ViewBooking");
+      navigate("/Admin/ViewBooking");
     }
   };
 

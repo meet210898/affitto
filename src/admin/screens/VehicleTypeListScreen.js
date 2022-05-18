@@ -65,7 +65,7 @@ export default function ViewStateScreen() {
   const deleteHandler = (typeId) => {
     if (window.confirm("Are you sure")) {
       dispatch(deleteVehicleType(typeId));
-      navigate("/AdminDashboard/ViewVehicleType");
+      navigate("/Admin/ViewVehicleType");
     }
   };
 

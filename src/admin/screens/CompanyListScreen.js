@@ -67,7 +67,7 @@ export default function ViewCityScreen() {
   const deleteHandler = (companyId) => {
     if (window.confirm("Are you sure")) {
       dispatch(deleteCompany(companyId));
-      navigate("/AdminDashboard/viewCompany");
+      navigate("/Admin/viewCompany");
     }
   };
 

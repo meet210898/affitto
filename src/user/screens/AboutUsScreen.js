@@ -5,20 +5,12 @@ import registerUser from "../public/image/aboutus/registerUser.png";
 import vehicleType from "../public/image/aboutus/type.jpg";
 import selectVehicle from "../public/image/aboutus/selectVehicle.png";
 import Card from "@mui/material/Card";
-import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 import "../components/css/imgTxt.css";
-
-import {
-  getCities,
-  getCompany,
-  getVehicleType,
-  listFaq,
-} from "../../actions/user/userActions";
+import Fade from "react-reveal/Fade";
 
 const HomeScreen = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [isReadMorePurpose, setIsReadMorePurpose] = React.useState(true);
@@ -50,132 +42,148 @@ const HomeScreen = () => {
       navigate("/user");
     }
   }, [navigate]);
-  React.useEffect(() => {
-    dispatch(getCompany());
-    dispatch(getCities());
-    dispatch(getVehicleType());
-    dispatch(listFaq(4));
-  }, [dispatch]);
 
   return (
     <>
       <Topbar />
       <div className="imgsettingAbout ">
-        <div className="imgWrapper diagonal-gradient ">
-          <img
-            src={img}
-            style={{ objectFit: "cover" }}
-            height="400px"
-            width="100%"
-            alt="blank"
-          />
-          <Grid container>
-            <Grid xs={10} md={6}>
-              <h1 className="imgTitleAbout">Who we are</h1>
+        <Fade top>
+          <div className="imgWrapper diagonal-gradient ">
+            <img
+              src={img}
+              style={{ objectFit: "cover" }}
+              height="400px"
+              width="100%"
+              alt="blank"
+            />
+            <Grid container>
+              <Grid xs={10} md={6}>
+                <h1 className="imgTitleAbout">Who we are</h1>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid xs={8} md={8}>
-            <p className="descriptionAbout">Go Fast, Go Safe.</p>
-          </Grid>
-        </div>
+            <Grid xs={8} md={8}>
+              <p className="descriptionAbout">Go Fast, Go Safe.</p>
+            </Grid>
+          </div>
+        </Fade>
       </div>
       <Grid container>
         <Grid md={1}></Grid>
         <Grid xs={12} md={5} style={{ padding: "10px" }}>
-          <Card
-            style={{ padding: "20px 30px", minHeight: "150px", height: "auto" }}
-            variant="outlined"
-          >
-            <p style={{ marginTop: "0px" }} className="myfont">
-              Main Purpose?
-            </p>
-            {isReadMorePurpose ? purpose.slice(0, 150) : purpose}
-            <span onClick={toggleReadMorePurpose} className="read-or-hide">
-              {isReadMorePurpose ? "...Read more" : " ...Show less"}
-            </span>
-          </Card>
+          <Fade top>
+            <Card
+              style={{
+                padding: "20px 30px",
+                minHeight: "150px",
+                height: "auto",
+              }}
+              variant="outlined"
+            >
+              <p style={{ marginTop: "0px" }} className="myfont">
+                Main Purpose?
+              </p>
+              {isReadMorePurpose ? purpose.slice(0, 150) : purpose}
+              <span onClick={toggleReadMorePurpose} className="read-or-hide">
+                {isReadMorePurpose ? "...Read more" : " ...Show less"}
+              </span>
+            </Card>
+          </Fade>
         </Grid>
         <Grid xs={12} md={5} style={{ padding: "10px" }}>
-          <Card
-            style={{ padding: "20px 30px", minHeight: "150px", height: "auto" }}
-            variant="outlined"
-          >
-            <p style={{ marginTop: "0px" }} className="myfont">
-              Our Goal
-            </p>
-            {isReadMoreGoal ? goal.slice(0, 150) : goal}
-            <span onClick={toggleReadMoreGoal} className="read-or-hide">
-              {isReadMoreGoal ? "...Read more" : " ...Show less"}
-            </span>
-            <p></p>
-          </Card>
+          <Fade top>
+            <Card
+              style={{
+                padding: "20px 30px",
+                minHeight: "150px",
+                height: "auto",
+              }}
+              variant="outlined"
+            >
+              <p style={{ marginTop: "0px" }} className="myfont">
+                Our Goal
+              </p>
+              {isReadMoreGoal ? goal.slice(0, 150) : goal}
+              <span onClick={toggleReadMoreGoal} className="read-or-hide">
+                {isReadMoreGoal ? "...Read more" : " ...Show less"}
+              </span>
+              <p></p>
+            </Card>
+          </Fade>
         </Grid>
         <Grid md={1}></Grid>
       </Grid>
       <Grid container marginBottom="20px">
         <Grid xs={12} md={12} justifyContent="center" display="flex">
-          <h2>How it works</h2>
+          <Fade top>
+            <h2>How it works</h2>
+          </Fade>
         </Grid>
         <Grid xs={1} md={2}></Grid>
         <Grid xs={10} md={8}>
-          <Grid container>
-            <Grid xs={3} md={3}>
-              <img
-                src={registerUser}
-                alt="register"
-                height="auto"
-                width="80px"
-                className="center"
-              />
+          <Fade top>
+            <Grid container>
+              <Grid xs={3} md={3}>
+                <img
+                  src={registerUser}
+                  alt="register"
+                  height="auto"
+                  width="80px"
+                  className="center"
+                />
+              </Grid>
+              <Grid xs={9} md={9}>
+                <Card style={{ padding: "15px" }} variant="outlined">
+                  <p className="myfont" style={{ margin: "0px" }}>
+                    Register an Account
+                  </p>
+                  <p>Registration of User</p>
+                  <b>Register New User </b>
+                </Card>
+              </Grid>
             </Grid>
-            <Grid xs={9} md={9}>
-              <Card style={{ padding: "15px" }} variant="outlined">
-                <p className="myfont" style={{ margin: "0px" }}>
-                  Register an Account
-                </p>
-                <p>Registration of User</p>
-                <b>Register New User </b>
-              </Card>
+          </Fade>
+          <Fade top>
+            <Grid container style={{ marginTop: "20px" }}>
+              <Grid xs={3} md={3}>
+                <img
+                  src={vehicleType}
+                  alt="register"
+                  height="auto"
+                  width="80px"
+                  className="center"
+                />
+              </Grid>
+              <Grid xs={9} md={9}>
+                <Card style={{ padding: "15px" }} variant="outlined">
+                  <p className="myfont" style={{ margin: "0px" }}>
+                    Choose a Type
+                  </p>
+                  <p>Different Type of Vehicle</p>
+                  <b>Choose a Type</b>
+                </Card>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container style={{ marginTop: "20px" }}>
-            <Grid xs={3} md={3}>
-              <img
-                src={vehicleType}
-                alt="register"
-                height="auto"
-                width="80px"
-                className="center"
-              />
+          </Fade>
+          <Fade top>
+            <Grid container style={{ marginTop: "20px" }}>
+              <Grid xs={3} md={3}>
+                <img
+                  src={selectVehicle}
+                  alt="register"
+                  height="auto"
+                  width="80px"
+                  className="center"
+                />
+              </Grid>
+              <Grid xs={9} md={9}>
+                <Card style={{ padding: "15px" }} variant="outlined">
+                  <p className="myfont" style={{ margin: "0px" }}>
+                    Select a Vehicle
+                  </p>
+                </Card>
+              </Grid>
             </Grid>
-            <Grid xs={9} md={9}>
-              <Card style={{ padding: "15px" }} variant="outlined">
-                <p className="myfont" style={{ margin: "0px" }}>
-                  Choose a Type
-                </p>
-                <p>Different Type of Vehicle</p>
-                <b>Choose a Type</b>
-              </Card>
-            </Grid>
-          </Grid>
-          <Grid container style={{ marginTop: "20px" }}>
-            <Grid xs={3} md={3}>
-              <img
-                src={selectVehicle}
-                alt="register"
-                height="auto"
-                width="80px"
-                className="center"
-              />
-            </Grid>
-            <Grid xs={9} md={9}>
-              <Card style={{ padding: "15px" }} variant="outlined">
-                <p className="myfont" style={{ margin: "0px" }}>
-                  Select a Vehicle
-                </p>
-              </Card>
-            </Grid>
-          </Grid>
+          </Fade>
         </Grid>
         <Grid xs={1} md={2}></Grid>
       </Grid>

@@ -18,7 +18,7 @@ export default function BookingScreen() {
   const { id } = useParams("id");
 
   React.useEffect(() => {
-    dispatch(getCompany());
+    dispatch(getCompany(0));
     dispatch(listVehicle(0));
     dispatch(listBookingById(id));
   }, [dispatch, id]);

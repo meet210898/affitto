@@ -64,7 +64,7 @@ export default function ViewFaqCategoryScreen() {
   const deleteHandler = (faqCategoryId) => {
     if (window.confirm("Are you sure")) {
       dispatch(deleteFaqCategory(faqCategoryId));
-      navigate("/AdminDashboard/ViewFaqCategory");
+      navigate("/Admin/ViewFaqCategory");
     }
   };
 

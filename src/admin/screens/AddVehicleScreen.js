@@ -258,8 +258,8 @@ const AddVehicleScreen = () => {
                     label="Transmission"
                     onChange={handleChange}
                   >
-                    <MenuItem value="true">AUTO</MenuItem>
-                    <MenuItem value="false">MANUAL</MenuItem>
+                    <MenuItem value="Automatic">AUTO</MenuItem>
+                    <MenuItem value="Manual">MANUAL</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -280,10 +280,10 @@ const AddVehicleScreen = () => {
                     label="fuelType"
                     onChange={handleChange}
                   >
-                    <MenuItem value="true">Petrol</MenuItem>
-                    <MenuItem value="false">Diesel</MenuItem>
-                    <MenuItem value="false">CNG</MenuItem>
-                    <MenuItem value="false">LPG</MenuItem>
+                    <MenuItem value="Petrol">Petrol</MenuItem>
+                    <MenuItem value="Diesel">Diesel</MenuItem>
+                    <MenuItem value="CNG">CNG</MenuItem>
+                    <MenuItem value="LPG">LPG</MenuItem>
                   </Select>
                 </FormControl>
               </Box>

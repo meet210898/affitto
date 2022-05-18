@@ -6,9 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Progress from "../components/progress/index";
 import ReactRoundedImage from "react-rounded-image";
-import err from "../components/css/screen-css.css";
 import {
   Button,
   TextField,
@@ -57,20 +55,18 @@ const AddStateScreen = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const statesList = useSelector((state) => state.statesList);
-  const { statesInfo } = statesList;
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
-  console.log(userInfo, "userInfo");
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
 
   React.useEffect(() => {
-    if (!localStorage.getItem("auth-token")) {
+    if (!adminInfo.token) {
       navigate("/");
     }
     dispatch(listStates());
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, adminInfo.token]);
+
+  const statesList = useSelector((state) => state.statesList);
+  const { statesInfo } = statesList;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,17 +92,11 @@ const AddStateScreen = () => {
     const emptyData = new FormData();
 
     if (Object.keys(mess).length !== 0) {
-      setMessage("*This fields are mandatory!");
+      setMessage("*All fields are mandatory!");
     } else {
       for (const key in cityData) {
         emptyData.append(key, cityData[key]);
       }
-      // if (!cityData.cityName) {
-      //   setCityData({ cityName: "" });
-      // }
-      // if (!cityData.cityName) {
-      //   setCityData({ cityName: "" });
-      // }
 
       dispatch(addCity(emptyData));
       setOpenEdit(true);
@@ -126,7 +116,7 @@ const AddStateScreen = () => {
       }}
     >
       <Snackbars open={openEdit} setOpen={setOpenEdit} msg="City is added!" />
-      <Grid container display="flex" justifyContent="center">
+      <Grid container display="flex" justifyContent="center" severity="success">
         <Card variant="outlined">
           {message && <p className="error">{message}</p>}
           <CardContent>
