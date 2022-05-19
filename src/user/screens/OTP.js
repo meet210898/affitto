@@ -10,11 +10,12 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Topbar from "../components/topbar";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../actions/user/userActions";
+import { checkOTP } from "../../actions/user/userActions";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import Fade from "react-reveal/Fade";
+import { useLocation } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -40,25 +41,43 @@ export default function UserLoginScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const location = useLocation();
+  const { email } = location.state;
 
-  React.useEffect(() => {
-    if (localStorage.getItem("user-token")) {
-      navigate("/user");
-    }
-  }, [userInfo, navigate]);
+  const [OTP, setOTP] = React.useState("");
+  const OTPCheck = useSelector((state) => state.OTPCheck);
+  const { state } = OTPCheck;
+  const { error } = OTPCheck;
+
+  if (state && state.length !== 0) {
+    console.log(email, "email");
+    navigate("/user/changePassword", { state: { email: email } });
+  }
+
+  // if (success) {
+  //   navigate("/user/changePassword");
+  // } else if (error) {
+  //   navigate("/user/otp");
+  // }
+
+  // React.useEffect(() => {
+  //   if (success) {
+  //     navigate("/user/changePassword");
+  //   } else {
+  //     navigate("/user/otp");
+  //   }
+  // }, [success]);
+
+  const data = {
+    email: email,
+    otp: OTP,
+  };
+  console.log(data, "data");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    const emailId = data.get("email");
-    const pwd = data.get("password");
-    const loginData = {
-      email: emailId,
-      password: pwd,
-    };
-    dispatch(loginUser(loginData));
+
+    dispatch(checkOTP(data));
   };
 
   return (
@@ -80,7 +99,7 @@ export default function UserLoginScreen() {
                 <PersonIcon />
               </Avatar>
               <Typography component="h1" variant="h5">
-                Sign in
+                Forget Password
               </Typography>
               <Box
                 component="form"
@@ -89,51 +108,40 @@ export default function UserLoginScreen() {
                 sx={{ mt: 1 }}
               >
                 <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
                   type="password"
-                  id="password"
-                  autoComplete="current-password"
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="otp"
+                  label="OTP"
+                  name="otp"
+                  autoComplete="otp"
+                  autoFocus
+                  onChange={(e) => setOTP(e.target.value)}
+                  style={{ background: "white" }}
                 />
-
+                {/* <NavLink
+                  to="/user/changePassword"
+                  state={{ data: data }}
+                  style={{ textDecoration: "none" }}
+                > */}
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  Submit
                 </Button>
+                {/* </NavLink> */}
                 <Grid container>
-                  <Grid item xs>
-                    <NavLink
-                      to="/user/forgetpassword"
-                      style={{ color: "#1b6dc1" }}
-                      variant="body2"
-                    >
-                      Forgot password?
-                    </NavLink>
-                  </Grid>
                   <Grid item>
                     <NavLink
-                      to="/user/register"
+                      to="/user/login"
                       style={{ color: "#1b6dc1" }}
                       variant="body2"
                     >
-                      Don't have an account? Sign Up
+                      Already have an account? Sign In
                     </NavLink>
                   </Grid>
                 </Grid>

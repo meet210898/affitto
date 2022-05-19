@@ -57,6 +57,15 @@ import {
   VEHICLEBYTYPE_DETAILS_REQUEST,
   VEHICLEBYTYPE_DETAILS_SUCCESS,
   VEHICLEBYTYPE_DETAILS_FAIL,
+  FORGETPASSWORD_REQUEST,
+  FORGETPASSWORD_SUCCESS,
+  FORGETPASSWORD_FAIL,
+  OTP_REQUEST,
+  OTP_SUCCESS,
+  OTP_FAIL,
+  CHANGEPASSWORD_REQUEST,
+  CHANGEPASSWORD_SUCCESS,
+  CHANGEPASSWORD_FAIL,
 } from "../../constants/user/userConstants";
 
 import {
@@ -95,7 +104,9 @@ export const getCities = (no) => async (dispatch) => {
       type: CITY_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(`http://localhost:4000/user/getCity/${no}`);
+    const { data } = await axios.get(
+      `http://localhost:4000/user/getCity/${no}`
+    );
 
     dispatch({
       type: CITY_LIST_MY_SUCCESS,
@@ -118,7 +129,9 @@ export const getCompany = (no) => async (dispatch) => {
       type: COMPANY_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(`http://localhost:4000/user/getCompany/${no}`);
+    const { data } = await axios.get(
+      `http://localhost:4000/user/getCompany/${no}`
+    );
 
     dispatch({
       type: COMPANY_LIST_MY_SUCCESS,
@@ -400,6 +413,81 @@ export const loginUser = (loginData) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const forgetPassword = (forgetPasswordData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: FORGETPASSWORD_REQUEST,
+    });
+
+    const { data } = await axios.patch(
+      "http://localhost:4000/user/forgetpassword",
+      forgetPasswordData
+    );
+    dispatch({
+      type: FORGETPASSWORD_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: FORGETPASSWORD_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const checkOTP = (otpData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: OTP_REQUEST,
+    });
+
+    const { data } = await axios.post(
+      "http://localhost:4000/user/checkOTP",
+      otpData
+    );
+    dispatch({
+      type: OTP_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: OTP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const changeUserPassword = (changePasswordData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: CHANGEPASSWORD_REQUEST,
+    });
+
+    const { data } = await axios.patch(
+      "http://localhost:4000/user/changePassword",
+      changePasswordData
+    );
+    dispatch({
+      type: CHANGEPASSWORD_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CHANGEPASSWORD_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

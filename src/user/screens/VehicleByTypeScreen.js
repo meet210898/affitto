@@ -11,6 +11,7 @@ import {
   listVehicleByTypeDetails,
 } from "../../actions/user/userActions";
 import Button from "@mui/material/Button";
+import Fade from "react-reveal/Fade";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";

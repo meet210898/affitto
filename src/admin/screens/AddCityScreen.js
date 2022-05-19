@@ -7,6 +7,7 @@ import { styled } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import ReactRoundedImage from "react-rounded-image";
+import FormHelperText from "@mui/material/FormHelperText";
 import {
   Button,
   TextField,
@@ -20,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { listStates } from "../../actions/admin/stateActions";
 import "../components/css/myCss.css";
+import "../components/css/screen-css.css";
 import Snackbars from "../components/alert";
 
 const validateCity = (cityData) => {
@@ -115,8 +117,13 @@ const AddStateScreen = () => {
         background: "white",
       }}
     >
-      <Snackbars open={openEdit} setOpen={setOpenEdit} msg="City is added!" />
-      <Grid container display="flex" justifyContent="center" severity="success">
+      <Snackbars
+        open={openEdit}
+        setOpen={setOpenEdit}
+        severity="success"
+        msg="City is added!"
+      />
+      <Grid container display="flex" justifyContent="center">
         <Card variant="outlined">
           {message && <p className="error">{message}</p>}
           <CardContent>
@@ -124,22 +131,49 @@ const AddStateScreen = () => {
               State:
             </Typography>
             <Box sx={{ minWidth: 120 }}>
-              <FormControl fullWidth>
-                <InputLabel id="stateName">State</InputLabel>
+              {message ? (
+                <FormControl fullWidth error>
+                  <InputLabel id="stateName">State</InputLabel>
 
-                <Select
-                  labelId="stateName"
-                  id="stateId"
-                  name="stateId"
-                  label="City"
-                  value={cityData.stateId}
-                  onChange={handleChange}
-                >
-                  {statesInfo?.map((data) => (
-                    <MenuItem value={data._id}>{data.stateName}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                  <Select
+                    labelId="stateName"
+                    id="stateId"
+                    name="stateId"
+                    label="City"
+                    value={cityData.stateId}
+                    onChange={handleChange}
+                    required
+                  >
+                    {statesInfo?.map((data) => (
+                      <MenuItem value={data._id}>{data.stateName}</MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText style={{ margin: "0px" }}>
+                    *Please Select State
+                  </FormHelperText>
+                </FormControl>
+              ) : (
+                <FormControl fullWidth>
+                  <InputLabel id="stateName">State</InputLabel>
+
+                  <Select
+                    labelId="stateName"
+                    id="stateId"
+                    name="stateId"
+                    label="City"
+                    value={cityData.stateId}
+                    onChange={handleChange}
+                    required
+                  >
+                    {statesInfo?.map((data) => (
+                      <MenuItem value={data._id}>{data.stateName}</MenuItem>
+                    ))}
+                  </Select>
+                  <FormHelperText
+                    style={{ margin: "0px", color: "red" }}
+                  ></FormHelperText>
+                </FormControl>
+              )}
             </Box>
           </CardContent>
           <CardContent>
@@ -154,10 +188,12 @@ const AddStateScreen = () => {
               value={cityData.cityName}
               onChange={handleChange}
               error={
-                cityData.cityName !== null && cityData.cityName.trim() === ""
+                message ||
+                (cityData.cityName !== null && cityData.cityName.trim() === "")
               }
               helperText={
-                cityData.cityName !== null && cityData.cityName.trim() === ""
+                message ||
+                (cityData.cityName !== null && cityData.cityName.trim() === "")
                   ? "*Please Enter City Name"
                   : " "
               }
@@ -192,12 +228,20 @@ const AddStateScreen = () => {
                 type="file"
                 name="cityImage"
                 onChange={handleImageChange}
+                error={cityData.cityImage === ""}
+                helperText={
+                  cityData.cityImage === "" ? "*Please Enter City Image" : " "
+                }
               />
               <Button variant="contained" component="span">
                 Upload Image
               </Button>
+              {message && (
+                <FormHelperText style={{ margin: "0px", color: "red" }}>
+                  *Please Select City Image
+                </FormHelperText>
+              )}
             </label>
-            {/* {cityData.cityImage ? <Progress /> : ""} */}
           </CardContent>
           <CardActions>
             <Button type="submit" variant="contained" size="medium">

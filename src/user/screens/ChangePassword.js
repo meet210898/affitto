@@ -10,11 +10,12 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Topbar from "../components/topbar";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../actions/user/userActions";
+import { changeUserPassword } from "../../actions/user/userActions";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import Fade from "react-reveal/Fade";
+import { useLocation } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -40,25 +41,37 @@ export default function UserLoginScreen() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const location = useLocation();
+  const { email } = location.state;
 
-  React.useEffect(() => {
-    if (localStorage.getItem("user-token")) {
-      navigate("/user");
-    }
-  }, [userInfo, navigate]);
+  const changePassword = useSelector((state) => state.changePassword);
+  const { state } = changePassword;
+  const { error } = changePassword;
 
+  console.log(state, "state");
+  console.log(error, "error");
+
+  //   if (state && state.length !== 0) {
+  //     console.log(email, "email");
+  //     navigate("/user/changePassword", { state: { email: email } });
+  //   }
+  console.log(email, "email");
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const emailId = data.get("email");
-    const pwd = data.get("password");
-    const loginData = {
-      email: emailId,
-      password: pwd,
-    };
-    dispatch(loginUser(loginData));
+    const password = data.get("password");
+    const confirmpassword = data.get("confirmpassword");
+
+    console.log(password, "password");
+    console.log(confirmpassword, "confirmpassword");
+
+    dispatch(
+      changeUserPassword({
+        email: email,
+        password: password,
+        confirmpassword: confirmpassword,
+      })
+    );
   };
 
   return (
@@ -92,21 +105,23 @@ export default function UserLoginScreen() {
                   margin="normal"
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
+                  name="password"
+                  label="Change Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                  style={{ background: "white" }}
                 />
                 <TextField
                   margin="normal"
                   required
                   fullWidth
-                  name="password"
-                  label="Password"
+                  name="confirmpassword"
+                  label="Confirm Password"
                   type="password"
-                  id="password"
+                  id="confirmpassword"
                   autoComplete="current-password"
+                  style={{ background: "white" }}
                 />
 
                 <Button
@@ -115,28 +130,8 @@ export default function UserLoginScreen() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  Submit
                 </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <NavLink
-                      to="/user/forgetpassword"
-                      style={{ color: "#1b6dc1" }}
-                      variant="body2"
-                    >
-                      Forgot password?
-                    </NavLink>
-                  </Grid>
-                  <Grid item>
-                    <NavLink
-                      to="/user/register"
-                      style={{ color: "#1b6dc1" }}
-                      variant="body2"
-                    >
-                      Don't have an account? Sign Up
-                    </NavLink>
-                  </Grid>
-                </Grid>
               </Box>
             </Box>
           </Fade>

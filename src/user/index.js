@@ -19,6 +19,9 @@ import MyBookingScreen from "./screens/MyBookingScreen";
 import ModifyBookingScreen from "./screens/ModifyBookingScreen";
 import VehicleByTypeScreen from "./screens/VehicleByTypeScreen";
 import ComingSoonScreen from "./screens/ComingSoonScreen";
+import ForgetPassword from "./screens/ForgetPassword";
+import OTP from "./screens/OTP";
+import ChangePassword from "./screens/ChangePassword";
 
 const index = () => {
   return (
@@ -39,6 +42,9 @@ const index = () => {
         <Route path="/user/aboutus" element={<AboutUsScreen />} />
         <Route path="/user/mybooking" element={<MyBookingScreen />} />
         <Route path="/user/comingsoon" element={<ComingSoonScreen />} />
+        <Route path="/user/forgetpassword" element={<ForgetPassword />} />
+        <Route path="/user/otp" element={<OTP />} />
+        <Route path="/user/changepassword" element={<ChangePassword />} />
         <Route
           path="/user/modifyBooking/:id"
           element={<ModifyBookingScreen />}

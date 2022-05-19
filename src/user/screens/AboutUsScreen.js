@@ -37,12 +37,6 @@ const HomeScreen = () => {
   vehicles to be delivered/picked up and acts as a vehicle
   management system by monitoring the use and price of the vehicles.`;
 
-  React.useEffect(() => {
-    if (!localStorage.getItem("user-token")) {
-      navigate("/user");
-    }
-  }, [navigate]);
-
   return (
     <>
       <Topbar />

@@ -26,6 +26,15 @@ import {
   VEHICLEBYTYPE_DETAILS_REQUEST,
   VEHICLEBYTYPE_DETAILS_SUCCESS,
   VEHICLEBYTYPE_DETAILS_FAIL,
+  FORGETPASSWORD_REQUEST,
+  FORGETPASSWORD_SUCCESS,
+  FORGETPASSWORD_FAIL,
+  OTP_REQUEST,
+  OTP_SUCCESS,
+  OTP_FAIL,
+  CHANGEPASSWORD_REQUEST,
+  CHANGEPASSWORD_SUCCESS,
+  CHANGEPASSWORD_FAIL,
 } from "../../constants/user/userConstants";
 
 export const userCreateReducer = (state = {}, action) => {
@@ -38,6 +47,45 @@ export const userCreateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case USER_CREATE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+
+export const forgetPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case FORGETPASSWORD_REQUEST:
+      return { loading: true };
+    case FORGETPASSWORD_SUCCESS:
+      return { loading: false, success: true, state: action.payload };
+    case FORGETPASSWORD_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const OTPReducer = (state = {}, action) => {
+  switch (action.type) {
+    case OTP_REQUEST:
+      return { loading: true };
+    case OTP_SUCCESS:
+      return { loading: false, success: true, state: action.payload };
+    case OTP_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const changePasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case CHANGEPASSWORD_REQUEST:
+      return { loading: true };
+    case CHANGEPASSWORD_SUCCESS:
+      return { loading: false, success: true, state: action.payload };
+    case CHANGEPASSWORD_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }

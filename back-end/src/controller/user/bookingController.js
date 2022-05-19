@@ -34,7 +34,10 @@ const editBookingStatus = async (req, res) => {
 
 const getBookingByUserId = async (req, res) => {
   try {
-    const booking = await Booking.find({ userId: req.params.id, status: true });
+    const booking = await Booking.find({
+      userId: req.params.id,
+      status: true,
+    });
     res.status(200).send(booking);
   } catch (e) {
     res.status(500).send({ error: e.message });
@@ -43,7 +46,7 @@ const getBookingByUserId = async (req, res) => {
 
 const getBookingById = async (req, res) => {
   try {
-    const booking = await Booking.findById(req.params.id);
+    const booking = await Booking.findById(req.params.id).populate("vehicleId");
     res.status(200).send(booking);
   } catch (e) {
     res.status(500).send({ error: e.message });

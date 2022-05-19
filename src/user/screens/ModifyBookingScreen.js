@@ -32,19 +32,42 @@ export default function BookingScreen() {
   const companyList = useSelector((state) => state.companyList);
   const { companiesInfo } = companyList;
 
-  const [startDate, setStartDate] = React.useState(new Date());
-  const [endDate, setEndDate] = React.useState(new Date());
+  // React.useEffect(() => {
+  //   dispatch(
+  //     listVehicleDetails(
+  //       bookingsByIdInfo?.vehicleId ? bookingsByIdInfo?.vehicleId : ""
+  //     )
+  //   );
+  // }, [dispatch, bookingsByIdInfo?.vehicleId]);
+
+  const [startDate, setStartDate] = React.useState(
+    new Date(bookingsByIdInfo?.startDate ? bookingsByIdInfo?.startDate : "")
+  );
+  const [endDate, setEndDate] = React.useState(
+    new Date(bookingsByIdInfo?.endDate ? bookingsByIdInfo?.endDate : "")
+  );
+  // const [payableAmount, setPayableAmount] = React.useState(0);
+  const totalAmount = bookingsByIdInfo?.payment;
 
   const time_difference = endDate.getTime() - startDate.getTime();
   const days_difference = time_difference / (1000 * 60 * 60 * 24);
 
   let payableAmount = 0;
-  if ((payableAmount > 0 && payableAmount < 1) || payableAmount === 0) {
-    payableAmount = bookingsByIdInfo?.payment;
-  } else {
-    payableAmount = bookingsByIdInfo?.payment * Math.trunc(days_difference);
+  // if (
+  //   (payableAmount > 0 && payableAmount < vehiclesInfo?.priceperday) ||
+  //   payableAmount === 0
+  // ) {
+  //   payableAmount = vehiclesInfo?.priceperday;
+  // } else {
+  payableAmount =
+    bookingsByIdInfo?.vehicleId?.priceperday * Math.trunc(days_difference);
+  // }
+  if (bookingsByIdInfo?.payment > payableAmount) {
+    payableAmount = bookingsByIdInfo?.payment - payableAmount;
   }
+
   console.log(payableAmount, "payableAmount");
+  console.log(totalAmount, "totalAmount");
 
   const data = {
     vehicleId: id,
@@ -52,6 +75,8 @@ export default function BookingScreen() {
     endDate: endDate,
     payableAmount: payableAmount,
   };
+
+  console.log(bookingsByIdInfo?.payment < payableAmount, "...");
 
   return (
     <>
@@ -85,7 +110,7 @@ export default function BookingScreen() {
                 }}
               >
                 {vehiclesInfo?.map((data) => {
-                  return data._id === bookingsByIdInfo?.vehicleId
+                  return data._id === bookingsByIdInfo?.vehicleId?._id
                     ? data.vehicleName
                     : "";
                 })}
@@ -105,7 +130,7 @@ export default function BookingScreen() {
                   label="DateTimePicker"
                   style={{ margin: "10px" }}
                   minDate={new Date()}
-                  value={bookingsByIdInfo?.startDate}
+                  value={startDate}
                   onChange={(date) => setStartDate(date)}
                 />
               </LocalizationProvider>
@@ -122,8 +147,8 @@ export default function BookingScreen() {
                   )}
                   label="DateTimePicker"
                   style={{ margin: "10px" }}
-                  minDate={bookingsByIdInfo?.startDate}
-                  value={bookingsByIdInfo?.endDate}
+                  minDate={startDate}
+                  value={endDate}
                   onChange={(date) => setEndDate(date)}
                 />
               </LocalizationProvider>
@@ -133,8 +158,20 @@ export default function BookingScreen() {
               md={12}
               style={{ fontSize: "20px", marginTop: "10px" }}
             >
+              <b>Total Amount:{totalAmount}</b>
+            </Grid>
+            <Grid
+              xs={12}
+              md={12}
+              style={{ fontSize: "20px", marginTop: "10px" }}
+            >
               {endDate.getMilliseconds() === 0 ? (
-                <b>Payable Amount:{payableAmount}</b>
+                <b>
+                  Payable Amount:
+                  {bookingsByIdInfo?.payment < payableAmount
+                    ? "Your amount will be transfer to your bank account in three working days"
+                    : payableAmount}
+                </b>
               ) : (
                 <b>Payable Amount:{bookingsByIdInfo?.payment}</b>
               )}

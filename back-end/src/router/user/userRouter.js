@@ -1,6 +1,7 @@
 const express = require("express");
 const router = new express.Router();
 const {
+  forgetPassword,
   getState,
   getCity,
   getUserById,
@@ -15,8 +16,13 @@ const {
   getFaq,
   getFaqCategory,
   getVehicleByTypeId,
+  checkOTP,
+  changePassword,
 } = require("../../controller/user/userController");
 
+router.patch("/user/forgetPassword", forgetPassword);
+router.post("/user/checkOTP", checkOTP);
+router.patch("/user/changePassword", changePassword);
 router.get("/user/getState", getState);
 router.get("/user/getCity/:id", getCity);
 router.patch("/user/editUser/:id", upload.single("personalImage"), editUser);

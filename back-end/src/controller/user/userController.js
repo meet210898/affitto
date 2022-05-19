@@ -6,6 +6,9 @@ const Company = require("../../model/admin/companyModel");
 const Vehicle = require("../../model/admin/vehicleModel");
 const Faq = require("../../model/admin/faqModel");
 const FaqCategory = require("../../model/admin/faqCategoryModel");
+const otpGenerator = require("otp-generator");
+const { emailsend } = require("../../Email/email");
+const bcrypt = require("bcryptjs");
 
 const multer = require("multer");
 
@@ -34,6 +37,55 @@ let upload = multer({
   storage: storage,
   fileFilter: fileFilter,
 });
+
+const forgetPassword = async (req, res) => {
+  const email = req.body.email;
+  const otp = otpGenerator.generate(6, {
+    upperCaseAlphabets: false,
+    specialChars: false,
+  });
+  try {
+    const user = await User.updateOne({ email: email }, { $set: { otp: otp } });
+    res.status(200).send(user);
+    emailsend(email, otp);
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const checkOTP = async (req, res) => {
+  const email = req.body.email;
+  const otp = req.body.otp;
+  try {
+    if ((email && otp !== "") || (email && otp !== null)) {
+      const user = await User.find({
+        $and: [{ email: email }, { otp: otp }],
+      });
+      res.status(200).send(user);
+    } else res.status(400).send({ msg: "cannot blank" });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
+const changePassword = async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const confirmpassword = req.body.confirmpassword;
+  try {
+    if (password === confirmpassword) {
+      const bcryptPassword = await bcrypt.hash(password, 8);
+      let user = await User.updateOne({
+        email: email,
+        password: bcryptPassword,
+      });
+      res.status(200).send(user);
+    } else res.status(400).send({ msg: "wrong password" });
+  } catch (e) {
+    res.status(500).send({ error: e.message });
+  }
+};
+
 const getState = async (req, res) => {
   try {
     const state = await State.find({});
@@ -202,6 +254,8 @@ const getFaqCategory = async (req, res) => {
 };
 
 module.exports = {
+  forgetPassword,
+  changePassword,
   getState,
   getCity,
   getUserById,
@@ -216,4 +270,5 @@ module.exports = {
   getFaq,
   getFaqCategory,
   getVehicleByTypeId,
+  checkOTP,
 };

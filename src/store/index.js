@@ -68,6 +68,9 @@ import {
   listVehicleByCompanyDetails,
   listVehicleByTypeDetails,
   listFaqByFaqCategoryDetails,
+  forgetPasswordReducer,
+  OTPReducer,
+  changePasswordReducer,
 } from "../reducers/user/userReducer";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
@@ -133,6 +136,9 @@ const reducer = combineReducers({
   vehicleByCompanyDetails: listVehicleByCompanyDetails,
   vehicleByTypeDetails: listVehicleByTypeDetails,
   FaqByFaqCategoryDetails: listFaqByFaqCategoryDetails,
+  forgetPassword: forgetPasswordReducer,
+  OTPCheck: OTPReducer,
+  changePassword:changePasswordReducer,
   //BOOKING
   bookingCreate: bookingCreateReducer,
   bookingByUser: bookingByUserReducer,

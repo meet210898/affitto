@@ -131,6 +131,7 @@ export const listBookingById = (bookingId) => async (dispatch) => {
       config
     );
 
+
     dispatch({
       type: BOOKINGBYID_DETAILS_SUCCESS,
       payload: data,
