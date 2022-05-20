@@ -10,6 +10,7 @@ import jwt_decode from "jwt-decode";
 import moment from "moment";
 import { NavLink } from "react-router-dom";
 import Fade from "react-reveal/Fade";
+import Footer from "../components/footer";
 
 import { listBookingByUserId } from "../../actions/user/bookingActions";
 import {
@@ -233,6 +234,7 @@ const NotFoundScreen = () => {
         </Grid>
         <Grid xs={1} md={1}></Grid>
       </Grid>
+      <Footer />
     </>
   );
 };

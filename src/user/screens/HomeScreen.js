@@ -10,15 +10,24 @@ import mercedesInvestor from "../public/image/investor/mercedes.jpg";
 import tataInvestor from "../public/image/investor/tatamotors.jpg";
 import suzukiInvestor from "../public/image/investor/suzuki.jpg";
 import landroverInvestor from "../public/image/investor/landrover2.jpg";
+import GridDesign from "../components/grid";
+import Footer from "../components/footer";
+import useWindowSize from "../components/useWindowSize";
 
-import Card from "@mui/material/Card";
-import Typography from "@mui/material/Typography";
+import {
+  Card,
+  Typography,
+  Button,
+  Grid,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@mui/material";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Grid } from "@mui/material";
-import "../components/css/imgTxt.css";
-import useWindowSize from "../components/useWindowSize";
 import Fade from "react-reveal/Fade";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
 import {
   getCities,
   getCompany,
@@ -29,10 +38,7 @@ import {
 import Investor from "../components/investor";
 import Cards from "../components/cards";
 
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import "../components/css/imgTxt.css";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -188,13 +194,7 @@ const HomeScreen = () => {
         </Grid>
       </Grid>
 
-      <Grid container md={12} xs={12}>
-        <Grid md={1} xs={1}></Grid>
-        <Grid md={10} xs={10}>
-          <h2>FAQs</h2>
-        </Grid>
-        <Grid md={1} xs={1}></Grid>
-      </Grid>
+      <GridDesign name="FAQs" />
 
       <Grid container md={12} xs={12}>
         <Grid md={1} xs={1}></Grid>
@@ -269,13 +269,9 @@ const HomeScreen = () => {
 
         <Grid md={1} xs={1}></Grid>
       </Grid>
-      <Grid container md={12} xs={12}>
-        <Grid md={1} xs={1}></Grid>
-        <Grid md={10} xs={10}>
-          <h2>Our Investors</h2>
-        </Grid>
-        <Grid md={1} xs={1}></Grid>
-      </Grid>
+
+      <GridDesign name="Our Investors" />
+
       <Grid container>
         <Grid md={1} xs={1}></Grid>
         <Grid md={10} xs={10} container>
@@ -299,6 +295,7 @@ const HomeScreen = () => {
         </Grid>
         <Grid md={1} xs={1}></Grid>
       </Grid>
+      <Footer />
     </div>
   );
 };

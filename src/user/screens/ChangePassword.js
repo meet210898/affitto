@@ -48,9 +48,6 @@ export default function UserLoginScreen() {
   const { state } = changePassword;
   const { error } = changePassword;
 
-  console.log(state, "state");
-  console.log(error, "error");
-
   //   if (state && state.length !== 0) {
   //     console.log(email, "email");
   //     navigate("/user/changePassword", { state: { email: email } });

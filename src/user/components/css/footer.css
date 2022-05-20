@@ -1,0 +1,50 @@
+#btnStyle {
+  display: block;
+  color: white;
+  padding: 0px;
+  margin: 0px;
+  font-size: 16px;
+  text-transform: none;
+}
+
+#btnStyle:hover {
+  color: #346dc1;
+}
+
+.queStyle {
+  margin: 0px 0px 8px;
+  font-size: 24px;
+  color: white;
+}
+
+.supportStyle {
+  margin: 0px 0px 16px;
+  font-size: 20px;
+  color: white;
+}
+
+.contactStyle {
+  margin: 0px 0px 8px;
+  font-size: 24px;
+  color: #346dc1;
+  font-weight: 500;
+}
+
+.numberStyle {
+  margin: 0px 0px 8px;
+  font-size: 22px;
+  color: #346dc1;
+}
+
+.mailStyle {
+  margin: 0px 0px 8px;
+  font-size: 22px;
+  color: #346dc1;
+  line-height: 1.2;
+}
+
+.containerStyle {
+  margin-top: 20px;
+  padding: 50px 0px 30px;
+  background: black;
+}

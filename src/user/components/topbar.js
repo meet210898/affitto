@@ -17,6 +17,7 @@ import jwt_decode from "jwt-decode";
 import { makeStyles } from "@mui/styles";
 import logo from "../public/image/logo/logo.png";
 import Avatar from "@mui/material/Avatar";
+import "../components/css/topbar.css";
 
 const useStyles = makeStyles({
   root: {
@@ -73,6 +74,10 @@ const TopBar = () => {
 
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
+
+  const clickedBtn = (event) => {
+    event.target.style.color = "blue";
+  };
 
   return (
     <AppBar style={{ backgroundColor: "white" }} position="sticky">
@@ -134,24 +139,14 @@ const TopBar = () => {
                 (!localStorage.getItem("user-token") &&
                   page === "My Booking") ? (
                   ""
-                ) : page === "Home" ? (
-                  <NavLink
-                    style={{ color: "black", textDecoration: "none" }}
-                    to={`/user`}
-                  >
-                    <MenuItem
-                      className={classes.root}
-                      style={{ color: "black" }}
-                      key={page}
-                      onClick={handleCloseNavMenu}
-                    >
-                      <Typography textAlign="center">{page}</Typography>
-                    </MenuItem>
-                  </NavLink>
                 ) : (
                   <NavLink
                     style={{ color: "black", textDecoration: "none" }}
-                    to={`/user/${page.replace(/\s/g, "")}`}
+                    to={
+                      page === "Home"
+                        ? `/user`
+                        : `/user/${page.replace(/\s/g, "")}`
+                    }
                   >
                     <MenuItem
                       className={classes.root}
@@ -183,7 +178,6 @@ const TopBar = () => {
                 style={{ objectFit: "cover" }}
                 height="auto"
                 width="150px"
-                // maxWidth="100px"
                 alt="blank"
               />
             </NavLink>
@@ -192,46 +186,37 @@ const TopBar = () => {
             sx={{
               flexGrow: 1,
               display: { xs: "none", md: "flex" },
-              
             }}
           >
             {pages.map((page) =>
               (localStorage.getItem("user-token") && page === "Register") ||
               (!localStorage.getItem("user-token") && page === "My Booking") ? (
                 ""
-              ) : page === "Home" ? (
-                <NavLink style={{ textDecoration: "none" }} to={`/user`}>
-                  <Button
-                    className={classes.root}
-                    key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      color: "black",
-                      display: "block",
-                      fontSize: "18px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {page}
-                  </Button>
-                </NavLink>
               ) : (
                 <NavLink
                   style={{ textDecoration: "none" }}
-                  to={`/user/${page.replace(/\s/g, "")}`}
+                  to={
+                    page === "Home"
+                      ? `/user`
+                      : `/user/${page.replace(/\s/g, "")}`
+                  }
                 >
                   <Button
+                    id="btnDesign"
                     className={classes.root}
                     key={page}
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      color: "black",
-                      display: "block",
-                      fontSize: "18px",
-                      fontWeight: "bold",
+                    onClick={(e) => {
+                      clickedBtn(e);
+                      handleCloseNavMenu();
                     }}
+                    variant="text"
+                    // sx={{
+                    //   textTransform: "none",
+                    //   color: "black",
+                    //   display: "block",
+                    //   fontSize: "18px",
+                    //   fontWeight: "bold",
+                    // }}
                   >
                     {page}
                   </Button>

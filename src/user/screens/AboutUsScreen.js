@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 import "../components/css/imgTxt.css";
 import Fade from "react-reveal/Fade";
+import Footer from "../components/footer";
 
 const HomeScreen = () => {
   const navigate = useNavigate();
@@ -181,6 +182,7 @@ const HomeScreen = () => {
         </Grid>
         <Grid xs={1} md={2}></Grid>
       </Grid>
+      <Footer />
     </>
   );
 };

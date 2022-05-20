@@ -4,6 +4,8 @@ import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getCompany, listVehicleDetails } from "../../actions/user/userActions";
+import Fade from "react-reveal/Fade";
+import Footer from "../components/footer";
 
 export default function VehicleDetails() {
   const dispatch = useDispatch();
@@ -52,16 +54,38 @@ export default function VehicleDetails() {
             </Grid>
             <Grid container>
               <Grid xs={12} md={8} marginTop={2}>
-                <img
-                  src={`http://localhost:4000/${vehicle?.vehicleImage}`}
-                  style={{ height: "100%", maxWidth: "700px", width: "100%" }}
-                  alt="tata"
-                />
+                <Fade top>
+                  <img
+                    src={`http://localhost:4000/${vehicle?.vehicleImage}`}
+                    style={{ height: "100%", maxWidth: "700px", width: "100%" }}
+                    alt="tata"
+                  />
+                </Fade>
               </Grid>
               <Grid xs={12} md={1}></Grid>
-              <Grid xs={12} md={3}>
-                <h3>Pickup Location</h3>
-                <p>305-306,AFITTO,City Light Road,Surat,Gujarat.</p>
+              <Grid
+                xs={12}
+                md={3}
+                sx={{
+                  border: "0px",
+                  width: { xs: "100%", md: "100%", marginTop: "16px" },
+                }}
+              >
+                <Fade right>
+                  <iframe
+                    title="Location"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3721.1735673577796!2d72.75939917848156!3d21.1454898688498!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xd67f67bac901ac43!2zMjHCsDA4JzQ5LjYiTiA3MsKwNDUnMzMuNCJF!5e0!3m2!1sen!2sin!4v1653031491432!5m2!1sen!2sin"
+                    allowfullscreen=""
+                    width="100%"
+                    height="100%"
+                    style={{ border: "0px" }}
+                    loading="lazy"
+                  ></iframe>
+
+                  {/* <h3>Pickup Location</h3>
+                  
+                  <p>305-306,AFITTO,City Light Road,Surat,Gujarat.</p> */}
+                </Fade>
               </Grid>
             </Grid>
             <Grid xs={12} display="flex">
@@ -113,6 +137,7 @@ export default function VehicleDetails() {
         </Grid>
         <Grid xs={1}></Grid>
       </Grid>
+      <Footer />
     </>
   );
 }

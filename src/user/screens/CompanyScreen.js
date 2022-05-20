@@ -6,11 +6,12 @@ import Topbar from "../components/topbar";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { getCompany } from "../../actions/user/userActions";
-import {  NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Fade from "react-reveal/Fade";
+import Footer from "../components/footer";
 
 export default function CompanyList() {
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ export default function CompanyList() {
         </Grid>
         <Grid xs={1}></Grid>
       </Grid>
+      <Footer />
     </>
   );
 }

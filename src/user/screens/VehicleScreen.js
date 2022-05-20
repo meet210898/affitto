@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { listVehicle, getCompany } from "../../actions/user/userActions";
 import Button from "@mui/material/Button";
 import Fade from "react-reveal/Fade";
+import Footer from "../components/footer";
 
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -171,6 +172,7 @@ export default function VehicleList() {
 
         <Grid xs={1}></Grid>
       </Grid>
+      <Footer />
     </>
   );
 }

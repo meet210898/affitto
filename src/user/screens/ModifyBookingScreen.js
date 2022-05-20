@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Button, Grid } from "@mui/material";
+import Footer from "../components/footer";
 
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 
@@ -196,6 +197,7 @@ export default function BookingScreen() {
 
         <Grid xs={1} md={3}></Grid>
       </Grid>
+      <Footer />
     </>
   );
 }

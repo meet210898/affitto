@@ -2,6 +2,7 @@ import Topbar from "../components/topbar";
 import { Button, Grid } from "@mui/material";
 import errorImg from "../public/image/404/404page.png";
 import { NavLink } from "react-router-dom";
+import Footer from "../components/footer";
 
 const NotFoundScreen = () => {
   return (
@@ -48,6 +49,7 @@ const NotFoundScreen = () => {
         </Grid>
         <Grid xs={1} md={3}></Grid>
       </Grid>
+      <Footer />
     </>
   );
 };

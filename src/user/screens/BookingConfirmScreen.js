@@ -11,6 +11,7 @@ import logo from "../public/image/logo/logo.png";
 import { addBooking } from "../../actions/user/bookingActions";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import Footer from "../components/footer";
 
 export default function BookingScreen() {
   const dispatch = useDispatch();
@@ -215,6 +216,7 @@ export default function BookingScreen() {
 
         <Grid xs={1} md={3}></Grid>
       </Grid>
+      <Footer />
     </>
   );
 }

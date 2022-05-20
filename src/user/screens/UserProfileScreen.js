@@ -16,6 +16,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { styled } from "@mui/material/styles";
 import EditPopover from "../components/popover/index";
 import Fade from "react-reveal/Fade";
+import Footer from "../components/footer";
 
 const theme = createTheme({
   typography: {
@@ -293,6 +294,7 @@ export default function UserProfileScreen() {
           </Container>
         </ThemeProvider>
       </Grid>
+      <Footer />
     </>
   );
 }

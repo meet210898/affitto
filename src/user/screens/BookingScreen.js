@@ -10,6 +10,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { Button, Grid } from "@mui/material";
 
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
+import Footer from "../components/footer";
 
 export default function BookingScreen() {
   const dispatch = useDispatch();
@@ -147,6 +148,7 @@ export default function BookingScreen() {
         </Grid>
         <Grid xs={1} md={3}></Grid>
       </Grid>
+      <Footer />
     </>
   );
 }

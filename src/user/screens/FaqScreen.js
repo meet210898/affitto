@@ -3,6 +3,7 @@ import Topbar from "../components/topbar";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import Fade from "react-reveal/Fade";
+import Footer from "../components/footer";
 
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -73,6 +74,7 @@ export default function VehicleList() {
         </Grid>
         <Grid md={2} xs={1}></Grid>
       </Grid>
+      <Footer />
     </>
   );
 }

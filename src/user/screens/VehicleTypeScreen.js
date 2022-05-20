@@ -13,6 +13,7 @@ import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
 import { listVehicle, getCompany } from "../../actions/user/userActions";
 import Fade from "react-reveal/Fade";
+import Footer from "../components/footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -154,35 +155,8 @@ export default function VehicleTypeList() {
           </Grid>
         </Grid>
         <Grid xs={1} md={1}></Grid>
-        {/* <Grid xs={1} md={1}></Grid>
-        <Grid xs={10} md={6} display="flex">
-          <Grid container display="flex">
-            {vehicleTypesInfo?.map((data) => (
-              <Grid md={6}>
-                <Link to={`/user/vehicles/${data._id}`}>
-                  <Card sx={{ maxWidth: 300, height: "auto", margin: "20px" }}>
-                    <CardMedia
-                      component="img"
-                      height="140"
-                      image={`http://localhost:4000/${data.typeImage}`}
-                      alt="typeLogo"
-                    />
-                    <CardContent>
-                      <center>
-                        <b>{data.typeName}</b>
-                      </center>
-                    </CardContent>
-                  </Card>
-                </Link>
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
-        <Grid xs={12} md={4}>
-          hi
-        </Grid>
-        <Grid xs={1} md={1}></Grid> */}
       </Grid>
+      <Footer />
     </>
   );
 }
