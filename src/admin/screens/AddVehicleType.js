@@ -6,7 +6,7 @@ import CardContent from "@mui/material/CardContent";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { Button, TextField } from "@mui/material";
-import { addType } from "../../actions/admin/vehicleTypeActions";
+import { addType } from "../../actions/admin/VehicleType";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Snackbars from "../components/alert";
@@ -18,7 +18,8 @@ const AddVehicleType = () => {
     typeImage: "",
   });
 
-  const [openEdit, setOpenEdit] = React.useState(false);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
   const Input = styled("input")({
     display: "none",
   });
@@ -58,6 +59,7 @@ const AddVehicleType = () => {
       emptyData.append(key, vehicleTypeData[key]);
     }
     dispatch(addType(emptyData));
+    setOpenSnackbar(true);
   };
   return (
     <Box
@@ -73,8 +75,8 @@ const AddVehicleType = () => {
       }}
     >
       <Snackbars
-        open={openEdit}
-        setOpen={setOpenEdit}
+        open={openSnackbar}
+        setOpen={setOpenSnackbar}
         severity="success"
         msg="Vehicle type is added!"
       />

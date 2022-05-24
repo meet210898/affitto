@@ -11,7 +11,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-import { listFaq, listFaqCategory } from "../../actions/user/userActions";
+import { listFaq, listFaqCategory } from "../../actions/user/User";
 
 export default function VehicleList() {
   const dispatch = useDispatch();

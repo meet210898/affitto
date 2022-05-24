@@ -5,15 +5,17 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Button, TextField } from "@mui/material";
-import { addFaqCategory } from "../../actions/admin/faqCategoryActions";
+import { addFaqCategory } from "../../actions/admin/FaqCategory";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Snackbars from "../components/alert";
 
 const AddFaqCategoryScreen = () => {
-  const [faqCategoryData, setFaqCategoryData] = React.useState("");
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [faqCategoryData, setFaqCategoryData] = React.useState("");
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   const adminLogin = useSelector((state) => state.adminLogin);
   const { adminInfo } = adminLogin;
@@ -28,6 +30,7 @@ const AddFaqCategoryScreen = () => {
     event.preventDefault();
 
     dispatch(addFaqCategory({ faqCategory: faqCategoryData }));
+    setOpenSnackbar(true);
   };
   return (
     <Box
@@ -42,6 +45,12 @@ const AddFaqCategoryScreen = () => {
         background: "white",
       }}
     >
+      <Snackbars
+        open={openSnackbar}
+        setOpen={setOpenSnackbar}
+        severity="success"
+        msg="Faq category is added!"
+      />
       <Card variant="outlined">
         <CardContent>
           <Typography variant="h5" component="div">

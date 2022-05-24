@@ -14,10 +14,11 @@ import ViewUser from "./screens/UserList";
 import AddVehicle from "./screens/AddVehicle";
 import ViewVehicle from "./screens/VehicleList";
 import AddFaq from "./screens/AddFaq";
-import ViewFaq from "./screens/FaqList2";
+import ViewFaq from "./screens/FaqList";
 import AddFaqCategory from "./screens/AddFaqCategory";
 import ViewFaqCategory from "./screens/FaqCategoryList";
 import ViewBooking from "./screens/BookingList";
+import Dashboard from "./screens/Dashboard";
 
 const index = () => {
   return (
@@ -26,6 +27,7 @@ const index = () => {
         <Route path="/" element={<Login />} />
 
         <Route path="/Admin" element={<Sidebar />}>
+          <Route path="Dashboard" element={<Dashboard />} />
           <Route path="viewUser" element={<ViewUser />} />
           <Route path="viewBooking" element={<ViewBooking />} />
 

@@ -10,12 +10,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
-import { listStates } from "../../actions/admin/stateActions";
-import { listCities, deleteCity } from "../../actions/admin/cityActions";
+import { listStates } from "../../actions/admin/State";
+import { listCities, deleteCity } from "../../actions/admin/City";
 import { useNavigate } from "react-router-dom";
 import ReactRoundedImage from "react-rounded-image";
 import "../components/css/main.css";
-import ModalCall from "./modals/EditCity";
+import ModalCall from "./EditModals/EditCity";
+import DeleteModal from "./DeleteModals";
+import Snackbars from "../components/alert";
 
 const { REACT_APP_HOST } = process.env;
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -40,15 +42,25 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ViewCityScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [open, setOpen] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
-  const navigate = useNavigate();
+  const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
+
+  const [id, setId] = React.useState("");
+  const [confirmDialog, setConfirmDialog] = React.useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
+
   let counter = 0;
 
-  const cityDelete = useSelector((city) => city.cityDelete);
+  const cityDelete = useSelector((state) => state.cityDelete);
   const { deleteSuccess } = cityDelete;
 
-  const cityUpdate = useSelector((city) => city.cityUpdate);
+  const cityUpdate = useSelector((state) => state.cityUpdate);
   const { success } = cityUpdate;
 
   React.useEffect(() => {
@@ -59,18 +71,15 @@ export default function ViewCityScreen() {
     dispatch(listCities());
   }, [dispatch, navigate, success, deleteSuccess]);
 
-  const cityList = useSelector((city) => city.cityList);
+  React.useEffect(() => {
+    setOpenDeleteAlert(true);
+  }, [deleteSuccess]);
+
+  const cityList = useSelector((state) => state.cityList);
   const { citiesInfo } = cityList;
 
   const statesList = useSelector((state) => state.statesList);
   const { statesInfo } = statesList;
-
-  const deleteHandler = (stateId) => {
-    if (window.confirm("Are you sure")) {
-      dispatch(deleteCity(stateId));
-      navigate("/Admin/viewCity");
-    }
-  };
 
   const editHandler = (row) => {
     setEditData(row);
@@ -79,6 +88,20 @@ export default function ViewCityScreen() {
   return (
     <Grid>
       <ModalCall open={open} setOpen={setOpen} editData={editData} />
+      <DeleteModal
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+        id={id}
+        dispatchItem={deleteCity}
+      />
+      {deleteSuccess && (
+        <Snackbars
+          open={openDeleteAlert}
+          setOpen={setOpenDeleteAlert}
+          severity="error"
+          msg="City is deleted!"
+        />
+      )}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
@@ -128,7 +151,14 @@ export default function ViewCityScreen() {
                     aria-label="delete"
                     size="large"
                     style={{ color: "red" }}
-                    onClick={() => deleteHandler(row._id)}
+                    onClick={() => {
+                      setId(row._id);
+                      setConfirmDialog({
+                        isOpen: true,
+                        title: "Are you sure to delete this record?",
+                        subTitle: "You can't undo this operation",
+                      });
+                    }}
                   >
                     <DeleteIcon fontSize="inherit" />
                   </IconButton>

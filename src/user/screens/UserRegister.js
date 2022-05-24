@@ -3,7 +3,6 @@ import Topbar from "../components/topbar";
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import TextareaAutosize from "@mui/material/TextareaAutosize";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
@@ -16,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useDispatch, useSelector } from "react-redux";
-import { getStates, getCities, addUser } from "../../actions/user/userActions";
+import { getStates, getCities, addUser } from "../../actions/user/User";
 import Fade from "react-reveal/Fade";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { NavLink } from "react-router-dom";
@@ -42,13 +41,19 @@ function Copyright(props) {
 const theme = createTheme();
 
 const UserRegisterScreen = () => {
-  const [stateId, setStateId] = React.useState("");
-  const [cityId, setCityId] = React.useState("");
-  const [personalImage, setPersonalImage] = React.useState("");
-
-  function uploadPersonalImage(event) {
-    setPersonalImage(event.target.files[0]);
-  }
+  const [userData, setUserData] = React.useState({
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    address: "",
+    pincode: "",
+    stateId: "",
+    cityId: "",
+    username: "",
+    email: "",
+    password: "",
+    personalImage: "",
+  });
 
   const dispatch = useDispatch();
 
@@ -63,30 +68,35 @@ const UserRegisterScreen = () => {
   const cityList = useSelector((state) => state.cityList);
   const { citiesInfo } = cityList;
 
-  console.log(citiesInfo, "citiesInfo");
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserData({
+      ...userData,
+      [name]: value,
+    });
+  };
+
+  const handleImageChange = (e) => {
+    const { name, files } = e.target;
+    setUserData({
+      ...userData,
+      [name]: files[0],
+    });
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
     const emptyData = new FormData();
-    emptyData.append("firstName", data.get("firstName"));
-    emptyData.append("lastName", data.get("lastName"));
-    emptyData.append("phoneNumber", data.get("phoneNumber"));
-    emptyData.append("stateId", stateId);
-    emptyData.append("cityId", cityId);
-    emptyData.append("username", data.get("username"));
-    emptyData.append("email", data.get("email"));
-    emptyData.append("password", data.get("password"));
-    emptyData.append("confirmPassword", data.get("confirmPassword"));
-    emptyData.append("address", data.get("address"));
-    emptyData.append("pincode", data.get("pincode"));
-    emptyData.append("personalImage", data.get("personalImage"));
+
+    for (const key in userData) {
+      emptyData.append(key, userData[key]);
+    }
 
     dispatch(addUser(emptyData));
   };
 
   return (
-    <Grid>
+    <Grid container>
       <Topbar />
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
@@ -123,6 +133,7 @@ const UserRegisterScreen = () => {
                       label="First Name"
                       autoFocus
                       style={{ background: "white" }}
+                      onChange={handleChange}
                     />
                   </Grid>
                   <Grid item xs={12} sm={6}>
@@ -134,6 +145,7 @@ const UserRegisterScreen = () => {
                       name="lastName"
                       autoComplete="family-name"
                       style={{ background: "white" }}
+                      onChange={handleChange}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -145,17 +157,21 @@ const UserRegisterScreen = () => {
                       name="phoneNumber"
                       autoComplete="family-name"
                       style={{ background: "white" }}
+                      onChange={handleChange}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextareaAutosize
-                      maxRows={4}
+                    <TextField
+                      required
+                      multiline
+                      rows={5}
+                      fullWidth
                       id="address"
+                      label="Address"
                       name="address"
-                      aria-label="maximum height"
-                      placeholder="Address"
-                      autoFocus
-                      style={{ width: "100%", height: "100px" }}
+                      autoComplete="family-name"
+                      style={{ background: "white" }}
+                      onChange={handleChange}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -167,6 +183,7 @@ const UserRegisterScreen = () => {
                       name="pincode"
                       autoComplete="family-name"
                       style={{ background: "white" }}
+                      onChange={handleChange}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -179,12 +196,10 @@ const UserRegisterScreen = () => {
                           id="stateId"
                           name="stateId"
                           label="State"
-                          value={stateId}
+                          value={userData.stateId}
                           style={{ background: "white" }}
                           defaultValue=""
-                          onChange={(e) => {
-                            setStateId(e.target.value);
-                          }}
+                          onChange={handleChange}
                         >
                           {statesInfo?.map((data) => (
                             <MenuItem key={data._id} value={data._id}>
@@ -207,11 +222,13 @@ const UserRegisterScreen = () => {
                           label="City"
                           defaultValue=""
                           style={{ background: "white" }}
-                          value={cityId}
-                          onChange={(e) => setCityId(e.target.value)}
+                          value={userData.cityId}
+                          onChange={handleChange}
                         >
                           {citiesInfo
-                            ?.filter((item) => stateId === item.stateId)
+                            ?.filter(
+                              (item) => userData.stateId === item.stateId
+                            )
                             .map((data) => {
                               return (
                                 <MenuItem key={data._id} value={data._id}>
@@ -232,6 +249,7 @@ const UserRegisterScreen = () => {
                       name="username"
                       autoComplete="username"
                       style={{ background: "white" }}
+                      onChange={handleChange}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -243,6 +261,7 @@ const UserRegisterScreen = () => {
                       name="email"
                       autoComplete="email"
                       style={{ background: "white" }}
+                      onChange={handleChange}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -255,6 +274,7 @@ const UserRegisterScreen = () => {
                       id="password"
                       autoComplete="new-password"
                       style={{ background: "white" }}
+                      onChange={handleChange}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -267,18 +287,20 @@ const UserRegisterScreen = () => {
                       id="confirmPassword"
                       autoComplete="new-password"
                       style={{ background: "white" }}
+                      onChange={handleChange}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <Button
-                      variant="contained"
-                      component="label"
-                      onChange={uploadPersonalImage}
-                    >
+                    <Button variant="contained" component="label">
                       Personal Image
-                      <input type="file" name="personalImage" hidden />
+                      <input
+                        type="file"
+                        name="personalImage"
+                        onChange={handleImageChange}
+                        hidden
+                      />
                     </Button>
-                    {personalImage.name}
+                    {userData.personalImage.name}
                   </Grid>
                 </Grid>
                 <Button

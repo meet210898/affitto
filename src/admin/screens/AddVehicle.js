@@ -14,11 +14,11 @@ import {
   FormControl,
   Select,
 } from "@mui/material";
-import { addVehicle } from "../../actions/admin/vehicleActions";
+import { addVehicle } from "../../actions/admin/Vehicle";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { viewVehicleType } from "../../actions/admin/vehicleTypeActions";
-import { listCompany } from "../../actions/admin/companyActions";
+import { viewVehicleType } from "../../actions/admin/VehicleType";
+import { listCompany } from "../../actions/admin/Company";
 import Snackbars from "../components/alert";
 import ReactRoundedImage from "react-rounded-image";
 
@@ -38,7 +38,8 @@ const AddVehicleScreen = () => {
     priceperday: "",
     insuranceImage: "",
   });
-  const [openEdit, setOpenEdit] = React.useState(false);
+
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   const Input = styled("input")({
     display: "none",
@@ -89,33 +90,35 @@ const AddVehicleScreen = () => {
     }
 
     dispatch(addVehicle(emptyData));
+    setOpenSnackbar(true);
   };
   return (
-    <Grid container display="flex">
-      <Box
-        component="form"
-        noValidate
-        onSubmit={handleSubmit}
-        style={{ width: "100%" }}
-        sx={{
-          margin: "0px",
-          padding: "20px",
-          boxShadow: "2px 1px 9px 2px #888888",
-        }}
-      >
-        <Snackbars
-          open={openEdit}
-          setOpen={setOpenEdit}
-          severity="success"
-          msg="Vehicle is added!"
-        />
-        <Card variant="outlined">
-          <Grid xs={12} md={4}>
+    <Box
+      component="form"
+      noValidate
+      onSubmit={handleSubmit}
+      style={{ width: "100%" }}
+      sx={{
+        margin: "0px",
+        padding: "20px",
+        boxShadow: "2px 1px 9px 2px #888888",
+        background: "white",
+      }}
+    >
+      <Snackbars
+        open={openSnackbar}
+        setOpen={setOpenSnackbar}
+        severity="success"
+        msg="Vehicle is added!"
+      />
+      <Card variant="outlined">
+        <Grid container display="flex">
+          <Grid xs={12} md={6}>
             <CardContent>
               <Typography variant="h5" component="div">
                 Vehicle Type:
               </Typography>
-              <Box sx={{ minWidth: 120 }}>
+              <Box sx={{ width: "60%" }}>
                 <FormControl fullWidth>
                   <InputLabel id="typeName">Vehicle Type</InputLabel>
                   <Select
@@ -135,10 +138,10 @@ const AddVehicleScreen = () => {
               </Box>
             </CardContent>
             <CardContent>
-              <Typography variaetVehicleDatant="h5" component="div">
+              <Typography variant="h5" component="div">
                 Company Name:
               </Typography>
-              <Box sx={{ minWidth: 120 }}>
+              <Box sx={{ width: "60%" }}>
                 <FormControl fullWidth>
                   <InputLabel id="companyName">Company</InputLabel>
 
@@ -173,6 +176,7 @@ const AddVehicleScreen = () => {
                 type="text"
                 variant="standard"
                 onChange={handleChange}
+                style={{ width: "60%" }}
               />
             </CardContent>
             <CardContent>
@@ -203,6 +207,7 @@ const AddVehicleScreen = () => {
                 type="text"
                 variant="standard"
                 onChange={handleChange}
+                style={{ width: "60%" }}
               />
             </CardContent>
             <CardContent>
@@ -215,6 +220,7 @@ const AddVehicleScreen = () => {
                 type="text"
                 variant="standard"
                 onChange={handleChange}
+                style={{ width: "60%" }}
               />
             </CardContent>
             <CardContent>
@@ -227,13 +233,17 @@ const AddVehicleScreen = () => {
                 type="text"
                 variant="standard"
                 onChange={handleChange}
+                style={{ width: "60%" }}
               />
             </CardContent>
+          </Grid>
+
+          <Grid xs={12} md={6}>
             <CardContent>
               <Typography variant="h5" component="div">
                 AC/Non-AC:
               </Typography>
-              <Box sx={{ minWidth: 120 }}>
+              <Box sx={{ width: "60%" }}>
                 <FormControl fullWidth>
                   <InputLabel id="ac">AC/Non-AC</InputLabel>
 
@@ -251,14 +261,11 @@ const AddVehicleScreen = () => {
                 </FormControl>
               </Box>
             </CardContent>
-          </Grid>
-
-          <Grid xs={12} md={4}>
             <CardContent>
               <Typography variant="h5" component="div">
                 Transmission:
               </Typography>
-              <Box sx={{ minWidth: 120 }}>
+              <Box sx={{ width: "60%" }}>
                 <FormControl fullWidth>
                   <InputLabel id="transmission">Transmission</InputLabel>
 
@@ -280,7 +287,7 @@ const AddVehicleScreen = () => {
               <Typography variant="h5" component="div">
                 Fuel Type:
               </Typography>
-              <Box sx={{ minWidth: 120 }}>
+              <Box sx={{ width: "60%" }}>
                 <FormControl fullWidth>
                   <InputLabel id="fuelType">Fuel Type</InputLabel>
 
@@ -344,6 +351,7 @@ const AddVehicleScreen = () => {
                 type="text"
                 variant="standard"
                 onChange={handleChange}
+                style={{ width: "60%" }}
               />
             </CardContent>
             <CardContent>
@@ -390,6 +398,7 @@ const AddVehicleScreen = () => {
                 type="text"
                 variant="standard"
                 onChange={handleChange}
+                style={{ width: "60%" }}
               />
             </CardContent>
             <CardContent>
@@ -426,15 +435,23 @@ const AddVehicleScreen = () => {
                 </Button>
               </label>
             </CardContent>
+          </Grid>
+          <Grid
+            xs={12}
+            md={12}
+            container
+            display="flex"
+            justifyContent="center"
+          >
             <CardActions>
-              <Button type="submit" variant="contained" size="medium">
+              <Button type="submit" variant="contained" size="large">
                 Add Vehicle
               </Button>
             </CardActions>
           </Grid>
-        </Card>
-      </Box>
-    </Grid>
+        </Grid>
+      </Card>
+    </Box>
   );
 };
 

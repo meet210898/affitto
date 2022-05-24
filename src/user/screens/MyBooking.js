@@ -12,13 +12,13 @@ import Fade from "react-reveal/Fade";
 import Footer from "../components/footer";
 import GridDesign from "../components/grid";
 
-import { listBookingByUserId } from "../../actions/user/bookingActions";
+import { listBookingByUserId } from "../../actions/user/Booking";
 import {
   getCompany,
   listUserDetails,
   listVehicle,
-} from "../../actions/user/userActions";
-import ModalCall from "./Modals/CancelBookingModal";
+} from "../../actions/user/User";
+import ModalCall from "./Modals/CancelBooking";
 
 const { REACT_APP_HOST } = process.env;
 

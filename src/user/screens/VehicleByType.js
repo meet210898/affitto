@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   getCompany,
   listVehicleByTypeDetails,
-} from "../../actions/user/userActions";
+} from "../../actions/user/User";
 import Button from "@mui/material/Button";
 import Fade from "react-reveal/Fade";
 import Footer from "../components/footer";

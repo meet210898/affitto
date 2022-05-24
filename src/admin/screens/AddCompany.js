@@ -13,10 +13,10 @@ import {
   FormControl,
   Select,
 } from "@mui/material";
-import { addCompany } from "../../actions/admin/companyActions";
+import { addCompany } from "../../actions/admin/Company";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { viewVehicleType } from "../../actions/admin/vehicleTypeActions";
+import { viewVehicleType } from "../../actions/admin/VehicleType";
 import Snackbars from "../components/alert";
 import ReactRoundedImage from "react-rounded-image";
 
@@ -26,7 +26,7 @@ const AddStateScreen = () => {
     companyName: null,
     companyLogo: "",
   });
-  const [openEdit, setOpenEdit] = React.useState(false);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   const Input = styled("input")({
     display: "none",
@@ -73,6 +73,7 @@ const AddStateScreen = () => {
     }
 
     dispatch(addCompany(emptyData));
+    setOpenSnackbar(true);
   };
   return (
     <Box
@@ -88,8 +89,8 @@ const AddStateScreen = () => {
       }}
     >
       <Snackbars
-        open={openEdit}
-        setOpen={setOpenEdit}
+        open={openSnackbar}
+        setOpen={setOpenSnackbar}
         severity="success"
         msg="Company is added!"
       />

@@ -15,7 +15,7 @@ import jwt_decode from "jwt-decode";
 import {
   listUserDetails,
   updateProfile,
-} from "../../../actions/user/userActions";
+} from "../../../actions/user/User";
 import { useDispatch, useSelector } from "react-redux";
 
 const EditPopover = ({ open, popObj }) => {

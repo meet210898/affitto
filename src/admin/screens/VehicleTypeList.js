@@ -13,11 +13,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   viewVehicleType,
   deleteVehicleType,
-} from "../../actions/admin/vehicleTypeActions";
+} from "../../actions/admin/VehicleType";
 import { useNavigate } from "react-router-dom";
 import ReactRoundedImage from "react-rounded-image";
 
-import ModalCall from "./modals/EditVehicleType";
+import ModalCall from "./EditModals/EditVehicleType";
+import DeleteModal from "./DeleteModals";
 
 const { REACT_APP_HOST } = process.env;
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -42,9 +43,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ViewStateScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [open, setOpen] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
-  const navigate = useNavigate();
+
+  const [id, setId] = React.useState("");
+  const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
+  const [confirmDialog, setConfirmDialog] = React.useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
+
   let counter = 0;
 
   const vehicleTypeList = useSelector((state) => state.vehicleTypeList);
@@ -63,19 +74,18 @@ export default function ViewStateScreen() {
     dispatch(viewVehicleType());
   }, [dispatch, navigate, vehicleType, deleteSuccess]);
 
-  const deleteHandler = (typeId) => {
-    if (window.confirm("Are you sure")) {
-      dispatch(deleteVehicleType(typeId));
-      navigate("/Admin/ViewVehicleType");
-    }
-  };
-
   const editHandler = (row) => {
     setEditData(row);
   };
 
   return (
     <TableContainer component={Paper}>
+      <DeleteModal
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+        id={id}
+        dispatchItem={deleteVehicleType}
+      />
       <ModalCall open={open} setOpen={setOpen} editData={editData} />
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
@@ -119,7 +129,14 @@ export default function ViewStateScreen() {
                   aria-label="delete"
                   size="large"
                   style={{ color: "red" }}
-                  onClick={() => deleteHandler(row._id)}
+                  onClick={() => {
+                    setId(row._id);
+                    setConfirmDialog({
+                      isOpen: true,
+                      title: "Are you sure to delete this record?",
+                      subTitle: "You can't undo this operation",
+                    });
+                  }}
                 >
                   <DeleteIcon fontSize="inherit" />
                 </IconButton>

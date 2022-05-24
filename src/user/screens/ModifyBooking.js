@@ -2,8 +2,8 @@ import * as React from "react";
 import Topbar from "../components/topbar";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCompany, listVehicle } from "../../actions/user/userActions";
-import { listBookingById } from "../../actions/user/bookingActions";
+import { getCompany, listVehicle } from "../../actions/user/User";
+import { listBookingById } from "../../actions/user/Booking";
 
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";

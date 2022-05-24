@@ -14,7 +14,7 @@ import ListItem from "./list";
 import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout } from "../../actions/admin/loginActions";
+import { logout } from "../../actions/admin/Login";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Collapse from "@mui/material/Collapse";
@@ -32,10 +32,10 @@ import CategoryIcon from "@mui/icons-material/Category";
 import BookOnlineIcon from "@mui/icons-material/BookOnline";
 import logo from "../public/logo/logo4.png";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import { styled, alpha } from "@mui/material/styles";
-import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
+import HomeIcon from "@mui/icons-material/Home";
 
 const drawerWidth = 265;
 
@@ -69,7 +69,7 @@ const Search = styled("div")(({ theme }) => ({
   },
 }));
 
-function Sidebar(props) {
+const Sidebar = (props ) => {
   const dispatch = useDispatch();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -130,12 +130,16 @@ function Sidebar(props) {
           }}
           height="auto"
           width="150px"
-          // maxWidth="100px"
           alt="blank"
         />
       </center>
       <Divider style={{ backgroundColor: "white", width: "100%" }} />
       <List>
+        <ListItem
+          headerIcon={<DashboardIcon style={{ color: "white" }} />}
+          name="Dashboard"
+          site="Dashboard"
+        />
         <ListItem
           headerIcon={<PersonIcon style={{ color: "white" }} />}
           name="User"
@@ -188,7 +192,7 @@ function Sidebar(props) {
   const logoutHandler = () => {
     dispatch(logout());
   };
-
+  console.log({ props });
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -213,16 +217,8 @@ function Sidebar(props) {
                 <MenuIcon />
               </IconButton>
             </Grid>
-            <Grid xs={8} md={8}>
-              <Search sx={{ width: { xs: "70%", md: "50%" } }}>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
+            <Grid xs={8} md={8} display="flex">
+              
             </Grid>
             <Grid
               style={{ display: "flex", justifyContent: "right" }}
@@ -231,7 +227,6 @@ function Sidebar(props) {
             >
               <NavLink
                 style={{
-                  marginLeft: "20px",
                   color: "white",
                   textDecoration: "none",
                   justifyContent: "right",
@@ -240,7 +235,9 @@ function Sidebar(props) {
                 to="/"
                 onClick={logoutHandler}
               >
-                <Button sx={{ color: "white" }}>Logout</Button>
+                <Button sx={{ color: "white", fontSize: "1rem" }}>
+                  <b>Logout</b>
+                </Button>
               </NavLink>
             </Grid>
           </Grid>

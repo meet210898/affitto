@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import { NavLink } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../actions/user/userActions";
+import { logout } from "../../../actions/user/User";
 
 const ProfileItem = ({ setAnchorElUser, site, name }) => {
   const dispatch = useDispatch();

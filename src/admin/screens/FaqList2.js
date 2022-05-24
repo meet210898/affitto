@@ -17,9 +17,9 @@ import { useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-import ModalCall from "./modals/EditFaq";
-import { listFaq, deleteFaq } from "../../actions/admin/faqActions";
-import { listFaqCategory } from "../../actions/admin/faqCategoryActions";
+import ModalCall from "./EditModals/EditFaq";
+import { listFaq, deleteFaq } from "../../actions/admin/Faq";
+import { listFaqCategory } from "../../actions/admin/FaqCategory";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {

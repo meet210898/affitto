@@ -6,7 +6,7 @@ import Topbar from "../components/topbar";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { listVehicle, getCompany } from "../../actions/user/userActions";
+import { listVehicle, getCompany } from "../../actions/user/User";
 import Button from "@mui/material/Button";
 import Fade from "react-reveal/Fade";
 import Footer from "../components/footer";

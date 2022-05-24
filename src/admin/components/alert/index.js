@@ -2,23 +2,28 @@ import * as React from "react";
 import Stack from "@mui/material/Stack";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { CLEAR } from "../../../constants/admin/City";
+import { useDispatch } from "react-redux";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 const Snackbars = ({ open, setOpen, msg, severity }) => {
+  const dispatch = useDispatch();
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
+      dispatch({ type: CLEAR });
+
       return;
     }
-
+    dispatch({ type: CLEAR });
     setOpen(false);
   };
 
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={severity} sx={{ width: "100%" }}>
           {msg}
         </Alert>

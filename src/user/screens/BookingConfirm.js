@@ -2,13 +2,17 @@ import * as React from "react";
 import Topbar from "../components/topbar";
 import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCompany, listVehicleDetails } from "../../actions/user/userActions";
+import {
+  getCompany,
+  listVehicleDetails,
+  listUserDetails,
+} from "../../actions/user/User";
 import jwt_decode from "jwt-decode";
-import { listUserDetails } from "../../actions/user/userActions";
+
 import { Typography } from "@mui/material";
 import { Button, Grid } from "@mui/material";
 import logo from "../public/image/logo/logo.png";
-import { addBooking } from "../../actions/user/bookingActions";
+import { addBooking } from "../../actions/user/Booking";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import Footer from "../components/footer";

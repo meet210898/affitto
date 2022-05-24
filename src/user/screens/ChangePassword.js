@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Topbar from "../components/topbar";
 import { useDispatch, useSelector } from "react-redux";
-import { changeUserPassword } from "../../actions/user/userActions";
+import { changeUserPassword } from "../../actions/user/User";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";

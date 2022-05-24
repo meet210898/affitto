@@ -8,7 +8,6 @@ import {
   FormControl,
   Select,
   Typography,
-  Grid,
   FormHelperText,
   Card,
   styled,
@@ -16,10 +15,10 @@ import {
   CardContent,
   Box,
 } from "@mui/material";
-import { addCity } from "../../actions/admin/cityActions";
+import { addCity } from "../../actions/admin/City";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { listStates } from "../../actions/admin/stateActions";
+import { listStates } from "../../actions/admin/State";
 import "../components/css/myCss.css";
 import "../components/css/screen-css.css";
 import Snackbars from "../components/alert";
@@ -49,7 +48,7 @@ const AddStateScreen = () => {
   });
   const [error, setError] = React.useState("");
   const [message, setMessage] = React.useState("");
-  const [openEdit, setOpenEdit] = React.useState(false);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   const Input = styled("input")({
     display: "none",
@@ -107,7 +106,7 @@ const AddStateScreen = () => {
       }
 
       dispatch(addCity(emptyData));
-      setOpenEdit(true);
+      setOpenSnackbar(true);
     }
   };
   return (
@@ -127,8 +126,8 @@ const AddStateScreen = () => {
       {!loading && (
         <>
           <Snackbars
-            open={openEdit}
-            setOpen={setOpenEdit}
+            open={openSnackbar}
+            setOpen={setOpenSnackbar}
             severity="success"
             msg="City is added!"
           />

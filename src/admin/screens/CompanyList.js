@@ -10,12 +10,13 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
-import { viewVehicleType } from "../../actions/admin/vehicleTypeActions";
-import { listCompany, deleteCompany } from "../../actions/admin/companyActions";
+import { viewVehicleType } from "../../actions/admin/VehicleType";
+import { listCompany, deleteCompany } from "../../actions/admin/Company";
 import { useNavigate } from "react-router-dom";
 import ReactRoundedImage from "react-rounded-image";
 import "../components/css/main.css";
-import ModalCall from "./modals/EditCompany";
+import ModalCall from "./EditModals/EditCompany";
+import DeleteModal from "./DeleteModals";
 
 const { REACT_APP_HOST } = process.env;
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -40,9 +41,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ViewCityScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [open, setOpen] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
-  const navigate = useNavigate();
+
+  const [id, setId] = React.useState("");
+  const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
+  const [confirmDialog, setConfirmDialog] = React.useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
+
   let counter = 0;
 
   const companyDelete = useSelector((state) => state.companyDelete);
@@ -65,13 +76,6 @@ export default function ViewCityScreen() {
   const vehicleTypeList = useSelector((state) => state.vehicleTypeList);
   const { vehicleTypesInfo } = vehicleTypeList;
 
-  const deleteHandler = (companyId) => {
-    if (window.confirm("Are you sure")) {
-      dispatch(deleteCompany(companyId));
-      navigate("/Admin/viewCompany");
-    }
-  };
-
   const editHandler = (row) => {
     setEditData(row);
   };
@@ -79,6 +83,12 @@ export default function ViewCityScreen() {
   return (
     <Grid>
       <ModalCall open={open} setOpen={setOpen} editData={editData} />
+      <DeleteModal
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+        id={id}
+        dispatchItem={deleteCompany}
+      />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
           <TableHead>
@@ -128,7 +138,14 @@ export default function ViewCityScreen() {
                     aria-label="delete"
                     size="large"
                     style={{ color: "red" }}
-                    onClick={() => deleteHandler(row._id)}
+                    onClick={() => {
+                      setId(row._id);
+                      setConfirmDialog({
+                        isOpen: true,
+                        title: "Are you sure to delete this record?",
+                        subTitle: "You can't undo this operation",
+                      });
+                    }}
                   >
                     <DeleteIcon fontSize="inherit" />
                   </IconButton>

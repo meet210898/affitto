@@ -11,13 +11,14 @@ import { Paper, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { viewVehicleType } from "../../actions/admin/vehicleTypeActions";
-import { listCompany } from "../../actions/admin/companyActions";
+import { viewVehicleType } from "../../actions/admin/VehicleType";
+import { listCompany } from "../../actions/admin/Company";
 import ReactRoundedImage from "react-rounded-image";
 
-import ModalCall from "./modals/EditVehicle";
-import VehicleModalCall from "./modals/VehicleDetails";
-import { listVehicle, deleteVehicle } from "../../actions/admin/vehicleActions";
+import ModalCall from "./EditModals/EditVehicle";
+import VehicleModalCall from "./EditModals/VehicleDetails";
+import { deleteVehicle, listVehicle } from "../../actions/admin/Vehicle";
+import DeleteModal from "./DeleteModals";
 
 const { REACT_APP_HOST } = process.env;
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -42,10 +43,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ViewUserScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [openEdit, setOpenEdit] = React.useState(false);
   const [openDetail, setOpenDetail] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
-  const navigate = useNavigate();
+
+  const [id, setId] = React.useState("");
+  const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
+  const [confirmDialog, setConfirmDialog] = React.useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
 
   const vehicleUpdate = useSelector((state) => state.vehicleUpdate);
   const { success } = vehicleUpdate;
@@ -71,19 +81,18 @@ export default function ViewUserScreen() {
   const companyList = useSelector((state) => state.companyList);
   const { companiesInfo } = companyList;
 
-  const deleteHandler = (vehicleId) => {
-    if (window.confirm("Are you sure")) {
-      dispatch(deleteVehicle(vehicleId));
-      navigate("/Admin/ViewVehicle");
-    }
-  };
-
   const editHandler = (row) => {
     setEditData(row);
   };
 
   return (
     <TableContainer component={Paper}>
+      <DeleteModal
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+        id={id}
+        dispatchItem={deleteVehicle}
+      />
       <ModalCall open={openEdit} setOpen={setOpenEdit} editData={editData} />
       <VehicleModalCall
         open={openDetail}
@@ -161,7 +170,14 @@ export default function ViewUserScreen() {
                   aria-label="delete"
                   size="large"
                   style={{ color: "red" }}
-                  onClick={() => deleteHandler(row._id)}
+                  onClick={() => {
+                    setId(row._id);
+                    setConfirmDialog({
+                      isOpen: true,
+                      title: "Are you sure to delete this record?",
+                      subTitle: "You can't undo this operation",
+                    });
+                  }}
                 >
                   <DeleteIcon fontSize="inherit" />
                 </IconButton>

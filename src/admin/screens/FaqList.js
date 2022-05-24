@@ -12,9 +12,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import ModalCall from "./modals/EditFaq";
-import { listFaq, deleteFaq } from "../../actions/admin/faqActions";
-import { listFaqCategory } from "../../actions/admin/faqCategoryActions";
+import ModalCall from "./EditModals/EditFaq";
+import { listFaq, deleteFaq } from "../../actions/admin/Faq";
+import { listFaqCategory } from "../../actions/admin/FaqCategory";
+import DeleteModal from "./DeleteModals";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,9 +39,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ViewFaqScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [openEdit, setOpenEdit] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
-  const navigate = useNavigate();
+
+  const [id, setId] = React.useState("");
+  const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
+  const [confirmDialog, setConfirmDialog] = React.useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
+
   let counter = 0;
 
   const faqUpdate = useSelector((state) => state.faqUpdate);
@@ -63,19 +74,18 @@ export default function ViewFaqScreen() {
   const faqList = useSelector((state) => state.faqList);
   const { faqInfo } = faqList;
 
-  const deleteHandler = (faqId) => {
-    if (window.confirm("Are you sure")) {
-      dispatch(deleteFaq(faqId));
-      navigate("/Admin/ViewFaq");
-    }
-  };
-
   const editHandler = (row) => {
     setEditData(row);
   };
 
   return (
     <TableContainer component={Paper}>
+      <DeleteModal
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+        id={id}
+        dispatchItem={deleteFaq}
+      />
       <ModalCall open={openEdit} setOpen={setOpenEdit} editData={editData} />
 
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -116,7 +126,14 @@ export default function ViewFaqScreen() {
                   aria-label="delete"
                   size="large"
                   style={{ color: "red" }}
-                  onClick={() => deleteHandler(row._id)}
+                  onClick={() => {
+                    setId(row._id);
+                    setConfirmDialog({
+                      isOpen: true,
+                      title: "Are you sure to delete this record?",
+                      subTitle: "You can't undo this operation",
+                    });
+                  }}
                 >
                   <DeleteIcon fontSize="inherit" />
                 </IconButton>

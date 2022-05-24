@@ -3,7 +3,7 @@ import Topbar from "../components/topbar";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getCompany, listVehicleDetails } from "../../actions/user/userActions";
+import { getCompany, listVehicleDetails } from "../../actions/user/User";
 import Fade from "react-reveal/Fade";
 import Footer from "../components/footer";
 

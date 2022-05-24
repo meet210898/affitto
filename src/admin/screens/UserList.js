@@ -8,13 +8,16 @@ import { IconButton, TableContainer } from "@mui/material";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { Paper, Button } from "@mui/material";
-import { updateUserStatus } from "../../actions/admin/userActions";
+import {
+  updateUserStatus,
+  listUser,
+  deleteUser,
+} from "../../actions/admin/User";
 import { useDispatch, useSelector } from "react-redux";
-import { listUser } from "../../actions/admin/userActions";
 import { useNavigate } from "react-router-dom";
 import ReactRoundedImage from "react-rounded-image";
-
-import ModalCall from "./modals/UserDetails";
+import DeleteModal from "./DeleteModals";
+import ModalCall from "./EditModals/UserDetails";
 
 const { REACT_APP_HOST } = process.env;
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -39,9 +42,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function ViewUserScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [open, setOpen] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
-  const navigate = useNavigate();
+
+  const [id, setId] = React.useState("");
+  const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
+  const [confirmDialog, setConfirmDialog] = React.useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
+
   let counter = 0;
 
   const userList = useSelector((state) => state.userList);
@@ -50,22 +63,15 @@ export default function ViewUserScreen() {
   const userUpdate = useSelector((state) => state.userUpdate);
   const { success } = userUpdate;
 
-  //   const vehicleTypeDelete = useSelector((state) => state.vehicleTypeDelete);
-  //   const { deleteSuccess } = vehicleTypeDelete;
+  const userDelete = useSelector((state) => state.userDelete);
+  const { deleteSuccess } = userDelete;
 
   React.useEffect(() => {
     if (!localStorage.getItem("auth-token")) {
       navigate("/");
     }
     dispatch(listUser());
-  }, [dispatch, navigate, success]);
-
-  //   const deleteHandler = (typeId) => {
-  //     if (window.confirm("Are you sure")) {
-  //       dispatch(deleteVehicleType(typeId));
-  //       navigate("/Admin/ViewVehicleType");
-  //     }
-  //   };
+  }, [dispatch, navigate, success, deleteSuccess]);
 
   const editStatus = (userId, isVerify) =>
     dispatch(updateUserStatus(userId, { isVerify: !isVerify }));
@@ -74,6 +80,12 @@ export default function ViewUserScreen() {
 
   return (
     <TableContainer component={Paper}>
+      <DeleteModal
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+        id={id}
+        dispatchItem={deleteUser}
+      />
       <ModalCall open={open} setOpen={setOpen} editData={editData} />
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
@@ -137,7 +149,14 @@ export default function ViewUserScreen() {
                   aria-label="delete"
                   size="large"
                   style={{ color: "red" }}
-                  //   onClick={() => deleteHandler(row._id)}
+                  onClick={() => {
+                    setId(row._id);
+                    setConfirmDialog({
+                      isOpen: true,
+                      title: "Are you sure to delete this record?",
+                      subTitle: "You can't undo this operation",
+                    });
+                  }}
                 >
                   <DeleteIcon fontSize="inherit" />
                 </IconButton>

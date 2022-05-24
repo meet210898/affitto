@@ -10,12 +10,12 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteState, listStates } from "../../actions/admin/stateActions";
+import { deleteState, listStates } from "../../actions/admin/State";
 import { useNavigate } from "react-router-dom";
 import ReactRoundedImage from "react-rounded-image";
 
-import ModalCall from "./modals/EditState";
-import DeleteModal from "./deleteModals/stateDelete";
+import ModalCall from "./EditModals/EditState";
+import DeleteModal from "./DeleteModals";
 
 const { REACT_APP_HOST } = process.env;
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -75,8 +75,8 @@ export default function ViewStateScreen() {
       <DeleteModal
         confirmDialog={confirmDialog}
         setConfirmDialog={setConfirmDialog}
-        site="viewState"
         id={id}
+        dispatchItem={deleteState}
       />
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>

@@ -13,7 +13,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { login } from "../../actions/admin/loginActions";
+import { login } from "../../actions/admin/Login";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 

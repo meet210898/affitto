@@ -5,13 +5,17 @@ import { Typography, IconButton } from "@mui/material";
 import Topbar from "../components/topbar";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { listUserDetails, updateProfile } from "../../actions/user/userActions";
+import {
+  listUserDetails,
+  updateProfile,
+  getCities,
+  getStates,
+} from "../../actions/user/User";
 import jwt_decode from "jwt-decode";
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Container from "@mui/material/Container";
-import { getCities, getStates } from "../../actions/user/userActions";
 import EditIcon from "@mui/icons-material/Edit";
 import { styled } from "@mui/material/styles";
 import EditPopover from "../components/popover/index";

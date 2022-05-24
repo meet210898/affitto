@@ -12,7 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { listUserDetails } from "../../actions/user/userActions";
+import { listUserDetails } from "../../actions/user/User";
 import jwt_decode from "jwt-decode";
 import { makeStyles } from "@mui/styles";
 import logo from "../public/image/logo/logo.png";

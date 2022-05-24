@@ -2,7 +2,7 @@ import * as React from "react";
 import Topbar from "../components/topbar";
 import { NavLink, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCompany, listVehicleDetails } from "../../actions/user/userActions";
+import { getCompany, listVehicleDetails } from "../../actions/user/User";
 
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";

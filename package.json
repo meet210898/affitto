@@ -58,6 +58,7 @@
     "recharts": "^2.1.9",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
+    "serve": "^13.0.2",
     "shortid": "^2.2.16",
     "slick-carousel": "^1.8.1",
     "use-ssr": "^1.0.24",

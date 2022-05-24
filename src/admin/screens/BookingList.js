@@ -11,12 +11,13 @@ import { useDispatch, useSelector } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Button, IconButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { listCompany } from "../../actions/admin/companyActions";
-import { deleteBooking, listBooking } from "../../actions/admin/bookingActions";
+import { listCompany } from "../../actions/admin/Company";
+import { deleteBooking, listBooking } from "../../actions/admin/Booking";
 
-import { listUser } from "../../actions/admin/userActions";
-import { listVehicle } from "../../actions/admin/vehicleActions";
+import { listUser } from "../../actions/admin/User";
+import { listVehicle } from "../../actions/admin/Vehicle";
 import moment from "moment";
+import DeleteModal from "./DeleteModals";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -41,6 +42,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function ViewBookingScreen() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [id, setId] = React.useState("");
+  const [openDeleteAlert, setOpenDeleteAlert] = React.useState(false);
+  const [confirmDialog, setConfirmDialog] = React.useState({
+    isOpen: false,
+    title: "",
+    subTitle: "",
+  });
+
+  const chkDate = new Date();
 
   const bookingDelete = useSelector((state) => state.bookingDelete);
   const { deleteSuccess } = bookingDelete;
@@ -68,15 +79,14 @@ export default function ViewBookingScreen() {
   const bookingList = useSelector((state) => state.bookingList);
   const { bookingsInfo } = bookingList;
 
-  const deleteHandler = (bookingId) => {
-    if (window.confirm("Are you sure")) {
-      dispatch(deleteBooking(bookingId));
-      navigate("/Admin/ViewBooking");
-    }
-  };
-
   return (
     <TableContainer component={Paper}>
+      <DeleteModal
+        confirmDialog={confirmDialog}
+        setConfirmDialog={setConfirmDialog}
+        id={id}
+        dispatchItem={deleteBooking}
+      />
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
@@ -123,9 +133,34 @@ export default function ViewBookingScreen() {
                 <Button
                   variant="contained"
                   style={{ height: "auto", width: "auto", fontWeight: "bold" }}
-                  color={row.status === true ? "success" : "error"}
+                  color={
+                    row.status === true &&
+                    moment(chkDate).format("LL") >
+                      moment(row.endDate).format("LL")
+                      ? "warning"
+                      : row.status === true
+                      ? "success"
+                      : "error"
+                  }
                 >
-                  {row.status === true ? "Booked" : "Cancelled"}
+                  {console.log(
+                    moment(chkDate).format("LL") >
+                      moment(row.endDate).format("LL"),
+                    "check"
+                  )}
+                  {console.log(
+                    "end date--------------",
+                    chkDate,
+                    row.endDate,
+                    row.companyId
+                  )}
+                  {row.status === true &&
+                  moment(chkDate).format("LL") >
+                    moment(row.endDate).format("LL")
+                    ? "Completed"
+                    : row.status === true
+                    ? "Booked"
+                    : "Cancelled"}
                 </Button>
               </StyledTableCell>
               <StyledTableCell>
@@ -133,7 +168,14 @@ export default function ViewBookingScreen() {
                   aria-label="delete"
                   size="large"
                   style={{ color: "red" }}
-                  onClick={() => deleteHandler(row._id)}
+                  onClick={() => {
+                    setId(row._id);
+                    setConfirmDialog({
+                      isOpen: true,
+                      title: "Are you sure to delete this record?",
+                      subTitle: "You can't undo this operation",
+                    });
+                  }}
                 >
                   <DeleteIcon fontSize="inherit" />
                 </IconButton>

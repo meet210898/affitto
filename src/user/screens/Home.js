@@ -33,7 +33,7 @@ import {
   getCompany,
   getVehicleType,
   listFaq,
-} from "../../actions/user/userActions";
+} from "../../actions/user/User";
 
 import Investor from "../components/investor";
 import Cards from "../components/cards";

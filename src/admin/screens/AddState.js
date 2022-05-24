@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { Button, TextField, IconButton } from "@mui/material";
-import { addState } from "../../actions/admin/stateActions";
+import { addState } from "../../actions/admin/State";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ReactRoundedImage from "react-rounded-image";
@@ -22,7 +22,7 @@ const AddState = () => {
     stateName: null,
     stateImage: "",
   });
-  const [openEdit, setOpenEdit] = React.useState(false);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -61,7 +61,7 @@ const AddState = () => {
     }
 
     dispatch(addState(emptyData));
-    setOpenEdit(true);
+    setOpenSnackbar(true);
   };
   return (
     <Box
@@ -77,8 +77,8 @@ const AddState = () => {
       }}
     >
       <Snackbars
-        open={openEdit}
-        setOpen={setOpenEdit}
+        open={openSnackbar}
+        setOpen={setOpenSnackbar}
         severity="success"
         msg="State is added!"
       />

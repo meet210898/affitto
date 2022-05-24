@@ -5,7 +5,7 @@ import ListSubheader from "@mui/material/ListSubheader";
 import Topbar from "../components/topbar";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
-import { getCompany } from "../../actions/user/userActions";
+import { getCompany } from "../../actions/user/User";
 import { NavLink } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";

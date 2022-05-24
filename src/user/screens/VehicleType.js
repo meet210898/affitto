@@ -5,13 +5,16 @@ import ListSubheader from "@mui/material/ListSubheader";
 import Topbar from "../components/topbar";
 import Grid from "@mui/material/Grid";
 import { useDispatch, useSelector } from "react-redux";
-import { getVehicleType } from "../../actions/user/userActions";
+import {
+  getVehicleType,
+  listVehicle,
+  getCompany,
+} from "../../actions/user/User";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
-import { listVehicle, getCompany } from "../../actions/user/userActions";
 import Fade from "react-reveal/Fade";
 import Footer from "../components/footer";
 

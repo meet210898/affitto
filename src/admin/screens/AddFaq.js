@@ -5,11 +5,12 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { Button, TextField } from "@mui/material";
-import { addFaq } from "../../actions/admin/faqActions";
+import { addFaq } from "../../actions/admin/Faq";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { listFaqCategory } from "../../actions/admin/faqCategoryActions";
+import { listFaqCategory } from "../../actions/admin/FaqCategory";
 import { InputLabel, MenuItem, FormControl, Select } from "@mui/material";
+import Snackbars from "../components/alert";
 
 const AddFaqScreen = () => {
   const [faqData, setFaqData] = React.useState({
@@ -19,6 +20,8 @@ const AddFaqScreen = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   const adminLogin = useSelector((state) => state.adminLogin);
   const { adminInfo } = adminLogin;
@@ -45,6 +48,7 @@ const AddFaqScreen = () => {
     event.preventDefault();
 
     dispatch(addFaq(faqData));
+    setOpenSnackbar(true);
   };
   return (
     <Box
@@ -59,6 +63,12 @@ const AddFaqScreen = () => {
         background: "white",
       }}
     >
+      <Snackbars
+        open={openSnackbar}
+        setOpen={setOpenSnackbar}
+        severity="success"
+        msg="FAQ is added!"
+      />
       <Card variant="outlined">
         <CardContent>
           <Typography variant="h5" component="div">
