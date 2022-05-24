@@ -11,11 +11,9 @@ import {
   FAQCATEGORY_DELETE_REQUEST,
   FAQCATEGORY_DELETE_SUCCESS,
   FAQCATEGORY_DELETE_FAIL,
-  FAQCATEGORY_DETAILS_REQUEST,
-  FAQCATEGORY_DETAILS_SUCCESS,
-  FAQCATEGORY_DETAILS_FAIL,
 } from "../../constants/admin/faqCategoryConstants";
 import axios from "axios";
+const { REACT_APP_HOST } = process.env;
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
 
 export const addFaqCategory = (faqCategoryData) => async (dispatch) => {
@@ -31,7 +29,7 @@ export const addFaqCategory = (faqCategoryData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:4000/addFaqCategory",
+      `${REACT_APP_HOST}/addFaqCategory`,
       faqCategoryData,
       config
     );
@@ -65,7 +63,7 @@ export const updateFaqCategory =
       };
 
       const { data } = await axios.patch(
-        `http://localhost:4000/editFaqCategory/${faqCategoryId}`,
+        `${REACT_APP_HOST}/editFaqCategory/${faqCategoryId}`,
         faqCategoryData,
         config
       );
@@ -85,27 +83,6 @@ export const updateFaqCategory =
     }
   };
 
-// export const getVehicleTypeDetails = (typeId) => async (dispatch) => {
-//   dispatch({ type: VEHICLE_DETAILS_REQUEST });
-//   try {
-//     const { data } = await axios.get(
-//       `http://localhost:4000/getVehicleTypeById/${typeId}`
-//     );
-//     dispatch({
-//       type: VEHICLE_DETAILS_SUCCESS,
-//       payload: data,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: VEHICLE_DETAILS_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     });
-//   }
-// };
-
 export const deleteFaqCategory = (faqCategoryId) => async (dispatch) => {
   try {
     dispatch({
@@ -119,7 +96,7 @@ export const deleteFaqCategory = (faqCategoryId) => async (dispatch) => {
     };
 
     await axios.delete(
-      `http://localhost:4000/deleteFaqCategory/${faqCategoryId}`,
+      `${REACT_APP_HOST}/deleteFaqCategory/${faqCategoryId}`,
       config
     );
 
@@ -150,7 +127,7 @@ export const listFaqCategory = () => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:4000/getFaqCategory`,
+      `${REACT_APP_HOST}/getFaqCategory`,
       config
     );
 

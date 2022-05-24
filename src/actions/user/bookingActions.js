@@ -13,6 +13,7 @@ import {
   BOOKINGBYID_DETAILS_FAIL,
 } from "../../constants/user/bookingConstants";
 import axios from "axios";
+const { REACT_APP_HOST } = process.env;
 const userToken = JSON.parse(localStorage.getItem("user-token"));
 
 export const addBooking = (bookingData) => async (dispatch) => {
@@ -28,7 +29,7 @@ export const addBooking = (bookingData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:4000/user/addBooking",
+      `${REACT_APP_HOST}/user/addBooking`,
       bookingData,
       config
     );
@@ -61,7 +62,7 @@ export const updateBooking = (bookingId, bookingData) => async (dispatch) => {
     };
 
     const { data } = await axios.patch(
-      `http://localhost:4000/user/editBookingIsCancel/${bookingId}`,
+      `${REACT_APP_HOST}/user/editBookingIsCancel/${bookingId}`,
       bookingData,
       config
     );
@@ -94,7 +95,7 @@ export const updateBookingStatus = (bookingId, status) => async (dispatch) => {
     };
 
     const { data } = await axios.patch(
-      `http://localhost:4000/editBookingStatus/${bookingId}`,
+      `${REACT_APP_HOST}/editBookingStatus/${bookingId}`,
       status,
       config
     );
@@ -127,7 +128,7 @@ export const listBookingById = (bookingId) => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:4000/user/getBookingById/${bookingId}`,
+      `${REACT_APP_HOST}/user/getBookingById/${bookingId}`,
       config
     );
 
@@ -160,7 +161,7 @@ export const listBookingByUserId = (userId) => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:4000/user/getBookingByUserId/${userId}`,
+      `${REACT_APP_HOST}/user/getBookingByUserId/${userId}`,
       config
     );
 

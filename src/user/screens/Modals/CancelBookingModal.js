@@ -12,11 +12,12 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "25%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
   padding: "20px",
+  width: { xs: "70%", md: "30%" },
+  height: "auto",
 };
 
 const ModalCall = ({ open, setOpen, editData }) => {
@@ -80,14 +81,14 @@ const ModalCall = ({ open, setOpen, editData }) => {
               onClick={handleClose}
               variant="contained"
               size="medium"
-              style={{ marginRight: "10px" }}
+              style={{ margin: "5px" }}
             >
               Close
             </Button>
             <Button
               type="submit"
               variant="contained"
-              style={{ background: "red" }}
+              style={{ background: "red", margin: "5px" }}
               size="medium"
             >
               Yes, Cancel Booking

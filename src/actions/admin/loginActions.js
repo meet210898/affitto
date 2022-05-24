@@ -5,6 +5,7 @@ import {
   ADMIN_LOGOUT,
 } from "../../constants/admin/adminConstants";
 import axios from "axios";
+const { REACT_APP_HOST } = process.env;
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -19,7 +20,7 @@ export const login = (email, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:4000/login",
+      `${REACT_APP_HOST}/login`,
       { email, password },
       config
     );

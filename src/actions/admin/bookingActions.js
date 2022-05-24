@@ -6,7 +6,10 @@ import {
   BOOKING_DELETE_SUCCESS,
   BOOKING_DELETE_FAIL,
 } from "../../constants/admin/bookingConstants";
+
 import axios from "axios";
+
+const { REACT_APP_HOST } = process.env;
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
 
 export const listBooking = () => async (dispatch) => {
@@ -20,11 +23,7 @@ export const listBooking = () => async (dispatch) => {
         Authorization: `Bearer ${userToken.token}`,
       },
     };
-
-    const { data } = await axios.get(
-      `http://localhost:4000/getBooking`,
-      config
-    );
+    const { data } = await axios.get(`${REACT_APP_HOST}/getBooking`, config);
 
     dispatch({
       type: BOOKING_LIST_MY_SUCCESS,
@@ -54,7 +53,7 @@ export const deleteBooking = (bookingId) => async (dispatch) => {
     };
 
     await axios.delete(
-      `http://localhost:4000/user/deleteBooking/${bookingId}`,
+      `${REACT_APP_HOST}/user/deleteBooking/${bookingId}`,
       config
     );
 

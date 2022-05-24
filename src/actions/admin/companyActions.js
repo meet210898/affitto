@@ -13,6 +13,7 @@ import {
   COMPANY_DELETE_FAIL,
 } from "../../constants/admin/companyConstants";
 import axios from "axios";
+const { REACT_APP_HOST } = process.env;
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
 
 export const addCompany = (companyData) => async (dispatch) => {
@@ -29,7 +30,7 @@ export const addCompany = (companyData) => async (dispatch) => {
     };
     console.log(companyData, "companyData");
     const { data } = await axios.post(
-      "http://localhost:4000/addCompany",
+      `${REACT_APP_HOST}/addCompany`,
       companyData,
       config
     );
@@ -63,7 +64,7 @@ export const updateCompany = (companyId, companyData) => async (dispatch) => {
     };
 
     const { data } = await axios.patch(
-      `http://localhost:4000/editCompany/${companyId}`,
+      `${REACT_APP_HOST}/editCompany/${companyId}`,
       companyData,
       config
     );
@@ -95,10 +96,7 @@ export const deleteCompany = (companyId) => async (dispatch) => {
       },
     };
 
-    await axios.delete(
-      `http://localhost:4000/deleteCompany/${companyId}`,
-      config
-    );
+    await axios.delete(`${REACT_APP_HOST}/deleteCompany/${companyId}`, config);
 
     dispatch({
       type: COMPANY_DELETE_SUCCESS,
@@ -126,10 +124,7 @@ export const listCompany = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(
-      `http://localhost:4000/getCompany`,
-      config
-    );
+    const { data } = await axios.get(`${REACT_APP_HOST}/getCompany`, config);
 
     dispatch({
       type: COMPANY_LIST_MY_SUCCESS,

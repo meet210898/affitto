@@ -12,13 +12,15 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { listUserDetails, logout } from "../../actions/user/userActions";
+import { listUserDetails } from "../../actions/user/userActions";
 import jwt_decode from "jwt-decode";
 import { makeStyles } from "@mui/styles";
 import logo from "../public/image/logo/logo.png";
 import Avatar from "@mui/material/Avatar";
+import ProfileItem from "./profileItem";
 import "../components/css/topbar.css";
 
+const { REACT_APP_HOST } = process.env;
 const useStyles = makeStyles({
   root: {
     textTransform: "none",
@@ -31,7 +33,6 @@ const pages = [
   "Company",
   "Category",
   "Vehicles",
-  "My Booking",
   "Register",
   "FAQ",
   "About us",
@@ -57,10 +58,6 @@ const TopBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
-  };
-
-  const logoutHandler = () => {
-    dispatch(logout());
   };
 
   React.useEffect(() => {
@@ -98,7 +95,6 @@ const TopBar = () => {
                 style={{ objectFit: "cover" }}
                 height="auto"
                 width="150px"
-                // maxWidth="100px"
                 alt="blank"
               />
             </NavLink>
@@ -231,7 +227,7 @@ const TopBar = () => {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt="personalImage"
-                    src={`http://localhost:4000/${user?.personalImage}`}
+                    src={`${REACT_APP_HOST}/${user?.personalImage}`}
                   />
                 </IconButton>
               </Tooltip>
@@ -272,33 +268,21 @@ const TopBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <NavLink
-                style={{ color: "black", textDecoration: "none" }}
-                to="/user/profile"
-              >
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography
-                    textAlign="center"
-                    style={{ fontSize: "18px", fontWeight: "bold" }}
-                  >
-                    Profile
-                  </Typography>
-                </MenuItem>
-              </NavLink>
-              <NavLink
-                style={{ color: "black", textDecoration: "none" }}
-                to="/user"
-                onClick={logoutHandler}
-              >
-                <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography
-                    textAlign="center"
-                    style={{ fontSize: "18px", fontWeight: "bold" }}
-                  >
-                    Logout
-                  </Typography>
-                </MenuItem>
-              </NavLink>
+              <ProfileItem
+                setAnchorElUser={setAnchorElUser}
+                site="mybooking"
+                name="My Bookings"
+              />
+              <ProfileItem
+                setAnchorElUser={setAnchorElUser}
+                site="profile"
+                name="Profile"
+              />
+              <ProfileItem
+                setAnchorElUser={setAnchorElUser}
+                site=""
+                name="Logout"
+              />
             </Menu>
           </Box>
         </Toolbar>

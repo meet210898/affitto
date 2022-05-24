@@ -73,6 +73,7 @@ import {
   BOOKING_LIST_MY_SUCCESS,
   BOOKING_LIST_MY_FAIL,
 } from "../../constants/admin/bookingConstants";
+const { REACT_APP_HOST } = process.env;
 const userToken = JSON.parse(localStorage.getItem("user-token"));
 
 export const getStates = () => async (dispatch) => {
@@ -81,7 +82,7 @@ export const getStates = () => async (dispatch) => {
       type: STATE_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(`http://localhost:4000/user/getState`);
+    const { data } = await axios.get(`${REACT_APP_HOST}/user/getState`);
 
     dispatch({
       type: STATE_LIST_MY_SUCCESS,
@@ -104,9 +105,7 @@ export const getCities = (no) => async (dispatch) => {
       type: CITY_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(
-      `http://localhost:4000/user/getCity/${no}`
-    );
+    const { data } = await axios.get(`${REACT_APP_HOST}/user/getCity/${no}`);
 
     dispatch({
       type: CITY_LIST_MY_SUCCESS,
@@ -129,9 +128,7 @@ export const getCompany = (no) => async (dispatch) => {
       type: COMPANY_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(
-      `http://localhost:4000/user/getCompany/${no}`
-    );
+    const { data } = await axios.get(`${REACT_APP_HOST}/user/getCompany/${no}`);
 
     dispatch({
       type: COMPANY_LIST_MY_SUCCESS,
@@ -161,7 +158,7 @@ export const listBooking = () => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      `http://localhost:4000/user/getBookingByUserId/`,
+      `${REACT_APP_HOST}/user/getBookingByUserId/`,
       config
     );
 
@@ -186,9 +183,7 @@ export const listVehicle = (no) => async (dispatch) => {
       type: VEHICLE_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(
-      `http://localhost:4000/user/getVehicle/${no}`
-    );
+    const { data } = await axios.get(`${REACT_APP_HOST}/user/getVehicle/${no}`);
 
     dispatch({
       type: VEHICLE_LIST_MY_SUCCESS,
@@ -209,7 +204,7 @@ export const listVehicleDetails = (vehicleId) => async (dispatch) => {
   dispatch({ type: VEHICLE_DETAILS_REQUEST });
   try {
     const { data } = await axios.get(
-      `http://localhost:4000/user/getVehicleById/${vehicleId}`
+      `${REACT_APP_HOST}/user/getVehicleById/${vehicleId}`
     );
     dispatch({
       type: VEHICLE_DETAILS_SUCCESS,
@@ -230,7 +225,7 @@ export const listVehicleByCompanyDetails = (companyId) => async (dispatch) => {
   dispatch({ type: VEHICLEBYCOMPANY_DETAILS_REQUEST });
   try {
     const { data } = await axios.get(
-      `http://localhost:4000/user/getVehicleByCompanyId/${companyId}`
+      `${REACT_APP_HOST}/user/getVehicleByCompanyId/${companyId}`
     );
 
     dispatch({
@@ -252,7 +247,7 @@ export const listVehicleByTypeDetails = (typeId) => async (dispatch) => {
   dispatch({ type: VEHICLEBYTYPE_DETAILS_REQUEST });
   try {
     const { data } = await axios.get(
-      `http://localhost:4000/user/getVehicleByTypeId/${typeId}`
+      `${REACT_APP_HOST}/user/getVehicleByTypeId/${typeId}`
     );
 
     dispatch({
@@ -276,9 +271,7 @@ export const getVehicleType = () => async (dispatch) => {
       type: VEHICLETYPE_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(
-      `http://localhost:4000/user/getVehicleType`
-    );
+    const { data } = await axios.get(`${REACT_APP_HOST}/user/getVehicleType`);
 
     dispatch({
       type: VEHICLETYPE_LIST_MY_SUCCESS,
@@ -302,7 +295,7 @@ export const addUser = (formData) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "http://localhost:4000/user/addUser",
+      `${REACT_APP_HOST}/user/addUser`,
       formData
     );
 
@@ -334,7 +327,7 @@ export const updateProfile = (userId, profileData) => async (dispatch) => {
     };
 
     const { data } = await axios.patch(
-      `http://localhost:4000/user/editUser/${userId}`,
+      `${REACT_APP_HOST}/user/editUser/${userId}`,
       profileData,
       config
     );
@@ -367,7 +360,7 @@ export const addAgency = (agencyData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:4000/user/addAgency",
+      `${REACT_APP_HOST}/user/addAgency`,
       agencyData,
       config
     );
@@ -400,7 +393,7 @@ export const loginUser = (loginData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:4000/user/login",
+      `${REACT_APP_HOST}/user/login`,
       loginData,
       config
     );
@@ -428,7 +421,7 @@ export const forgetPassword = (forgetPasswordData) => async (dispatch) => {
     });
 
     const { data } = await axios.patch(
-      "http://localhost:4000/user/forgetpassword",
+      `${REACT_APP_HOST}/user/forgetpassword`,
       forgetPasswordData
     );
     dispatch({
@@ -453,7 +446,7 @@ export const checkOTP = (otpData) => async (dispatch) => {
     });
 
     const { data } = await axios.post(
-      "http://localhost:4000/user/checkOTP",
+      `${REACT_APP_HOST}/user/checkOTP`,
       otpData
     );
     dispatch({
@@ -478,7 +471,7 @@ export const changeUserPassword = (changePasswordData) => async (dispatch) => {
     });
 
     const { data } = await axios.patch(
-      "http://localhost:4000/user/changePassword",
+      `${REACT_APP_HOST}/user/changePassword`,
       changePasswordData
     );
     dispatch({
@@ -500,7 +493,7 @@ export const listUserDetails = (userId) => async (dispatch) => {
   dispatch({ type: USER_DETAILS_REQUEST });
   try {
     const { data } = await axios.get(
-      `http://localhost:4000/user/getUserById/${userId}`
+      `${REACT_APP_HOST}/user/getUserById/${userId}`
     );
     dispatch({
       type: USER_DETAILS_SUCCESS,
@@ -523,7 +516,7 @@ export const listFaq = (no) => async (dispatch) => {
       type: FAQ_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(`http://localhost:4000/user/getFaq/${no}`);
+    const { data } = await axios.get(`${REACT_APP_HOST}/user/getFaq/${no}`);
 
     dispatch({
       type: FAQ_LIST_MY_SUCCESS,
@@ -546,9 +539,7 @@ export const listFaqCategory = () => async (dispatch) => {
       type: FAQCATEGORY_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(
-      `http://localhost:4000/user/getFaqCategory`
-    );
+    const { data } = await axios.get(`${REACT_APP_HOST}/user/getFaqCategory`);
 
     dispatch({
       type: FAQCATEGORY_LIST_MY_SUCCESS,
@@ -570,7 +561,7 @@ export const listFaqByFaqCategoryDetails =
     dispatch({ type: VEHICLEBYCOMPANY_DETAILS_REQUEST });
     try {
       const { data } = await axios.get(
-        `http://localhost:4000/user/getFaqByFaqCategoryId/${faqCategoryId}`
+        `${REACT_APP_HOST}/user/getFaqByFaqCategoryId/${faqCategoryId}`
       );
 
       dispatch({

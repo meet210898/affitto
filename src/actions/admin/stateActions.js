@@ -16,9 +16,10 @@ import {
   STATE_DETAILS_FAIL,
 } from "../../constants/admin/stateConstants";
 import axios from "axios";
+const { REACT_APP_HOST } = process.env;
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
 
-export const addState = (stateName, stateImage) => async (dispatch) => {
+export const addState = (stateData) => async (dispatch) => {
   try {
     dispatch({
       type: STATE_CREATE_REQUEST,
@@ -31,12 +32,9 @@ export const addState = (stateName, stateImage) => async (dispatch) => {
       },
     };
 
-    const formData = new FormData();
-    formData.append("stateName", stateName);
-    formData.append("stateImage", stateImage);
     const { data } = await axios.post(
-      "http://localhost:4000/state",
-      formData,
+      `${REACT_APP_HOST}/state`,
+      stateData,
       config
     );
 
@@ -73,9 +71,9 @@ export const updateState =
       const formData = new FormData();
       formData.append("stateName", stateData[0]);
       formData.append("stateImage", stateData[1]);
-      
+
       const { data } = await axios.patch(
-        `http://localhost:4000/editState/${stateId}`,
+        `${REACT_APP_HOST}/editState/${stateId}`,
         formData,
         config
       );
@@ -99,7 +97,7 @@ export const listStateDetails = (stateId) => async (dispatch) => {
   dispatch({ type: STATE_DETAILS_REQUEST });
   try {
     const { data } = await axios.get(
-      `http://localhost:4000/getStateById/${stateId}`
+      `${REACT_APP_HOST}/getStateById/${stateId}`
     );
     dispatch({
       type: STATE_DETAILS_SUCCESS,
@@ -128,7 +126,7 @@ export const deleteState = (stateId) => async (dispatch, getState) => {
       },
     };
 
-    await axios.delete(`http://localhost:4000/deleteState/${stateId}`, config);
+    await axios.delete(`${REACT_APP_HOST}/deleteState/${stateId}`, config);
 
     dispatch({
       type: STATE_DELETE_SUCCESS,
@@ -156,8 +154,8 @@ export const listStates = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`http://localhost:4000/getState`, config);
-    
+    const { data } = await axios.get(`${REACT_APP_HOST}/getState`, config);
+
     dispatch({
       type: STATE_LIST_MY_SUCCESS,
       payload: data,

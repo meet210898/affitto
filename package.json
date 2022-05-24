@@ -25,7 +25,9 @@
     "body-parser": "^1.20.0",
     "concurrently": "^7.1.0",
     "cors": "^2.8.5",
+    "country-state-city": "^3.0.1",
     "express": "^4.18.1",
+    "formik": "^2.2.9",
     "google-map-react": "^2.1.10",
     "jssha": "^3.2.0",
     "jwt-decode": "^3.1.2",
@@ -44,6 +46,7 @@
     "react-dom": "17.0.2",
     "react-final-form": "^6.5.9",
     "react-fontawesome": "^1.7.1",
+    "react-hook-form": "^7.31.2",
     "react-icons": "^4.3.1",
     "react-material-ui-carousel": "^3.3.3",
     "react-redux": "^7.2.8",
@@ -58,7 +61,8 @@
     "shortid": "^2.2.16",
     "slick-carousel": "^1.8.1",
     "use-ssr": "^1.0.24",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

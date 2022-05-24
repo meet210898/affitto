@@ -13,6 +13,7 @@ import {
   FAQ_DELETE_FAIL,
 } from "../../constants/admin/faqConstants";
 import axios from "axios";
+const { REACT_APP_HOST } = process.env;
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
 
 export const addFaq = (faqData) => async (dispatch) => {
@@ -28,7 +29,7 @@ export const addFaq = (faqData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:4000/addFaq",
+      `${REACT_APP_HOST}/addFaq`,
       faqData,
       config
     );
@@ -61,7 +62,7 @@ export const updateFaq = (faqId, faqData) => async (dispatch) => {
     };
 
     const { data } = await axios.patch(
-      `http://localhost:4000/editFaq/${faqId}`,
+      `${REACT_APP_HOST}/editFaq/${faqId}`,
       faqData,
       config
     );
@@ -81,27 +82,6 @@ export const updateFaq = (faqId, faqData) => async (dispatch) => {
   }
 };
 
-// export const getVehicleTypeDetails = (typeId) => async (dispatch) => {
-//   dispatch({ type: VEHICLE_DETAILS_REQUEST });
-//   try {
-//     const { data } = await axios.get(
-//       `http://localhost:4000/getVehicleTypeById/${typeId}`
-//     );
-//     dispatch({
-//       type: VEHICLE_DETAILS_SUCCESS,
-//       payload: data,
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: VEHICLE_DETAILS_FAIL,
-//       payload:
-//         error.response && error.response.data.message
-//           ? error.response.data.message
-//           : error.message,
-//     });
-//   }
-// };
-
 export const deleteFaq = (faqId) => async (dispatch) => {
   try {
     dispatch({
@@ -114,7 +94,7 @@ export const deleteFaq = (faqId) => async (dispatch) => {
       },
     };
 
-    await axios.delete(`http://localhost:4000/deleteFaq/${faqId}`, config);
+    await axios.delete(`${REACT_APP_HOST}/deleteFaq/${faqId}`, config);
 
     dispatch({
       type: FAQ_DELETE_SUCCESS,
@@ -142,7 +122,7 @@ export const listFaq = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`http://localhost:4000/getFaq`, config);
+    const { data } = await axios.get(`${REACT_APP_HOST}/getFaq`, config);
 
     dispatch({
       type: FAQ_LIST_MY_SUCCESS,

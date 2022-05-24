@@ -1,54 +1,54 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginScreen from "./screens/LoginScreen";
-import AddStateScreen from "./screens/AddStateScreen";
-import AddCityScreen from "./screens/AddCityScreen";
+import Login from "./screens/Login";
+import AddState from "./screens/AddState";
+import AddCity from "./screens/AddCity";
 import Sidebar from "./components/sidebar";
-import ViewStateScreen from "./screens/StateListScreen";
-import ViewCityScreen from "./screens/CityListScreen";
-import AddVehicleTypeScreen from "./screens/AddVehicleTypeScreen";
-import ViewVehicleTypeScreen from "./screens/VehicleTypeListScreen";
-import AddCompanyScreen from "./screens/AddCompanyScreen";
-import ViewCompanyScreen from "./screens/CompanyListScreen";
-import ViewUserScreen from "./screens/UserListScreen";
-import AddVehicleScreen from "./screens/AddVehicleScreen";
-import ViewVehicleScreen from "./screens/VehicleListScreen";
-import AddFaqScreen from "./screens/AddFaqScreen";
-import ViewFaqScreen from "./screens/FaqListScreen2";
-import AddFaqCategoryScreen from "./screens/AddFaqCategoryScreen";
-import ViewFaqCategoryScreen from "./screens/FaqCategoryListScreen";
-import ViewBookingScreen from "./screens/BookingListScreen";
+import ViewState from "./screens/StateList";
+import ViewCity from "./screens/CityList";
+import AddVehicleType from "./screens/AddVehicleType";
+import ViewVehicleType from "./screens/VehicleTypeList";
+import AddCompany from "./screens/AddCompany";
+import ViewCompany from "./screens/CompanyList";
+import ViewUser from "./screens/UserList";
+import AddVehicle from "./screens/AddVehicle";
+import ViewVehicle from "./screens/VehicleList";
+import AddFaq from "./screens/AddFaq";
+import ViewFaq from "./screens/FaqList2";
+import AddFaqCategory from "./screens/AddFaqCategory";
+import ViewFaqCategory from "./screens/FaqCategoryList";
+import ViewBooking from "./screens/BookingList";
 
 const index = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<LoginScreen />} />
+        <Route path="/" element={<Login />} />
 
         <Route path="/Admin" element={<Sidebar />}>
-          <Route path="viewUser" element={<ViewUserScreen />} />
-          <Route path="viewBooking" element={<ViewBookingScreen />} />
+          <Route path="viewUser" element={<ViewUser />} />
+          <Route path="viewBooking" element={<ViewBooking />} />
 
-          <Route path="AddState" element={<AddStateScreen />} />
-          <Route path="ViewState" element={<ViewStateScreen />} />
+          <Route path="AddState" element={<AddState />} />
+          <Route path="ViewState" element={<ViewState />} />
 
-          <Route path="AddCity" element={<AddCityScreen />} />
-          <Route path="ViewCity" element={<ViewCityScreen />} />
+          <Route path="AddCity" element={<AddCity />} />
+          <Route path="ViewCity" element={<ViewCity />} />
 
-          <Route path="AddVehicleType" element={<AddVehicleTypeScreen />} />
-          <Route path="ViewVehicleType" element={<ViewVehicleTypeScreen />} />
+          <Route path="AddVehicleType" element={<AddVehicleType />} />
+          <Route path="ViewVehicleType" element={<ViewVehicleType />} />
 
-          <Route path="AddCompany" element={<AddCompanyScreen />} />
-          <Route path="ViewCompany" element={<ViewCompanyScreen />} />
+          <Route path="AddCompany" element={<AddCompany />} />
+          <Route path="ViewCompany" element={<ViewCompany />} />
 
-          <Route path="AddVehicle" element={<AddVehicleScreen />} />
-          <Route path="ViewVehicle" element={<ViewVehicleScreen />} />
+          <Route path="AddVehicle" element={<AddVehicle />} />
+          <Route path="ViewVehicle" element={<ViewVehicle />} />
 
-          <Route path="AddFaq" element={<AddFaqScreen />} />
-          <Route path="ViewFaq" element={<ViewFaqScreen />} />
+          <Route path="AddFaq" element={<AddFaq />} />
+          <Route path="ViewFaq" element={<ViewFaq />} />
 
-          <Route path="AddFaqCategory" element={<AddFaqCategoryScreen />} />
-          <Route path="ViewFaqCategory" element={<ViewFaqCategoryScreen />} />
+          <Route path="AddFaqCategory" element={<AddFaqCategory />} />
+          <Route path="ViewFaqCategory" element={<ViewFaqCategory />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -16,6 +16,7 @@ import {
   VEHICLETYPE_DETAILS_FAIL,
 } from "../../constants/admin/vehicleTypeConstants";
 import axios from "axios";
+const { REACT_APP_HOST } = process.env;
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
 
 export const addType = (typeData) => async (dispatch) => {
@@ -30,9 +31,9 @@ export const addType = (typeData) => async (dispatch) => {
         "Content-Type": "multipart/form-data",
       },
     };
-    console.log(typeData,"typeData")
+    
     const { data } = await axios.post(
-      "http://localhost:4000/addType",
+      `${REACT_APP_HOST}/addType`,
       typeData,
       config
     );
@@ -68,7 +69,7 @@ export const updateVehicleType =
       };
       
       const { data } = await axios.patch(
-        `http://localhost:4000/editVehicleType/${typeId}`,
+        `${REACT_APP_HOST}/editVehicleType/${typeId}`,
         typeData,
         config
       );
@@ -92,7 +93,7 @@ export const getVehicleTypeDetails = (typeId) => async (dispatch) => {
   dispatch({ type: VEHICLETYPE_DETAILS_REQUEST });
   try {
     const { data } = await axios.get(
-      `http://localhost:4000/getVehicleTypeById/${typeId}`
+      `${REACT_APP_HOST}/getVehicleTypeById/${typeId}`
     );
     dispatch({
       type: VEHICLETYPE_DETAILS_SUCCESS,
@@ -122,7 +123,7 @@ export const deleteVehicleType = (typeId) => async (dispatch) => {
     };
 
     await axios.delete(
-      `http://localhost:4000/deleteVehicleType/${typeId}`,
+      `${REACT_APP_HOST}/deleteVehicleType/${typeId}`,
       config
     );
 
@@ -152,7 +153,7 @@ export const viewVehicleType = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`http://localhost:4000/getVehicleType`, config);
+    const { data } = await axios.get(`${REACT_APP_HOST}/getVehicleType`, config);
 
     dispatch({
       type: VEHICLETYPE_LIST_MY_SUCCESS,

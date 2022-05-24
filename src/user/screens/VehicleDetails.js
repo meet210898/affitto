@@ -7,6 +7,7 @@ import { getCompany, listVehicleDetails } from "../../actions/user/userActions";
 import Fade from "react-reveal/Fade";
 import Footer from "../components/footer";
 
+const { REACT_APP_HOST } = process.env;
 export default function VehicleDetails() {
   const dispatch = useDispatch();
 
@@ -56,7 +57,7 @@ export default function VehicleDetails() {
               <Grid xs={12} md={8} marginTop={2}>
                 <Fade top>
                   <img
-                    src={`http://localhost:4000/${vehicle?.vehicleImage}`}
+                    src={`${REACT_APP_HOST}/${vehicle?.vehicleImage}`}
                     style={{ height: "100%", maxWidth: "700px", width: "100%" }}
                     alt="tata"
                   />

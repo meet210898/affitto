@@ -16,6 +16,7 @@ import {
   CITY_DETAILS_FAIL,
 } from "../../constants/admin/cityConstants";
 import axios from "axios";
+const { REACT_APP_HOST } = process.env;
 const userToken = JSON.parse(localStorage.getItem("auth-token"));
 
 export const addCity = (cityData) => async (dispatch) => {
@@ -32,7 +33,7 @@ export const addCity = (cityData) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:4000/addCity",
+      `${REACT_APP_HOST}/addCity`,
       cityData,
       config
     );
@@ -73,7 +74,7 @@ export const updateCity =
       formData.append("cityImage", cityData[2]);
 
       const { data } = await axios.patch(
-        `http://localhost:4000/editCity/${cityId}`,
+        `${REACT_APP_HOST}/editCity/${cityId}`,
         formData,
         config
       );
@@ -97,7 +98,7 @@ export const listCityDetails = (cityId) => async (dispatch) => {
   dispatch({ type: CITY_DETAILS_REQUEST });
   try {
     const { data } = await axios.get(
-      `http://localhost:4000/getCityById/${cityId}`
+      `${REACT_APP_HOST}/getCityById/${cityId}`
     );
     dispatch({
       type: CITY_DETAILS_SUCCESS,
@@ -126,7 +127,7 @@ export const deleteCity = (cityId) => async (dispatch) => {
       },
     };
 
-    await axios.delete(`http://localhost:4000/deleteCity/${cityId}`, config);
+    await axios.delete(`${REACT_APP_HOST}/deleteCity/${cityId}`, config);
 
     dispatch({
       type: CITY_DELETE_SUCCESS,
@@ -154,7 +155,7 @@ export const listCities = () => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`http://localhost:4000/getCity`, config);
+    const { data } = await axios.get(`${REACT_APP_HOST}/getCity`, config);
 
     dispatch({
       type: CITY_LIST_MY_SUCCESS,
