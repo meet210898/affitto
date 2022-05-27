@@ -96,7 +96,7 @@ const UserRegisterScreen = () => {
   };
 
   return (
-    <Grid container>
+    <>
       <Topbar />
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
@@ -328,7 +328,7 @@ const UserRegisterScreen = () => {
           <Copyright sx={{ mt: 5 }} />
         </Container>
       </ThemeProvider>
-    </Grid>
+    </>
   );
 };
 

@@ -132,7 +132,6 @@ export const listBookingById = (bookingId) => async (dispatch) => {
       config
     );
 
-
     dispatch({
       type: BOOKINGBYID_DETAILS_SUCCESS,
       payload: data,
@@ -154,15 +153,8 @@ export const listBookingByUserId = (userId) => async (dispatch) => {
       type: BOOKINGBYUSER_DETAILS_REQUEST,
     });
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken.token}`,
-      },
-    };
-
     const { data } = await axios.get(
-      `${REACT_APP_HOST}/user/getBookingByUserId/${userId}`,
-      config
+      `${REACT_APP_HOST}/user/getBookingByUserId/${userId}`
     );
 
     dispatch({

@@ -29,10 +29,11 @@ const MyBooking = () => {
   const decodeUserId = jwt_decode(localStorage.getItem("user-token"));
   const [openEdit, setOpenEdit] = React.useState(false);
   const [editData, setEditData] = React.useState(null);
+  const chkDate = new Date();
 
   React.useEffect(() => {
     if (!localStorage.getItem("user-token")) {
-      navigate("/user");
+      navigate("/user/Home");
     }
   }, [navigate]);
 
@@ -86,7 +87,7 @@ const MyBooking = () => {
                   variant="outlined"
                 >
                   <Grid container>
-                    <Grid xs={12} md={12}>
+                    <Grid xs={8} md={10}>
                       {companiesInfo
                         ?.filter((item) => item._id === data.companyId)
                         .map((company) => {
@@ -105,6 +106,37 @@ const MyBooking = () => {
                             </p>
                           );
                         })}
+                    </Grid>
+                    <Grid xs={4} md={2}>
+                      <Button
+                        variant="outlined"
+                        style={{
+                          cursor: "default",
+                          height: "auto",
+                          width: "auto",
+                          fontWeight: "bold",
+                          fontSize: "16px",
+                        }}
+                        color={
+                          data.status === true &&
+                          moment(chkDate).format("LL") >
+                            moment(data.endDate).format("LL")
+                            ? "warning"
+                            : data.status === true
+                            ? "success"
+                            : ""
+                        }
+                      >
+                        <b>
+                          {data.status === true &&
+                          moment(chkDate).format("LL") >
+                            moment(data.endDate).format("LL")
+                            ? "Completed"
+                            : data.status === true
+                            ? "Booked"
+                            : ""}
+                        </b>
+                      </Button>
                     </Grid>
                   </Grid>
 

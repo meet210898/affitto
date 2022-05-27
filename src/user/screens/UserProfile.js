@@ -53,7 +53,7 @@ export default function UserProfileScreen() {
 
   React.useEffect(() => {
     if (!userInfo.token) {
-      navigate("/user");
+      navigate("/user/Home");
     }
   }, [navigate, userInfo.token]);
 

@@ -23,10 +23,12 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Fade from "react-reveal/Fade";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import carSvg from "../public/image/svgs/carSvg.png";
+import price from "../public/image/svgs/price.png";
 
 import {
   getCities,
@@ -40,23 +42,10 @@ import Cards from "../components/cards";
 
 import "../components/css/imgTxt.css";
 
-import { Country, State, City, getStatesOfCountry } from "country-state-city";
-
 const HomeScreen = () => {
   const dispatch = useDispatch();
   const windowSize = useWindowSize();
 
-  const country = Country.getAllCountries();
-  const states = State.getAllStates();
-
-  console.log(country[100], "country");
-  console.log(states, "states");
-
-  const statemap = states.filter((state) => {
-    return state.countryCode.toLowerCase() === "in" ? state.name : "";
-  });
-
-  console.log(statemap, "india states");
   const imgs = [img1, img2];
 
   React.useEffect(() => {
@@ -79,7 +68,7 @@ const HomeScreen = () => {
   const { faqInfo } = faqList;
 
   return (
-    <div>
+    <>
       <Topbar />
       <div className="imgsetting">
         <Carousel>
@@ -134,9 +123,7 @@ const HomeScreen = () => {
         <Cards img={category} linkName="category" name="Category" />
       </Grid>
       <Fade left>
-        <Grid container justifyContent="center">
-          <h2>Browse Our Listing</h2>
-        </Grid>
+        <GridDesign name="Why AFFITTO?" />
       </Fade>
 
       <Grid
@@ -145,25 +132,89 @@ const HomeScreen = () => {
         justifyContent="space-evenly"
         alignItems="start"
       >
-        <Grid xs={12} md={3}>
+        <Grid xs={12} md={5}>
           <Fade bottom>
-            <Card style={{ padding: "20px 30px" }} variant="outlined">
-              <h4 style={{ margin: "0px" }}>Company</h4>
-              <ul
-                style={{
-                  listStyleType: "none",
-                  textAlign: "left",
-                  paddingInlineStart: "0px",
-                }}
-              >
-                {companiesInfo?.map((data) => {
-                  return <li>{data.companyName}</li>;
-                })}
-              </ul>
+            <Card
+              style={{ padding: "15px", margin: "10px" }}
+              variant="outlined"
+            >
+              <Grid container>
+                <Grid
+                  xs={2}
+                  md={2}
+                  style={{
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    marginTop: "auto",
+                    marginBottom: "auto",
+                  }}
+                >
+                  <img src={carSvg} height="70%" width="70%" alt="car svg" />
+                </Grid>
+                <Grid xs={10} md={10}>
+                  <h4 style={{ margin: "0px" }}>Well maintained cars</h4>
+                  <p>
+                    Regular service & maintenance; Inspected before each trip
+                  </p>
+                </Grid>
+              </Grid>
             </Card>
           </Fade>
         </Grid>
-        <Grid xs={12} md={3}>
+        <Grid xs={12} md={5}>
+          <Fade bottom>
+            <Card
+              style={{ padding: "15px", margin: "10px" }}
+              variant="outlined"
+            >
+              <Grid container>
+                <Grid
+                  xs={2}
+                  md={2}
+                  style={{
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    marginTop: "auto",
+                    marginBottom: "auto",
+                  }}
+                >
+                  <img src={price} height="70%" width="70%" alt="car svg" />
+                </Grid>
+                <Grid xs={10} md={10} style={{ paddingBottom: "18px" }}>
+                  <h4 style={{ margin: "0px" }}>Flexible pricing plans</h4>
+                  <p>Select days & you are ready to go!</p>
+                </Grid>
+              </Grid>
+            </Card>
+          </Fade>
+        </Grid>
+        {/* <Grid xs={12} md={3}>
+          <Fade bottom>
+            <Card style={{ padding: "15px" }} variant="outlined">
+              <Grid container>
+                <Grid
+                  xs={2}
+                  md={2}
+                  style={{
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                    marginTop: "auto",
+                    marginBottom: "auto",
+                  }}
+                >
+                  <img src={carSvg} height="70%" width="70%" alt="car svg" />
+                </Grid>
+                <Grid xs={10} md={10}>
+                  <h4 style={{ margin: "0px" }}>Well maintained cars</h4>
+                  <p>
+                    Regular service & maintenance; Inspected before each trip
+                  </p>
+                </Grid>
+              </Grid>
+            </Card>
+          </Fade>
+        </Grid> */}
+        {/* <Grid xs={12} md={3}>
           <Fade bottom>
             <Card style={{ padding: "20px 30px" }} variant="outlined">
               <h4 style={{ margin: "0px" }}>Cities</h4>
@@ -198,7 +249,7 @@ const HomeScreen = () => {
               </ul>
             </Card>
           </Fade>
-        </Grid>
+        </Grid> */}
       </Grid>
 
       <GridDesign name="FAQs" />
@@ -303,7 +354,7 @@ const HomeScreen = () => {
         <Grid md={1} xs={1}></Grid>
       </Grid>
       <Footer />
-    </div>
+    </>
   );
 };
 

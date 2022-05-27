@@ -26,8 +26,7 @@ export default function VehicleDetails() {
 
   return (
     <>
-      <Topbar style={{ width: "auto" }} />
-
+      <Topbar />
       <Grid container>
         <Grid xs={1}></Grid>
         <Grid xs={10}>

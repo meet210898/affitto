@@ -11,9 +11,6 @@ import {
   CITY_DELETE_REQUEST,
   CITY_DELETE_SUCCESS,
   CITY_DELETE_FAIL,
-  CITY_DETAILS_REQUEST,
-  CITY_DETAILS_SUCCESS,
-  CITY_DETAILS_FAIL,
 } from "../../constants/admin/City";
 import axios from "axios";
 const { REACT_APP_HOST } = process.env;
@@ -27,7 +24,6 @@ export const addCity = (cityData) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
         "Content-Type": "multipart/form-data",
       },
     };
@@ -64,7 +60,6 @@ export const updateCity =
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userToken.token}`,
         },
       };
 
@@ -94,41 +89,13 @@ export const updateCity =
     }
   };
 
-export const listCityDetails = (cityId) => async (dispatch) => {
-  dispatch({ type: CITY_DETAILS_REQUEST });
-  try {
-    const { data } = await axios.get(`${REACT_APP_HOST}/getCityById/${cityId}`);
-    dispatch({
-      type: CITY_DETAILS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: CITY_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
 export const deleteCity = (cityId) => async (dispatch) => {
   try {
     dispatch({
       type: CITY_DELETE_REQUEST,
     });
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken.token}`,
-      },
-    };
-
-     await axios.delete(
-      `${REACT_APP_HOST}/deleteCity/${cityId}`,
-      config
-    );
+    await axios.delete(`${REACT_APP_HOST}/deleteCity/${cityId}`);
     dispatch({
       type: CITY_DELETE_SUCCESS,
     });
@@ -149,13 +116,7 @@ export const listCities = () => async (dispatch) => {
       type: CITY_LIST_MY_REQUEST,
     });
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userToken.token}`,
-      },
-    };
-
-    const { data } = await axios.get(`${REACT_APP_HOST}/getCity`, config);
+    const { data } = await axios.get(`${REACT_APP_HOST}/getCity`);
 
     dispatch({
       type: CITY_LIST_MY_SUCCESS,

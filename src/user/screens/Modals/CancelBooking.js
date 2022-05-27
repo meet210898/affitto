@@ -28,7 +28,7 @@ const ModalCall = ({ open, setOpen, editData }) => {
 
   React.useEffect(() => {
     if (!localStorage.getItem("user-token")) {
-      navigate("/user");
+      navigate("/user/Home");
     }
   }, [navigate]);
 

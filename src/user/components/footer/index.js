@@ -54,9 +54,7 @@ const Footer = () => {
           {pages.map((page) => (
             <NavLink
               style={{ textDecoration: "none" }}
-              to={
-                page === "Home" ? `/user` : `/user/${page.replace(/\s/g, "")}`
-              }
+              to={`/user/${page.replace(/\s/g, "")}`}
             >
               <Button id="btnStyle" className={`${classes.root} `} key={page}>
                 {page}

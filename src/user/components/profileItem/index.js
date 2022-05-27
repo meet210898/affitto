@@ -14,11 +14,12 @@ const ProfileItem = ({ setAnchorElUser, site, name }) => {
 
   const logoutHandler = () => {
     dispatch(logout());
+    handleCloseUserMenu();
   };
   return (
     <NavLink
       style={{ color: "black", textDecoration: "none" }}
-      to={name === "Logout" ? "/user" : `/user/${site}`}
+      to={name === "Logout" ? "/user/Home" : `/user/${site}`}
     >
       <MenuItem
         onClick={name === "Logout" ? logoutHandler : handleCloseUserMenu}

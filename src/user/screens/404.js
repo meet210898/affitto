@@ -43,7 +43,7 @@ const NotFoundScreen = () => {
       <Grid container justifyContent="center">
         <Grid xs={1} md={3}></Grid>
         <Grid xs={10} md={6} display="flex" justifyContent="center">
-          <NavLink style={{ textDecoration: "none" }} to="/user">
+          <NavLink style={{ textDecoration: "none" }} to="/user/Home">
             <Button variant="contained">Go to Home Page</Button>
           </NavLink>
         </Grid>

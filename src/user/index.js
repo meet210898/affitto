@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./screens/Home";
-import UserLogin from "../user/screens/UserLogin";
+import UserLogin from "./screens/UserLogin";
 import UserRegister from "./screens/UserRegister";
 import UserProfile from "./screens/UserProfile";
 import CompanyList from "./screens/Company";
@@ -26,8 +26,6 @@ const index = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/user/*" element={<NotFound />} />
-        <Route path="/user" element={<Home />} />
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/register" element={<UserRegister />} />
         <Route path="/user/profile" element={<UserProfile />} />
@@ -43,10 +41,7 @@ const index = () => {
         <Route path="/user/forgetpassword" element={<ForgetPassword />} />
         <Route path="/user/otp" element={<OTP />} />
         <Route path="/user/changepassword" element={<ChangePassword />} />
-        <Route
-          path="/user/modifyBooking/:id"
-          element={<ModifyBooking />}
-        />
+        <Route path="/user/modifyBooking/:id" element={<ModifyBooking />} />
         <Route
           path="/user/vehicledetails/:vehicleId"
           element={<VehicleDetails />}
@@ -59,6 +54,8 @@ const index = () => {
           path="/user/vehiclesByType/:typeId"
           element={<VehicleByType />}
         />
+        <Route path="/user/*" element={<NotFound />} />
+        <Route path="/user/home" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );

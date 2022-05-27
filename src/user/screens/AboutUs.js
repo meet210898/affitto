@@ -10,8 +10,7 @@ import "../components/css/imgTxt.css";
 import Fade from "react-reveal/Fade";
 import Footer from "../components/footer";
 
-const HomeScreen = () => {
-
+const AboutUs = () => {
   const [isReadMorePurpose, setIsReadMorePurpose] = React.useState(true);
   const [isReadMoreGoal, setIsReadMoreGoal] = React.useState(true);
   const toggleReadMorePurpose = () => {
@@ -185,4 +184,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default AboutUs;

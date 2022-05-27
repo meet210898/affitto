@@ -143,17 +143,6 @@ export default function ViewBookingScreen() {
                       : "error"
                   }
                 >
-                  {console.log(
-                    moment(chkDate).format("LL") >
-                      moment(row.endDate).format("LL"),
-                    "check"
-                  )}
-                  {console.log(
-                    "end date--------------",
-                    chkDate,
-                    row.endDate,
-                    row.companyId
-                  )}
                   {row.status === true &&
                   moment(chkDate).format("LL") >
                     moment(row.endDate).format("LL")

@@ -72,7 +72,7 @@ export default function UserLoginScreen() {
   };
 
   return (
-    <Grid>
+    <>
       <Topbar />
       <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
@@ -135,6 +135,6 @@ export default function UserLoginScreen() {
           <Copyright sx={{ mt: 8, mb: 4 }} />
         </Container>
       </ThemeProvider>
-    </Grid>
+    </>
   );
 }

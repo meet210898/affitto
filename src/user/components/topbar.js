@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { listUserDetails } from "../../actions/user/User";
 import jwt_decode from "jwt-decode";
@@ -72,10 +72,6 @@ const TopBar = () => {
   const userDetails = useSelector((state) => state.userDetails);
   const { user } = userDetails;
 
-  const clickedBtn = (event) => {
-    event.target.style.color = "blue";
-  };
-
   return (
     <AppBar style={{ backgroundColor: "white" }} position="sticky">
       <Container maxWidth="xl">
@@ -88,7 +84,7 @@ const TopBar = () => {
           >
             <NavLink
               style={{ color: "black", textDecoration: "none" }}
-              to="/user"
+              to="/user/Home"
             >
               <img
                 src={logo}
@@ -130,31 +126,30 @@ const TopBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) =>
-                (localStorage.getItem("user-token") && page === "Register") ||
-                (!localStorage.getItem("user-token") &&
-                  page === "My Booking") ? (
-                  ""
-                ) : (
-                  <NavLink
-                    style={{ color: "black", textDecoration: "none" }}
-                    to={
-                      page === "Home"
-                        ? `/user`
-                        : `/user/${page.replace(/\s/g, "")}`
-                    }
-                  >
-                    <MenuItem
-                      className={classes.root}
-                      style={{ color: "black" }}
-                      key={page}
-                      onClick={handleCloseNavMenu}
+              {pages.map((page, index) => (
+                <div key={`page-${index}`}>
+                  {(localStorage.getItem("user-token") &&
+                    page === "Register") ||
+                  (!localStorage.getItem("user-token") &&
+                    page === "My Booking") ? (
+                    ""
+                  ) : (
+                    <NavLink
+                      style={{ color: "black", textDecoration: "none" }}
+                      to={`/user/${page.replace(/\s/g, "")}`}
                     >
-                      <Typography textAlign="center">{page}</Typography>
-                    </MenuItem>
-                  </NavLink>
-                )
-              )}
+                      <MenuItem
+                        className={classes.root}
+                        style={{ color: "black" }}
+                        key={page}
+                        onClick={handleCloseNavMenu}
+                      >
+                        <Typography textAlign="center">{page}</Typography>
+                      </MenuItem>
+                    </NavLink>
+                  )}
+                </div>
+              ))}
             </Menu>
           </Box>
 
@@ -167,7 +162,7 @@ const TopBar = () => {
           >
             <NavLink
               style={{ color: "black", textDecoration: "none" }}
-              to="/user"
+              to="/user/Home"
             >
               <img
                 src={logo}
@@ -184,42 +179,26 @@ const TopBar = () => {
               display: { xs: "none", md: "flex" },
             }}
           >
-            {pages.map((page) =>
+            {pages.map((page, index) =>
               (localStorage.getItem("user-token") && page === "Register") ||
               (!localStorage.getItem("user-token") && page === "My Booking") ? (
                 ""
               ) : (
                 <NavLink
-                  style={{ textDecoration: "none" }}
-                  to={
-                    page === "Home"
-                      ? `/user`
-                      : `/user/${page.replace(/\s/g, "")}`
+                  key={`l-${index}`}
+                  style={({ isActive }) =>
+                    isActive
+                      ? { textDecoration: "none", color: "#346DC1" }
+                      : { textDecoration: "none", color: "black" }
                   }
+                  to={`/user/${page.replace(/\s/g, "")}`}
                 >
-                  <Button
-                    id="btnDesign"
-                    className={classes.root}
-                    key={page}
-                    onClick={(e) => {
-                      clickedBtn(e);
-                      handleCloseNavMenu();
-                    }}
-                    variant="text"
-                    // sx={{
-                    //   textTransform: "none",
-                    //   color: "black",
-                    //   display: "block",
-                    //   fontSize: "18px",
-                    //   fontWeight: "bold",
-                    // }}
-                  >
-                    {page}
-                  </Button>
+                  <b style={{ margin: "10px", fontSize: "18px" }}>{page}</b>
                 </NavLink>
               )
             )}
           </Box>
+          {console.log(localStorage.getItem("user-token"))}
 
           <Box sx={{ flexGrow: 0 }}>
             {localStorage.getItem("user-token") ? (
@@ -237,17 +216,7 @@ const TopBar = () => {
                 to={`/user/Login`}
               >
                 <MenuItem key="Login" onClick={handleCloseNavMenu}>
-                  <Button
-                    sx={{
-                      my: 2,
-                      color: "black",
-                      display: "block",
-                      fontSize: "18px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Login
-                  </Button>
+                  <b style={{ margin: "10px", fontSize: "18px" }}>Login</b>
                 </MenuItem>
               </NavLink>
             )}

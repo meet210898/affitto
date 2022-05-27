@@ -28,7 +28,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (localStorage.getItem("auth-token")) {
-      navigate("/Admin");
+      navigate("/Admin/Dashboard");
     }
   }, [adminInfo, navigate]);
 

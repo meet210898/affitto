@@ -37,7 +37,7 @@ const getBookingByUserId = async (req, res) => {
     const booking = await Booking.find({
       userId: req.params.id,
       status: true,
-    });
+    }).sort({ _id: "-1" });
     res.status(200).send(booking);
   } catch (e) {
     res.status(500).send({ error: e.message });

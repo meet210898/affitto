@@ -386,16 +386,9 @@ export const loginUser = (loginData) => async (dispatch) => {
       type: USER_LOGIN_REQUEST,
     });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
     const { data } = await axios.post(
       `${REACT_APP_HOST}/user/login`,
-      loginData,
-      config
+      loginData
     );
 
     dispatch({
@@ -419,16 +412,18 @@ export const forgetPassword = (forgetPasswordData) => async (dispatch) => {
     dispatch({
       type: FORGETPASSWORD_REQUEST,
     });
-
+    console.log(forgetPasswordData, "forgetPasswordData");
     const { data } = await axios.patch(
       `${REACT_APP_HOST}/user/forgetpassword`,
       forgetPasswordData
     );
+    console.log(forgetPasswordData, "forgetPasswordData");
     dispatch({
       type: FORGETPASSWORD_SUCCESS,
       payload: data,
     });
   } catch (error) {
+    console.log(error, "error");
     dispatch({
       type: FORGETPASSWORD_FAIL,
       payload:

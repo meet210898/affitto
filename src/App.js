@@ -1,9 +1,8 @@
 import "./App.css";
-import Admin from "./admin/index";
-import User from "./user/index";
+import Admin from "./admin";
+import User from "./user";
 
 function App() {
-  
   return (
     <div>
       <Admin />
