@@ -1,24 +1,28 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Tooltip,
+  MenuItem,
+  Avatar,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import { Link, NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { listUserDetails } from "../../actions/user/User";
+
 import jwt_decode from "jwt-decode";
-import { makeStyles } from "@mui/styles";
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { listUserDetails } from "../../actions/user/User";
 import logo from "../public/image/logo/logo.png";
-import Avatar from "@mui/material/Avatar";
 import ProfileItem from "./profileItem";
+
 import "../components/css/topbar.css";
+import { makeStyles } from "@mui/styles";
 
 const { REACT_APP_HOST } = process.env;
 const useStyles = makeStyles({
@@ -198,7 +202,6 @@ const TopBar = () => {
               )
             )}
           </Box>
-          {console.log(localStorage.getItem("user-token"))}
 
           <Box sx={{ flexGrow: 0 }}>
             {localStorage.getItem("user-token") ? (

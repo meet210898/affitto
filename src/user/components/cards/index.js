@@ -27,7 +27,7 @@ const Cards = ({ img, linkName, name }) => {
     <Grid md={3} className={classes.root}>
       <Fade top>
         <NavLink to={`/user/${linkName}`}>
-          <Card>
+          <Card style={{ borderRadius: "12px" }}>
             <CardMedia component="img" height="140" image={img} alt={name} />
             <Typography variant="h5" component="h2" className={classes.font}>
               {name}

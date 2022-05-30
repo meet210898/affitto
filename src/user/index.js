@@ -21,11 +21,23 @@ import ComingSoon from "./screens/ComingSoon";
 import ForgetPassword from "./screens/ForgetPassword";
 import OTP from "./screens/OTP";
 import ChangePassword from "./screens/ChangePassword";
+import AceessDenied from "./screens/AccessDenied";
+import axios from "axios";
 
 const index = () => {
+  axios.interceptors.request.use((config) => {
+    if (localStorage.getItem("user-token")) {
+      const userToken = JSON.parse(localStorage.getItem("user-token")).token;
+      if (userToken) {
+        config.headers.AuthorizationUser = userToken;
+      }
+    }
+    return config;
+  });
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/user/denied" element={<AceessDenied />} />
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/register" element={<UserRegister />} />
         <Route path="/user/profile" element={<UserProfile />} />

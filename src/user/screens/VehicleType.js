@@ -88,7 +88,9 @@ export default function VehicleTypeList() {
                       />
                       <CardContent>
                         <center>
-                          <b>{data.typeName}</b>
+                          <b style={{ textTransform: "uppercase" }}>
+                            {data.typeName}
+                          </b>
                         </center>
                       </CardContent>
                     </Card>

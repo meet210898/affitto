@@ -19,8 +19,17 @@ import AddFaqCategory from "./screens/AddFaqCategory";
 import ViewFaqCategory from "./screens/FaqCategoryList";
 import ViewBooking from "./screens/BookingList";
 import Dashboard from "./screens/Dashboard";
+import axios from "axios";
 
 const index = () => {
+  axios.interceptors.request.use((config) => {
+    if (localStorage.getItem("auth-token")) {
+      config.headers.AuthorizationAdmin = JSON.parse(
+        localStorage.getItem("auth-token")
+      ).token;
+    }
+    return config;
+  });
   return (
     <BrowserRouter>
       <Routes>

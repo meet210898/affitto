@@ -119,8 +119,7 @@ const MyBooking = () => {
                         }}
                         color={
                           data.status === true &&
-                          moment(chkDate).format("LL") >
-                            moment(data.endDate).format("LL")
+                          chkDate > new Date(data.endDate)
                             ? "warning"
                             : data.status === true
                             ? "success"
@@ -129,8 +128,7 @@ const MyBooking = () => {
                       >
                         <b>
                           {data.status === true &&
-                          moment(chkDate).format("LL") >
-                            moment(data.endDate).format("LL")
+                          chkDate > new Date(data.endDate)
                             ? "Completed"
                             : data.status === true
                             ? "Booked"

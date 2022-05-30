@@ -1,19 +1,4 @@
 import * as React from "react";
-import Topbar from "../components/topbar";
-import Carousel from "react-material-ui-carousel";
-import img1 from "../public/image/dashboard/dashboardimg1.jpg";
-import img2 from "../public/image/dashboard/dashboardimg2.jpg";
-import companies from "../public/image/dashboard/brand-logo.jpg";
-import category from "../public/image/dashboard/carbike.jpg";
-import vehicle from "../public/image/dashboard/vehicle.jpg";
-import mercedesInvestor from "../public/image/investor/mercedes.jpg";
-import tataInvestor from "../public/image/investor/tatamotors.jpg";
-import suzukiInvestor from "../public/image/investor/suzuki.jpg";
-import landroverInvestor from "../public/image/investor/landrover2.jpg";
-import GridDesign from "../components/grid";
-import Footer from "../components/footer";
-import useWindowSize from "../components/useWindowSize";
-
 import {
   Card,
   Typography,
@@ -23,12 +8,29 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@mui/material";
+import Topbar from "../components/topbar";
+import Carousel from "react-material-ui-carousel";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Fade from "react-reveal/Fade";
+
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Fade from "react-reveal/Fade";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+import img1 from "../public/image/dashboard/dashboardimg1.jpg";
+import img2 from "../public/image/dashboard/dashboardimg2.jpg";
+import companies from "../public/image/dashboard/brand-logo.jpg";
+import category from "../public/image/dashboard/carbike.jpg";
+import vehicle from "../public/image/dashboard/vehicle.jpg";
+import mercedesInvestor from "../public/image/investor/mercedes.jpg";
+import tataInvestor from "../public/image/investor/tatamotors.jpg";
+import suzukiInvestor from "../public/image/investor/suzuki.jpg";
+import landroverInvestor from "../public/image/investor/landrover2.jpg";
 import carSvg from "../public/image/svgs/carSvg.png";
 import price from "../public/image/svgs/price.png";
+
+import GridDesign from "../components/grid";
+import Footer from "../components/footer";
+import useWindowSize from "../components/useWindowSize";
 
 import {
   getCities,
@@ -36,9 +38,9 @@ import {
   getVehicleType,
   listFaq,
 } from "../../actions/user/User";
-
 import Investor from "../components/investor";
 import Cards from "../components/cards";
+import WhyCard from "../components/cards/whyCard";
 
 import "../components/css/imgTxt.css";
 
@@ -54,15 +56,6 @@ const HomeScreen = () => {
     dispatch(getVehicleType());
     dispatch(listFaq(4));
   }, [dispatch]);
-
-  const companyList = useSelector((state) => state.companyList);
-  const { companiesInfo } = companyList;
-
-  const cityList = useSelector((state) => state.cityList);
-  const { citiesInfo } = cityList;
-
-  const vehicleTypeList = useSelector((state) => state.vehicleTypeList);
-  const { vehicleTypesInfo } = vehicleTypeList;
 
   const faqList = useSelector((state) => state.faqList);
   const { faqInfo } = faqList;
@@ -132,124 +125,16 @@ const HomeScreen = () => {
         justifyContent="space-evenly"
         alignItems="start"
       >
-        <Grid xs={12} md={5}>
-          <Fade bottom>
-            <Card
-              style={{ padding: "15px", margin: "10px" }}
-              variant="outlined"
-            >
-              <Grid container>
-                <Grid
-                  xs={2}
-                  md={2}
-                  style={{
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    marginTop: "auto",
-                    marginBottom: "auto",
-                  }}
-                >
-                  <img src={carSvg} height="70%" width="70%" alt="car svg" />
-                </Grid>
-                <Grid xs={10} md={10}>
-                  <h4 style={{ margin: "0px" }}>Well maintained cars</h4>
-                  <p>
-                    Regular service & maintenance; Inspected before each trip
-                  </p>
-                </Grid>
-              </Grid>
-            </Card>
-          </Fade>
-        </Grid>
-        <Grid xs={12} md={5}>
-          <Fade bottom>
-            <Card
-              style={{ padding: "15px", margin: "10px" }}
-              variant="outlined"
-            >
-              <Grid container>
-                <Grid
-                  xs={2}
-                  md={2}
-                  style={{
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    marginTop: "auto",
-                    marginBottom: "auto",
-                  }}
-                >
-                  <img src={price} height="70%" width="70%" alt="car svg" />
-                </Grid>
-                <Grid xs={10} md={10} style={{ paddingBottom: "18px" }}>
-                  <h4 style={{ margin: "0px" }}>Flexible pricing plans</h4>
-                  <p>Select days & you are ready to go!</p>
-                </Grid>
-              </Grid>
-            </Card>
-          </Fade>
-        </Grid>
-        {/* <Grid xs={12} md={3}>
-          <Fade bottom>
-            <Card style={{ padding: "15px" }} variant="outlined">
-              <Grid container>
-                <Grid
-                  xs={2}
-                  md={2}
-                  style={{
-                    marginLeft: "auto",
-                    marginRight: "auto",
-                    marginTop: "auto",
-                    marginBottom: "auto",
-                  }}
-                >
-                  <img src={carSvg} height="70%" width="70%" alt="car svg" />
-                </Grid>
-                <Grid xs={10} md={10}>
-                  <h4 style={{ margin: "0px" }}>Well maintained cars</h4>
-                  <p>
-                    Regular service & maintenance; Inspected before each trip
-                  </p>
-                </Grid>
-              </Grid>
-            </Card>
-          </Fade>
-        </Grid> */}
-        {/* <Grid xs={12} md={3}>
-          <Fade bottom>
-            <Card style={{ padding: "20px 30px" }} variant="outlined">
-              <h4 style={{ margin: "0px" }}>Cities</h4>
-              <ul
-                style={{
-                  listStyleType: "none",
-                  textAlign: "left",
-                  paddingInlineStart: "0px",
-                }}
-              >
-                {citiesInfo?.map((data) => {
-                  return <li>{data.cityName}</li>;
-                })}
-              </ul>
-            </Card>
-          </Fade>
-        </Grid>
-        <Grid xs={12} md={3}>
-          <Fade bottom>
-            <Card style={{ padding: "20px 30px" }} variant="outlined">
-              <h4 style={{ margin: "0px" }}>Category</h4>
-              <ul
-                style={{
-                  listStyleType: "none",
-                  textAlign: "left",
-                  paddingInlineStart: "0px",
-                }}
-              >
-                {vehicleTypesInfo?.map((data) => {
-                  return <li>{data.typeName}</li>;
-                })}
-              </ul>
-            </Card>
-          </Fade>
-        </Grid> */}
+        <WhyCard
+          imgName={carSvg}
+          title="Well maintained cars"
+          description="Regular service & maintenance; Inspected before each trip"
+        />
+        <WhyCard
+          imgName={price}
+          title="Flexible pricing plans"
+          description="Select days & you are ready to go!"
+        />
       </Grid>
 
       <GridDesign name="FAQs" />
@@ -269,6 +154,7 @@ const HomeScreen = () => {
                       style={{
                         padding: "10px",
                         backgroundColor: "#f1f1f1",
+                        borderRadius: "12px",
                       }}
                     >
                       <Typography
@@ -291,7 +177,10 @@ const HomeScreen = () => {
           </Grid>
         ) : (
           <Grid md={10} xs={10}>
-            <Card style={{ padding: "20px 30px" }} variant="outlined">
+            <Card
+              style={{ padding: "20px 30px", borderRadius: "12px" }}
+              variant="outlined"
+            >
               <Fade bottom>
                 <>
                   {faqInfo?.map((data) => (
@@ -321,7 +210,7 @@ const HomeScreen = () => {
 
         <Grid md={10} xs={10} display="flex" justifyContent="right">
           <NavLink to="/user/faq" style={{ color: "#1b6dc1" }}>
-            <h2>View all..</h2>
+            <h4>View all..</h4>
           </NavLink>
         </Grid>
 
@@ -335,7 +224,11 @@ const HomeScreen = () => {
         <Grid md={10} xs={10} container>
           <Fade bottom>
             <Card
-              style={{ display: "flex", flexWrap: "wrap" }}
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                borderRadius: "12px",
+              }}
               variant="outlined"
             >
               <Investor img={tataInvestor} investorName="TATA Motors" />

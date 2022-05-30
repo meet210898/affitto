@@ -1,26 +1,27 @@
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import { Button, Grid } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
+import {
+  Button,
+  Grid,
+  Drawer,
+  Divider,
+  CssBaseline,
+  Box,
+  AppBar,
+  IconButton,
+  List,
+  Toolbar,
+  ListItemButton,
+  ListItemText,
+  Collapse,
+  ListItemIcon,
+} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
 import { makeStyles } from "@mui/styles";
 import ListItem from "./list";
-import { Outlet } from "react-router-dom";
-import { NavLink } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../actions/admin/Login";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Collapse from "@mui/material/Collapse";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ExpandMore from "@mui/icons-material/ExpandMore";
+import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import AddLocationAltIcon from "@mui/icons-material/AddLocationAlt";
 import HouseIcon from "@mui/icons-material/House";
@@ -149,7 +150,6 @@ const Sidebar = (props) => {
   const logoutHandler = () => {
     dispatch(logout());
   };
-  console.log({ props });
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
