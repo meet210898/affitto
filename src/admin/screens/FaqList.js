@@ -60,13 +60,16 @@ export default function ViewFaqScreen() {
   const faqDelete = useSelector((state) => state.faqDelete);
   const { deleteSuccess } = faqDelete;
 
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
+
   React.useEffect(() => {
-    if (!localStorage.getItem("auth-token")) {
+    if (!adminInfo.token) {
       navigate("/");
     }
     dispatch(listFaqCategory());
     dispatch(listFaq());
-  }, [dispatch, navigate, success, deleteSuccess]);
+  }, [dispatch, navigate, success, deleteSuccess, adminInfo.token]);
 
   const faqCategoryList = useSelector((state) => state.faqCategoryList);
   const { faqCategoryInfo } = faqCategoryList;

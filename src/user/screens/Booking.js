@@ -1,6 +1,6 @@
 import * as React from "react";
 import Topbar from "../components/topbar";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCompany, listVehicleDetails } from "../../actions/user/User";
 
@@ -14,16 +14,23 @@ import Footer from "../components/footer";
 
 export default function BookingScreen() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { vehicleId } = useParams("id");
 
   const [startDate, setStartDate] = React.useState(new Date());
   const [endDate, setEndDate] = React.useState(new Date());
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   React.useEffect(() => {
+    if (!userInfo.token) {
+      navigate("/");
+    }
     dispatch(getCompany());
     dispatch(listVehicleDetails(vehicleId));
-  }, [dispatch, vehicleId]);
+  }, [dispatch, vehicleId, userInfo.token]);
 
   const vehicleDetails = useSelector((state) => state.vehicleDetails);
   const { vehicle } = vehicleDetails;

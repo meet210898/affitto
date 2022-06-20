@@ -56,15 +56,18 @@ export default function ViewBookingScreen() {
   const bookingDelete = useSelector((state) => state.bookingDelete);
   const { deleteSuccess } = bookingDelete;
 
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
+
   React.useEffect(() => {
-    if (!localStorage.getItem("auth-token")) {
+    if (!adminInfo.token) {
       navigate("/");
     }
     dispatch(listUser());
     dispatch(listBooking());
     dispatch(listCompany());
     dispatch(listVehicle());
-  }, [dispatch, navigate, deleteSuccess]);
+  }, [dispatch, navigate, deleteSuccess, adminInfo.token]);
   let counter = 0;
 
   const vehicleList = useSelector((state) => state.vehicleList);

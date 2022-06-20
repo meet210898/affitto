@@ -153,7 +153,7 @@ export const listBooking = () => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -412,18 +412,17 @@ export const forgetPassword = (forgetPasswordData) => async (dispatch) => {
     dispatch({
       type: FORGETPASSWORD_REQUEST,
     });
-    console.log(forgetPasswordData, "forgetPasswordData");
+
     const { data } = await axios.patch(
       `${REACT_APP_HOST}/user/forgetpassword`,
       forgetPasswordData
     );
-    console.log(forgetPasswordData, "forgetPasswordData");
+
     dispatch({
       type: FORGETPASSWORD_SUCCESS,
       payload: data,
     });
   } catch (error) {
-    console.log(error, "error");
     dispatch({
       type: FORGETPASSWORD_FAIL,
       payload:

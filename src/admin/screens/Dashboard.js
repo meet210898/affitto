@@ -1,14 +1,18 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const Dashboard = () => {
   const navigate = useNavigate();
 
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
+
   useEffect(() => {
-    if (!localStorage.getItem("auth-token")) {
+    if (!adminInfo.token) {
       navigate("/");
     }
-  }, [navigate]);
+  }, [navigate, adminInfo.token]);
 
   return (
     <>

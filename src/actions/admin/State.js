@@ -17,6 +17,7 @@ import {
 } from "../../constants/admin/State";
 import axios from "axios";
 const { REACT_APP_HOST } = process.env;
+const userToken = JSON.parse(localStorage.getItem("auth-token"));
 
 export const addState = (stateData) => async (dispatch) => {
   try {
@@ -26,7 +27,7 @@ export const addState = (stateData) => async (dispatch) => {
 
     const config = {
       headers: {
-       
+        Authorization: `Bearer ${userToken?.token}`,
         "Content-Type": "multipart/form-data",
       },
     };
@@ -63,7 +64,7 @@ export const updateState =
       const config = {
         headers: {
           "Content-Type": "multipart/form-data",
-          
+          Authorization: `Bearer ${userToken?.token}`,
         },
       };
 
@@ -92,40 +93,25 @@ export const updateState =
     }
   };
 
-export const listStateDetails = (stateId) => async (dispatch) => {
-  dispatch({ type: STATE_DETAILS_REQUEST });
-  try {
-    const { data } = await axios.get(
-      `${REACT_APP_HOST}/getStateById/${stateId}`
-    );
-    dispatch({
-      type: STATE_DETAILS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: STATE_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
 export const deleteState = (stateId) => async (dispatch, getState) => {
   try {
     dispatch({
       type: STATE_DELETE_REQUEST,
     });
 
-    await axios.delete(`${REACT_APP_HOST}/deleteState/${stateId}`);
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userToken?.token}`,
+      },
+    };
+
+    await axios.delete(`${REACT_APP_HOST}/deleteState/${stateId}`, config);
 
     dispatch({
       type: STATE_DELETE_SUCCESS,
     });
   } catch (error) {
-
     dispatch({
       type: STATE_DELETE_FAIL,
       payload:
@@ -142,7 +128,14 @@ export const listStates = () => async (dispatch) => {
       type: STATE_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(`${REACT_APP_HOST}/getState`);
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userToken?.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`${REACT_APP_HOST}/getState`, config);
 
     dispatch({
       type: STATE_LIST_MY_SUCCESS,

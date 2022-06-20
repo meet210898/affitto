@@ -24,7 +24,7 @@ export const addBooking = (bookingData) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -57,7 +57,7 @@ export const updateBooking = (bookingId, bookingData) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -90,7 +90,7 @@ export const updateBookingStatus = (bookingId, status) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -123,7 +123,7 @@ export const listBookingById = (bookingId) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -153,8 +153,15 @@ export const listBookingByUserId = (userId) => async (dispatch) => {
       type: BOOKINGBYUSER_DETAILS_REQUEST,
     });
 
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken?.token}`,
+      },
+    };
+
     const { data } = await axios.get(
-      `${REACT_APP_HOST}/user/getBookingByUserId/${userId}`
+      `${REACT_APP_HOST}/user/getBookingByUserId/${userId}`,
+      config
     );
 
     dispatch({

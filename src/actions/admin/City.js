@@ -24,6 +24,7 @@ export const addCity = (cityData) => async (dispatch) => {
 
     const config = {
       headers: {
+        Authorization: `Bearer ${userToken?.token}`,
         "Content-Type": "multipart/form-data",
       },
     };
@@ -59,6 +60,7 @@ export const updateCity =
 
       const config = {
         headers: {
+          Authorization: `Bearer ${userToken?.token}`,
           "Content-Type": "multipart/form-data",
         },
       };
@@ -95,7 +97,14 @@ export const deleteCity = (cityId) => async (dispatch) => {
       type: CITY_DELETE_REQUEST,
     });
 
-    await axios.delete(`${REACT_APP_HOST}/deleteCity/${cityId}`);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken?.token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    await axios.delete(`${REACT_APP_HOST}/deleteCity/${cityId}`, config);
     dispatch({
       type: CITY_DELETE_SUCCESS,
     });
@@ -116,7 +125,14 @@ export const listCities = () => async (dispatch) => {
       type: CITY_LIST_MY_REQUEST,
     });
 
-    const { data } = await axios.get(`${REACT_APP_HOST}/getCity`);
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken?.token}`,
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    const { data } = await axios.get(`${REACT_APP_HOST}/getCity`, config);
 
     dispatch({
       type: CITY_LIST_MY_SUCCESS,

@@ -24,7 +24,7 @@ export const addFaq = (faqData) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -57,7 +57,7 @@ export const updateFaq = (faqId, faqData) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -90,7 +90,7 @@ export const deleteFaq = (faqId) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -118,7 +118,7 @@ export const listFaq = () => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 

@@ -27,11 +27,11 @@ export const addType = (typeData) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
         "Content-Type": "multipart/form-data",
       },
     };
-    
+
     const { data } = await axios.post(
       `${REACT_APP_HOST}/addType`,
       typeData,
@@ -53,41 +53,39 @@ export const addType = (typeData) => async (dispatch) => {
   }
 };
 
-export const updateVehicleType =
-  (typeId, typeData) =>
-  async (dispatch) => {
-    try {
-      dispatch({
-        type: VEHICLETYPE_UPDATE_REQUEST,
-      });
+export const updateVehicleType = (typeId, typeData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: VEHICLETYPE_UPDATE_REQUEST,
+    });
 
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${userToken.token}`,
-        },
-      };
-      
-      const { data } = await axios.patch(
-        `${REACT_APP_HOST}/editVehicleType/${typeId}`,
-        typeData,
-        config
-      );
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userToken?.token}`,
+      },
+    };
 
-      dispatch({
-        type: VEHICLETYPE_UPDATE_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: VEHICLETYPE_UPDATE_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
-    }
-  };
+    const { data } = await axios.patch(
+      `${REACT_APP_HOST}/editVehicleType/${typeId}`,
+      typeData,
+      config
+    );
+
+    dispatch({
+      type: VEHICLETYPE_UPDATE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: VEHICLETYPE_UPDATE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const getVehicleTypeDetails = (typeId) => async (dispatch) => {
   dispatch({ type: VEHICLETYPE_DETAILS_REQUEST });
@@ -118,14 +116,11 @@ export const deleteVehicleType = (typeId) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
-    await axios.delete(
-      `${REACT_APP_HOST}/deleteVehicleType/${typeId}`,
-      config
-    );
+    await axios.delete(`${REACT_APP_HOST}/deleteVehicleType/${typeId}`, config);
 
     dispatch({
       type: VEHICLETYPE_DELETE_SUCCESS,
@@ -149,11 +144,14 @@ export const viewVehicleType = () => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
-    const { data } = await axios.get(`${REACT_APP_HOST}/getVehicleType`, config);
+    const { data } = await axios.get(
+      `${REACT_APP_HOST}/getVehicleType`,
+      config
+    );
 
     dispatch({
       type: VEHICLETYPE_LIST_MY_SUCCESS,

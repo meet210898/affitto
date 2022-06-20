@@ -26,11 +26,17 @@ export default function BookingScreen() {
   const { data } = location.state;
   const decodeUserId = jwt_decode(localStorage.getItem("user-token"));
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   React.useEffect(() => {
+    if (!userInfo.token) {
+      navigate("/");
+    }
     dispatch(getCompany());
     dispatch(listVehicleDetails(data.vehicleId));
     dispatch(listUserDetails(decodeUserId._id));
-  }, [dispatch, data.vehicleId, decodeUserId._id]);
+  }, [dispatch, data.vehicleId, decodeUserId._id, userInfo.token]);
 
   const vehicleDetails = useSelector((state) => state.vehicleDetails);
   const { vehicle } = vehicleDetails;

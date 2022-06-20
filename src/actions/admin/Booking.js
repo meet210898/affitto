@@ -20,7 +20,7 @@ export const listBooking = () => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
     const { data } = await axios.get(`${REACT_APP_HOST}/getBooking`, config);
@@ -48,7 +48,7 @@ export const deleteBooking = (bookingId) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 

@@ -63,13 +63,16 @@ export default function ViewCityScreen() {
   const cityUpdate = useSelector((state) => state.cityUpdate);
   const { success } = cityUpdate;
 
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
+
   React.useEffect(() => {
-    if (!localStorage.getItem("auth-token")) {
+    if (!adminInfo.token) {
       navigate("/");
     }
     dispatch(listStates());
     dispatch(listCities());
-  }, [dispatch, navigate, success, deleteSuccess]);
+  }, [dispatch, navigate, success, deleteSuccess, adminInfo.token]);
 
   React.useEffect(() => {
     setOpenDeleteAlert(true);
@@ -86,7 +89,7 @@ export default function ViewCityScreen() {
   };
 
   return (
-    <Grid>
+    <TableContainer component={Paper}>
       <ModalCall open={open} setOpen={setOpen} editData={editData} />
       <DeleteModal
         confirmDialog={confirmDialog}
@@ -102,72 +105,70 @@ export default function ViewCityScreen() {
           msg="City is deleted!"
         />
       )}
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 700 }} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>No</StyledTableCell>
-              <StyledTableCell>State Name</StyledTableCell>
-              <StyledTableCell>City Name</StyledTableCell>
-              <StyledTableCell>City Image</StyledTableCell>
-              <StyledTableCell>Action</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {citiesInfo?.map((row) => (
-              <StyledTableRow key={row._id}>
-                <StyledTableCell>{++counter}</StyledTableCell>
-                <StyledTableCell>
-                  {statesInfo?.map((data) => {
-                    return data._id === row.stateId ? data.stateName : "";
-                  })}
-                </StyledTableCell>
-                <StyledTableCell>{row.cityName}</StyledTableCell>
-                <StyledTableCell>
-                  <ReactRoundedImage
-                    image={`${REACT_APP_HOST}/${row.cityImage}`}
-                    style={{ objectFit: "cover" }}
-                    alt=""
-                    imageWidth="120"
-                    imageHeight="120"
-                    roundedSize="0"
-                    borderRadius="30"
-                  />
-                </StyledTableCell>
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        <TableHead>
+          <TableRow>
+            <StyledTableCell>No</StyledTableCell>
+            <StyledTableCell>State Name</StyledTableCell>
+            <StyledTableCell>City Name</StyledTableCell>
+            <StyledTableCell>City Image</StyledTableCell>
+            <StyledTableCell>Action</StyledTableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {citiesInfo?.map((row) => (
+            <StyledTableRow key={row._id}>
+              <StyledTableCell>{++counter}</StyledTableCell>
+              <StyledTableCell>
+                {statesInfo?.map((data) => {
+                  return data._id === row.stateId ? data.stateName : "";
+                })}
+              </StyledTableCell>
+              <StyledTableCell>{row.cityName}</StyledTableCell>
+              <StyledTableCell>
+                <ReactRoundedImage
+                  image={`${REACT_APP_HOST}/${row.cityImage}`}
+                  style={{ objectFit: "cover" }}
+                  alt=""
+                  imageWidth="120"
+                  imageHeight="120"
+                  roundedSize="0"
+                  borderRadius="30"
+                />
+              </StyledTableCell>
 
-                <StyledTableCell>
-                  <IconButton
-                    onClick={() => {
-                      editHandler(row);
-                      setOpen(true);
-                    }}
-                    aria-label="edit"
-                    size="large"
-                    color="primary"
-                  >
-                    <EditIcon fontSize="inherit" />
-                  </IconButton>
-                  <IconButton
-                    aria-label="delete"
-                    size="large"
-                    style={{ color: "red" }}
-                    onClick={() => {
-                      setId(row._id);
-                      setConfirmDialog({
-                        isOpen: true,
-                        title: "Are you sure to delete this record?",
-                        subTitle: "You can't undo this operation",
-                      });
-                    }}
-                  >
-                    <DeleteIcon fontSize="inherit" />
-                  </IconButton>
-                </StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Grid>
+              <StyledTableCell>
+                <IconButton
+                  onClick={() => {
+                    editHandler(row);
+                    setOpen(true);
+                  }}
+                  aria-label="edit"
+                  size="large"
+                  color="primary"
+                >
+                  <EditIcon fontSize="inherit" />
+                </IconButton>
+                <IconButton
+                  aria-label="delete"
+                  size="large"
+                  style={{ color: "red" }}
+                  onClick={() => {
+                    setId(row._id);
+                    setConfirmDialog({
+                      isOpen: true,
+                      title: "Are you sure to delete this record?",
+                      subTitle: "You can't undo this operation",
+                    });
+                  }}
+                >
+                  <DeleteIcon fontSize="inherit" />
+                </IconButton>
+              </StyledTableCell>
+            </StyledTableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 }

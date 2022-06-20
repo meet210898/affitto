@@ -29,7 +29,6 @@ let upload = multer({
 
 const addRegisterUser = async (req, res) => {
   try {
-    console.log(req.files["agencyCertificateImage"], "req.file");
     const gstFrontImagePath = req.files["gstFrontImage"][0].path;
     const gstBackImagePath = req.files["gstBackImage"][0].path;
     const agencyCertificateImagePath =
@@ -37,15 +36,7 @@ const addRegisterUser = async (req, res) => {
     const personalImagePath = req.files["personalImage"][0].path;
     const signatureImagePath = req.files["signatureImage"][0].path;
     const data = req.body;
-    console.log(gstFrontImagePath, "gstFrontImagePath", {
-      data,
-      gstFrontImage: gstFrontImagePath,
-      gstBackImage: gstBackImagePath,
-      agencyCertificateImage: agencyCertificateImagePath,
-      personalImage: personalImagePath,
-      signatureImage: signatureImagePath,
-    });
-
+   
     const registerUser = new userRegister({
       ...data,
       gstFrontImage: gstFrontImagePath,
@@ -74,7 +65,6 @@ const addUser = async (req, res) => {
     await registerUser.save();
     res.status(201).send({ msg: "User added!" });
   } catch (e) {
-    console.log(e.message, "error");
     res.status(400).send({ error: e.message });
   }
 };

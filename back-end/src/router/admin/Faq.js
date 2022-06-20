@@ -12,6 +12,5 @@ router.post("/addFaq", auth, addFaq);
 router.patch("/editFaq/:id", auth, editFaq);
 router.delete("/deleteFaq/:id", auth, deleteFaq);
 router.get("/getFaq", auth, getFaq);
-// router.get("/getStateById/:id", getStateById);
 
 module.exports = router;

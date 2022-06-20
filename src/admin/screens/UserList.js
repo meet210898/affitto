@@ -66,12 +66,15 @@ export default function ViewUserScreen() {
   const userDelete = useSelector((state) => state.userDelete);
   const { deleteSuccess } = userDelete;
 
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
+
   React.useEffect(() => {
-    if (!localStorage.getItem("auth-token")) {
+    if (!adminInfo.token) {
       navigate("/");
     }
     dispatch(listUser());
-  }, [dispatch, navigate, success, deleteSuccess]);
+  }, [dispatch, navigate, success, deleteSuccess, adminInfo.token]);
 
   const editStatus = (userId, isVerify) =>
     dispatch(updateUserStatus(userId, { isVerify: !isVerify }));

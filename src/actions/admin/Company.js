@@ -24,11 +24,11 @@ export const addCompany = (companyData) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
         "Content-Type": "multipart/form-data",
       },
     };
-    console.log(companyData, "companyData");
+    
     const { data } = await axios.post(
       `${REACT_APP_HOST}/addCompany`,
       companyData,
@@ -59,7 +59,7 @@ export const updateCompany = (companyId, companyData) => async (dispatch) => {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -92,7 +92,7 @@ export const deleteCompany = (companyId) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -120,7 +120,7 @@ export const listCompany = () => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 

@@ -60,12 +60,15 @@ export default function ViewStateScreen() {
   const stateDelete = useSelector((state) => state.stateDelete);
   const { deleteSuccess } = stateDelete;
 
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
+
   React.useEffect(() => {
-    if (!localStorage.getItem("auth-token")) {
+    if (!adminInfo.token) {
       navigate("/");
     }
     dispatch(listStates());
-  }, [dispatch, navigate, success, deleteSuccess]);
+  }, [dispatch, navigate, success, deleteSuccess, adminInfo.token]);
 
   const editHandler = (row) => setEditData(row);
 

@@ -67,12 +67,15 @@ export default function ViewStateScreen() {
   const vehicleTypeDelete = useSelector((state) => state.vehicleTypeDelete);
   const { deleteSuccess } = vehicleTypeDelete;
 
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
+
   React.useEffect(() => {
-    if (!localStorage.getItem("auth-token")) {
+    if (!adminInfo.token) {
       navigate("/");
     }
     dispatch(viewVehicleType());
-  }, [dispatch, navigate, vehicleType, deleteSuccess]);
+  }, [dispatch, navigate, vehicleType, deleteSuccess, adminInfo.token]);
 
   const editHandler = (row) => {
     setEditData(row);

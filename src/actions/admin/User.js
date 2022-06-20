@@ -21,7 +21,7 @@ export const updateUserStatus = (userId, status) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -54,7 +54,7 @@ export const deleteUser = (userId) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -74,7 +74,7 @@ export const deleteUser = (userId) => async (dispatch) => {
   }
 };
 
-export const listUser = () => async (dispatch) => {
+export const listUser = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_LIST_MY_REQUEST,
@@ -82,12 +82,12 @@ export const listUser = () => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
     const { data } = await axios.get(`${REACT_APP_HOST}/getUser`, config);
-
+    
     dispatch({
       type: USER_LIST_MY_SUCCESS,
       payload: data,

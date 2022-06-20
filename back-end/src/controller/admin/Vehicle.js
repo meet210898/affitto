@@ -40,7 +40,6 @@ const addVehicle = async (req, res) => {
     res.status(201).send({ msg: "Vehicle Added!" });
   } catch (e) {
     res.status(400).send({ error: e.message });
-    console.log(e, "error");
   }
 };
 

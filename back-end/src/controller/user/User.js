@@ -39,13 +39,11 @@ let upload = multer({
 });
 
 const forgetPassword = async (req, res) => {
-  console.log("hi---------------");
   const email = req.body.email;
   const otp = otpGenerator.generate(6, {
     upperCaseAlphabets: false,
     specialChars: false,
   });
-  console.log(email, otp, "asdasda--------------------");
   try {
     const user = await User.updateOne({ email: email }, { $set: { otp: otp } });
     res.status(200).send(user);

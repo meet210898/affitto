@@ -24,7 +24,7 @@ export const addFaqCategory = (faqCategoryData) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -58,7 +58,7 @@ export const updateFaqCategory =
 
       const config = {
         headers: {
-          Authorization: `Bearer ${userToken.token}`,
+          Authorization: `Bearer ${userToken?.token}`,
         },
       };
 
@@ -91,7 +91,7 @@ export const deleteFaqCategory = (faqCategoryId) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -122,7 +122,7 @@ export const listFaqCategory = () => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 

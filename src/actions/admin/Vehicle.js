@@ -27,7 +27,7 @@ export const addVehicle = (vehicleData) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
         "Content-Type": "multipart/form-data",
       },
     };
@@ -62,7 +62,7 @@ export const updateVehicle = (vehicleId, vehicleData) => async (dispatch) => {
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -116,7 +116,7 @@ export const deleteVehicle = (vehicleId) => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 
@@ -144,7 +144,7 @@ export const listVehicle = () => async (dispatch) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userToken.token}`,
+        Authorization: `Bearer ${userToken?.token}`,
       },
     };
 

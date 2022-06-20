@@ -13,7 +13,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import ModalCall from "./EditModals/EditFaqCategory";
-import { deleteFaqCategory, listFaqCategory } from "../../actions/admin/FaqCategory";
+import {
+  deleteFaqCategory,
+  listFaqCategory,
+} from "../../actions/admin/FaqCategory";
 import DeleteModal from "./DeleteModals";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -59,12 +62,15 @@ export default function ViewFaqCategoryScreen() {
   const faqCategoryDelete = useSelector((state) => state.faqCategoryDelete);
   const { deleteSuccess } = faqCategoryDelete;
 
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
+
   React.useEffect(() => {
-    if (!localStorage.getItem("auth-token")) {
+    if (!adminInfo.token) {
       navigate("/");
     }
     dispatch(listFaqCategory());
-  }, [dispatch, navigate, success, deleteSuccess]);
+  }, [dispatch, navigate, success, deleteSuccess, adminInfo.token]);
 
   const faqCategoryList = useSelector((state) => state.faqCategoryList);
   const { faqCategoryInfo } = faqCategoryList;

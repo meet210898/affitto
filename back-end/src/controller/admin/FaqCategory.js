@@ -13,7 +13,6 @@ const addFaqCategory = async (req, res) => {
 
 const editFaqCategory = async (req, res) => {
   try {
-    console.log(req.body, "req.body");
     const faqCategory = await FaqCategory.findByIdAndUpdate(
       req.params.id,
       req.body

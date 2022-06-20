@@ -96,6 +96,7 @@ export default function UserLoginScreen() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  style={{ background: "white" }}
                   autoFocus
                 />
                 <TextField
@@ -106,6 +107,7 @@ export default function UserLoginScreen() {
                   label="Password"
                   type="password"
                   id="password"
+                  style={{ background: "white" }}
                   autoComplete="current-password"
                 />
 

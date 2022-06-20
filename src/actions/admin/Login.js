@@ -24,12 +24,12 @@ export const login = (email, password) => async (dispatch) => {
       { email, password },
       config
     );
-
+    
+    localStorage.setItem("auth-token", JSON.stringify(data));
     dispatch({
       type: ADMIN_LOGIN_SUCCESS,
       payload: data,
     });
-    localStorage.setItem("auth-token", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: ADMIN_LOGIN_FAIL,

@@ -84,7 +84,6 @@ const deleteCity = async (req, res) => {
     await city.remove();
     res.status(200).send({ msg: "City Deleted!!" });
   } catch (e) {
-    console.log(e, "Backend Error");
     res.status(500).send({ error: e.message });
   }
 };

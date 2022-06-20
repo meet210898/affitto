@@ -63,14 +63,17 @@ export default function ViewUserScreen() {
   const vehicleDelete = useSelector((state) => state.vehicleDelete);
   const { deleteSuccess } = vehicleDelete;
 
+  const adminLogin = useSelector((state) => state.adminLogin);
+  const { adminInfo } = adminLogin;
+
   React.useEffect(() => {
-    if (!localStorage.getItem("auth-token")) {
+    if (!adminInfo.token) {
       navigate("/");
     }
     dispatch(viewVehicleType());
     dispatch(listCompany());
     dispatch(listVehicle());
-  }, [dispatch, navigate, deleteSuccess, success]);
+  }, [dispatch, navigate, deleteSuccess, success, adminInfo.token]);
   let counter = 0;
   const vehicleList = useSelector((state) => state.vehicleList);
   const { vehiclesInfo } = vehicleList;
