@@ -16,7 +16,7 @@ You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\![1675322415335_range_rover_sv_serenity_p530_lwb_2023_4k_2-3840x2160](https://user-images.githubusercontent.com/98751710/223939314-72ca9bf6-ad4a-43d9-a312-cb73fc65095e.jpg)
+Launches the test runner in the interactive watch mode.
 
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
